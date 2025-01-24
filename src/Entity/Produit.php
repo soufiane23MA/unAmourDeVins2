@@ -203,4 +203,9 @@ class Produit
 
         return $this;
     }
+
+    public function __ToString()
+    {
+        return $this->nomProduit;
+    }
 }

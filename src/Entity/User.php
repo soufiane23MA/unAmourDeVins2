@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenom = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateNaissance = null;
+    private ?\DateTimeInterface $dateNaissance = null;// pour confirmer l'age des utilisateur (plus de 18 ans)
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;

@@ -17,23 +17,37 @@
 
     </nav>
    <ul class="nav">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#"> Conntact</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Cave</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Qui Somme nous</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" aria-disabled="true">Accueil</a>
-    </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#"> Conntact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Cave</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Qui Somme nous</a>
+      </li>
+      <li>
+        <a class="nav-link" href="#">Accueil</a>
+      </li>
+      <li><a class="nav-link" href="#">panier</a></li>
+      <li><a class="nav-link" href="#">vente exclusive</a>
+      </li>
+      {% if app.user %}
+        <li><a class="nav-link" href="{{path('app_logout')}}">se déconnecter</a></li>
+        <li><a class="nav-link" href="#">Profil</a></li>
+        
+      {% else %}
+      <li><a class="nav-link" href="{{path('app_login')}}">se connecter</a></li>
+      <li><a class="nav-link" href="#">S'enregistrer</a></li>
+      
+      {% endif %}
   </ul>
+    
 
     <body>
         {% block body %}{% endblock %}
 
+      <script src="/script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>

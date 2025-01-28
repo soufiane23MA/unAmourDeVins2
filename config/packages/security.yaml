@@ -20,7 +20,8 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_produit # ici moi je veux qu'aprés la déconexion le client se dirige vers la page d'accueil
+                # qui contien les produits et labas il peux se reconnecter s'il veux et remplir son panier.
 
             remember_me:
                 secret: '%kernel.secret%'

@@ -16,14 +16,14 @@ final class PanierController extends AbstractController
     {
         $panier = $session->get('panier',[]);
         $panierData = [];
-        foreach($panier as $id =>$quantite)
+        foreach($panier as $id => $quantite)
         {
             $panierData[]= [
                 'produit' => $produitRepository->find($id),
                 'quantite' => $quantite
             ];
             
-        }
+        } 
  
         return $this->render('panier/index.html.twig', [
             'items'=> $panierData,
@@ -37,7 +37,7 @@ final class PanierController extends AbstractController
      * je peux egalement appeler la session directe sans passer par get(session) de la request, 
      * il faut simplement applé le service de sessionInterface qui me permettra d'acceder à la session directement
      */
-    #[Route('/panier/add/{id}', name:'add_panier')]
+    //#[Route('/panier/add/{id}', name:'add_panier')]
     
    /* public function add($id, Request $request)
     {
@@ -54,7 +54,7 @@ final class PanierController extends AbstractController
           return $this->render('/panier/index.html.twig');
 
     }*/
-
+    #[Route('/panier/add/{id}', name:'add_panier')]
     public function addProduitpanier( $id , SessionInterface $session)
     {
         $panier = $session->get('panier',[]);
@@ -66,7 +66,21 @@ final class PanierController extends AbstractController
             $panier[$id] ++;
         }
          $session->set('panier',$panier);
-          return $this->render('/panier/index.html.twig');
+         return $this->redirectToRoute('app_panier');
+
+    }
+    #[Route('/panier/remove/{id}', name:'remove_panier')]
+    public function removeProduitPanier($id, SessionInterface $session)
+    {
+       
+         $panier = $session->get('panier',[]);
+         if(!empty($panier[$id]))
+         {
+            unset($panier[$id]);
+            $session->set('panier',$panier);
+         }
+         return $this->redirectToRoute('app_panier');
+
 
     }
 }

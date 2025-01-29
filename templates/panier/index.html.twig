@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Votre Panier</h1>
     
-    {% if items | length > 0 %}
+    {% if items|length > 0 %}
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -29,7 +29,7 @@
                         <td>{{ item.quantite }}</td>
                         <td>{{ (item.produit.prix * item.quantite) | number_format(2, ',', ' ') }} €</td>
                         <td>
-                            <a href="#" class="btn btn-danger btn-sm">
+                            <a href="{{path('remove_panier', {'id': item.produit.id})}}" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash"></i> Supprimer
                             </a>
                         </td>

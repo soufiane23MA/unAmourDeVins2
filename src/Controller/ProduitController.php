@@ -20,12 +20,32 @@ final class ProduitController extends AbstractController
             'produits'=>$produits
         ]);
     }
+
     #[Route('/produit/{id}', name: 'detail_produit')]
-    public function affichDetailProduit(Produit $produit,int $id): Response
+    /*public function affichDetailProduit(Produit $produit): Response
     {
-        
+       
+        $domaine = $produit->getDomaine();
+        $region = $domaine ? $domaine->getRegion(): null;
         return $this->render('produit/detail.html.twig', [
-            'produit'=>$produit
+            'produit'=>$produit,
+            'domaine'=>$domaine,
+            'region'=>$region
         ]);
+    }*/
+    public function affichDétailDomaineProduit($id,ProduitRepository $produitRepository)
+    {
+        $produit = $produitRepository->findProduitWithDomaineAndRegion($id);
+        $domaine = $produit->getDomaine();
+        $region = $domaine ? $domaine->getRegion(): null;
+        
+        return  $this->render('produit/detail.html.twig', [
+            'produit'=>$produit,
+            'domaine'=>$domaine,
+            'region'=>$region
+        ]);
+         
     }
+     
+    
 }

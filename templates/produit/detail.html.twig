@@ -7,16 +7,20 @@
 
 <h1>detail du vin :</h1>
   
-<div class="container mt-5">
+<!--<div class="container mt-5">
   <div class="row">
      
       <div class="col-md-3 mb-4">
-        <div class="card">
+         
           <img src="{{ asset(produit.image) }}" class="card-img-top"  >
           <div class="card-body">
-             <h2 class="card-title">{{produit.nomProduit}}  </h2>
+             
             <p class="card-text"><h5>{{ produit.prix }} €</h5></p>
             <p class="card-text">
+              <h6> plus de detail</h6>
+              <h2>{{domaine}}</h2>
+               
+               
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus praesentium enim facere maiores voluptatum eius deleniti quidem consectetur cupiditate accusamus, 
               consequatur asperiores eligendi earum quibusdam dolorem illo officiis sunt obcaecati?
             </p>
@@ -27,6 +31,36 @@
         </div>
       </div>
     
+  </div>
+</div>-->
+<div class="container mt-5">
+  <!-- Section du produit -->
+  <div class="row">
+     
+      <!-- Image du produit -->
+      <div class="col-md-4">
+        <img src="{{ asset(produit.image) }}" class="card-img-top"  >
+      </div>
+
+      <!-- Détails du produit -->
+      <div class="col-md-8">
+          <h2>{{ produit.nomProduit }}</h2>
+          <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
+          <p><strong>Région :</strong> {{ region.nomRegion }}</p>
+         
+
+          <!-- Détails du domaine -->
+          <div class="mt-4">
+              <h4>Détails du domaine</h4>
+              <p>{{ domaine.detail }}</p>
+          </div>
+      </div>
+  </div>
+
+  <!-- Section supplémentaire pour des informations liées -->
+  <div class="mt-5">
+      <h4>Informations supplémentaires</h4>
+      <p>Parlez davantage du produit, de son origine, ou de son histoire...</p>
   </div>
 </div>
 

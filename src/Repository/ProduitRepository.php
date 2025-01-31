@@ -36,10 +36,22 @@ class ProduitRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->getQuery()
+//            ->getQuery():l;kjh-W  
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findProduitWithDomaineAndRegion(int $id): ?Produit
+{
+    // Créer une requête avec jointure
+    return $this->createQueryBuilder('p')
+        ->leftJoin('p.domaine', 'd') // Jointure avec Domaine
+        ->leftJoin('d.region', 'r')  // Jointure avec Region
+        ->addSelect('d', 'r') // Sélectionner les entités Domaine et Region
+        ->where('p.id = :id') // Condition pour le produit spécifique
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->getOneOrNullResult(); // Retourne un seul produit avec ses relations
+}
 
 
 }

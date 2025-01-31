@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DomaineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DomaineRepository::class)]
@@ -29,6 +30,9 @@ class Domaine
      */
     #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'domaine')]
     private Collection $produits;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $detail = null;
 
     public function __construct()
     {
@@ -105,4 +109,21 @@ class Domaine
 
         return $this;
     }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(string $detail): static
+    {
+        $this->detail = $detail;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->getNomDomaine() . $this->getDetail();
+    }
+    
 }

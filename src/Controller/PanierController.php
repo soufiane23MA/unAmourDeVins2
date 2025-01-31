@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Repository\ProduitRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class PanierController extends AbstractController
 {
@@ -16,18 +17,28 @@ final class PanierController extends AbstractController
     {
         $panier = $session->get('panier',[]);
         $panierData = [];
+        //$total = 0
         foreach($panier as $id => $quantite)
         {
+            //$produit= $produitRepository->find($id)
             $panierData[]= [
+                //ici 'produit' =>$produit,
                 'produit' => $produitRepository->find($id),
                 'quantite' => $quantite
-            ];
-            
+            ];   
         } 
+        $total = 0;
+        foreach($panierData as $item)
+        {
+            $totalItem = $item['produit']->getPrix() * $item['quantite'];
+            $total += $totalItem;
+        }
  
         return $this->render('panier/index.html.twig', [
             'items'=> $panierData,
+            'total'=> $total
         ]);
+        
     }
 
     /**
@@ -74,13 +85,62 @@ final class PanierController extends AbstractController
     {
        
          $panier = $session->get('panier',[]);
-         if(!empty($panier[$id]))
+        
+         if(!empty($panier[$id] ))
          {
+           if($panier[$id] > 1 ){
+            $panier[$id]--;
+           } else{
             unset($panier[$id]);
-            $session->set('panier',$panier);
+           }  
          }
+         else{
+            $panier[$id] = 1;
+         }
+         $session->set('panier',$panier);
          return $this->redirectToRoute('app_panier');
 
 
     }
+    /*#[Route('/panier/update/{id}', name:'update_panier')]
+    public function updateProduitPanier($id ,Request $request,SessionInterface $session)
+    {
+        //recuperer le panier de la session ouverte
+        $panier = $session->get('panier',[]);
+        if(!empty ($panier[$id]))
+        {
+             // Récupération de la nouvelle quantité via AJAX
+        $newQuantite = $request->request->get('quantite');
+            // Mise à jour de la quantité du produit dans le panier
+        $panier[$id] = $newQuantite;
+         // Sauvegarde le panier modifié dans la session
+         $session->set('panier', $panier);
+         // Retourner une réponse JSON avec la nouvelle quantité et le total
+        return $this->json([
+            'newQuantite' => $newQuantite,
+             
+        ]);
+
+        }
+         // Si le produit n'est pas trouvé, on retourne une erreur
+        return $this->json(['error' => 'Produit non trouvé dans le panier'], 400);
+
+    }*/
+    #[Route('/panier/remove/{id}', name:'delet_panier')]
+    public function deletProduitPanier($id, SessionInterface $session)
+    {
+       
+         $panier = $session->get('panier',[]);
+        
+         if(!empty($panier[$id] ))
+        {
+            unset($panier[$id]);
+        }  
+         $session->set('panier',$panier);
+         return $this->redirectToRoute('app_panier');
+
+
+    }
+    
+
 }

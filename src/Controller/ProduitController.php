@@ -12,9 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ProduitController extends AbstractController
 {
     #[Route('/produit', name: 'app_produit')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager,Produitrepository $repository): Response
     {
-        $produits = $entityManager->getRepository(Produit::class)->findAll();
+       // $produits = $entityManager->getRepository(Produit::class)->findAll();
+       $produits = $repository->findAll();
         return $this->render('produit/index.html.twig', [
             'produits'=>$produits
         ]);

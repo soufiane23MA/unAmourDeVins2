@@ -26,16 +26,29 @@
                         </td>
                         <td>{{ item.produit.nomProduit }}</td>
                         <td>{{ item.produit.prix | number_format(2, ',', ' ') }} €</td>
-                        <td>{{ item.quantite }}</td>
+                        <td>
+                            <a href="{{path('remove_panier', {'id': item.produit.id})}}"><input type="button" value="-"></a>
+                            {{ item.quantite }}
+                            <a href="{{path('add_panier', {'id': item.produit.id})}}"><input type="button" value="+"></a>
+                        </td>
                         <td>{{ (item.produit.prix * item.quantite) | number_format(2, ',', ' ') }} €</td>
+                        
                         <td>
                             <a href="{{path('remove_panier', {'id': item.produit.id})}}" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i> Supprimer
+                                <i class="bi bi-trash">Supprimer</i> 
                             </a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"  class="text-right">Total :</td>
+                    <td>{{total | number_format(2, ',', ' ')}}</td>
+                    <td></td>
+                   
+                </tr>
+            </tfoot>
         </table>
          
 

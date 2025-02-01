@@ -47,6 +47,9 @@
           <h2>{{ produit.nomProduit }}</h2>
           <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
           <p><strong>Région :</strong> {{ region.nomRegion }}</p>
+          <p><strong>{{produit.contenance}}</strong></p>
+          <h3>{{produit.prix}} €</h3>
+          <a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
          
 
           <!-- Détails du domaine -->

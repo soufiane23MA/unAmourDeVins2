@@ -206,6 +206,6 @@ class Produit
 
     public function __ToString()
     {
-        return $this->nomProduit;
+        return $this->nomProduit . $this->getDomaine();
     }
 }

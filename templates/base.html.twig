@@ -28,8 +28,11 @@
         <li>
           <a class="nav-link" href="#">Accueil</a>
         </li>
-        <li><a class="nav-link" href="{{path('app_panier')}}">panier</a></li>
-        <li><a class="nav-link" href="#">vente exclusive</a>
+         <li class="nav-link">
+           <img src="imgs/logo.png" alt="logo">
+         </li>
+       
+        <li><a class="nav-link" href="{{path('app_exclusif')}}">vente exclusive</a>
         </li>
         {% if app.user %}
           <li><a class="nav-link" href="{{path('app_logout')}}">se déconnecter</a></li>
@@ -38,8 +41,8 @@
         {% else %}
         <li><a class="nav-link" href="{{path('app_login')}}">se connecter</a></li>
         <li><a class="nav-link" href="{{path('app_register')}}">S'enregistrer</a></li>
-        
         {% endif %}
+        <li><a class="nav-link" href="{{path('app_panier')}}">panier</a></li>
    
       
 

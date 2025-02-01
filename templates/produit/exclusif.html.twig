@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} la page produit{% endblock %}
+
+{% block body %}
+ 
+
+<h1>Ventes Exclusives:</h1>
+
+{% for produit in produits %}
+<div>
+	<img src="{{ asset(produit.image) }}" class="card-img-top"  style="max-width: 200px;">
+</div>
+<div>
+	<div class="col-md-8">
+		<h2>{{ produit.nomProduit }}</h2>
+		<h2>{{produit.prix}} € </h2>
+		<p><strong>Nom du domaine :</strong> {{ produit.domaine.nomDomaine }}</p>
+		 
+</div>
+<div class="mt-4">
+	<h4>Détails du domaine</h4>
+	<p>{{ produit.domaine.detail }}</p>
+</div>
+	
+{% endfor %}
+  
+
+
+{% endblock %}

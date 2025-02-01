@@ -22,7 +22,7 @@ final class PanierController extends AbstractController
         {
             //$produit= $produitRepository->find($id)
             $panierData[]= [
-                //ici 'produit' =>$produit,
+                 
                 'produit' => $produitRepository->find($id),
                 'quantite' => $quantite
             ];   
@@ -33,38 +33,20 @@ final class PanierController extends AbstractController
             $totalItem = $item['produit']->getPrix() * $item['quantite'];
             $total += $totalItem;
         }
- 
         return $this->render('panier/index.html.twig', [
             'items'=> $panierData,
             'total'=> $total
-        ]);
-        
+        ]);   
     }
 
     /**
-     * je crée tius d'abord la route qui me dérige vers le panier
+     * je crée tous d'abord la route qui me dérige vers le panier
      * route("/panier/add/{id}"), name = "panier_add")
      * c'est la route qui rajoute le produit avec (id) vers le panier, 
      * je peux egalement appeler la session directe sans passer par get(session) de la request, 
      * il faut simplement applé le service de sessionInterface qui me permettra d'acceder à la session directement
      */
-    //#[Route('/panier/add/{id}', name:'add_panier')]
-    
-   /* public function add($id, Request $request)
-    {
-        $session = $request->getSession();
-        $panier = $session->get('panier',[]);
-        if(empty($panier[$id]))
-        {
-             $panier[$id]= 1;
-        }else
-        {
-            $panier[$id] ++;
-        }
-         $session->set('panier',$panier);
-          return $this->render('/panier/index.html.twig');
-
-    }*/
+     
     #[Route('/panier/add/{id}', name:'add_panier')]
     public function addProduitpanier( $id , SessionInterface $session)
     {
@@ -94,51 +76,28 @@ final class PanierController extends AbstractController
             unset($panier[$id]);
            }  
          }
-         else{
-            $panier[$id] = 1;
-         }
+         
          $session->set('panier',$panier);
          return $this->redirectToRoute('app_panier');
-
-
     }
-    /*#[Route('/panier/update/{id}', name:'update_panier')]
-    public function updateProduitPanier($id ,Request $request,SessionInterface $session)
-    {
-        //recuperer le panier de la session ouverte
-        $panier = $session->get('panier',[]);
-        if(!empty ($panier[$id]))
-        {
-             // Récupération de la nouvelle quantité via AJAX
-        $newQuantite = $request->request->get('quantite');
-            // Mise à jour de la quantité du produit dans le panier
-        $panier[$id] = $newQuantite;
-         // Sauvegarde le panier modifié dans la session
-         $session->set('panier', $panier);
-         // Retourner une réponse JSON avec la nouvelle quantité et le total
-        return $this->json([
-            'newQuantite' => $newQuantite,
-             
-        ]);
-
-        }
-         // Si le produit n'est pas trouvé, on retourne une erreur
-        return $this->json(['error' => 'Produit non trouvé dans le panier'], 400);
-
-    }*/
-    #[Route('/panier/remove/{id}', name:'delet_panier')]
-    public function deletProduitPanier($id, SessionInterface $session)
+     
+    #[Route('/panier/delete/{id}', name:'delete_panier')]
+    public function deleteProduitPanier($id, SessionInterface $session)
     {
        
          $panier = $session->get('panier',[]);
-        
-         if(!empty($panier[$id] ))
-        {
-            unset($panier[$id]);
-        }  
-         $session->set('panier',$panier);
+          
+         if (!isset($panier[$id])) {
+            $this->addFlash('warning', 'Produit non trouvé dans le panier.');
+            return $this->redirectToRoute('app_panier');
+        }
+    
+        unset($panier[$id]);
+    
+        $session->set('panier', $panier);
+        $this->addFlash('success', 'Produit supprimé du panier.');
+    
          return $this->redirectToRoute('app_panier');
-
 
     }
     

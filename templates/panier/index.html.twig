@@ -34,7 +34,7 @@
                         <td>{{ (item.produit.prix * item.quantite) | number_format(2, ',', ' ') }} €</td>
                         
                         <td>
-                            <a href="{{path('remove_panier', {'id': item.produit.id})}}" class="btn btn-danger btn-sm">
+                            <a href="{{path('delete_panier', {'id': item.produit.id})}}" class="btn btn-danger btn-sm">
                                 <i class="bi bi-trash">Supprimer</i> 
                             </a>
                         </td>

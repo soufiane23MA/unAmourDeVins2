@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Repository\AccordRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +62,19 @@ final class ProduitController extends AbstractController
               
              
         ]);   
+    }
+    #[Route('/produit/accords/{platId}', name: 'produits_accords', methods: ['GET'])]
+    public function afficherProduitsAccords(int $platId, AccordRepository $accordRepository): Response
+    {
+        // Récupérer les produits associés au plat
+        $accords = $accordRepository->findBy(['plat' => $platId]) ;
+        dump($accords) ;
+    
+        // Passer les produits à la vue
+        return  $this->render('produit/accords.html.twig', [
+            'accords' => $accords,
+           
+        ]);
     }
      
     

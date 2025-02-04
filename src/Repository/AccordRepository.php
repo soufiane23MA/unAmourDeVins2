@@ -40,4 +40,14 @@ class AccordRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findProduitsByPlat($platId): array
+{
+    return $this->createQueryBuilder('a')
+        ->innerJoin('a.produit', 'p')  // Jointure avec la table Produit
+        ->andWhere('a.plat = :platId')
+        ->setParameter('platId', $platId)
+        ->getQuery()
+        ->getResult();
+}
+
 }

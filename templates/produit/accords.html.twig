@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+ 
+
+{% block title %}Produits associés{% endblock %}
+
+{% block body %}
+    <h1>Produits associés au plat</h1>
+
+    {% if accords is empty %}
+        <p>Aucun produit associé à ce plat.</p>
+    {% else %}
+        <ul>
+            {% for accord in accords %}
+						<div class="col-md-4">
+							<img src="{{ asset(accord.produit.image) }}" class="card-img-top"  >
+						</div>
+                <li>
+                    {{ accord.produit.nomProduit }} - {{ accord.produit.detailProduit }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                 
                 // Vider la liste avant d'ajouter les nouveaux plats
                 platSelect.innerHTML = '';
 
@@ -55,4 +55,12 @@ document.addEventListener('DOMContentLoaded', function () {
             chargerPlats(); // Charger les plats uniquement si la liste est visible
         }
     });
+        // Gérer la sélection d'un plat
+    platSelect.addEventListener('change', function () {
+        const platId = platSelect.value;
+        if (platId) {
+            window.location.href = '/produit/accords/' + platId;
+        }
+    });
+
 });

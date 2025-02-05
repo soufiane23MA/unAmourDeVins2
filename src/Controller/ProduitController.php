@@ -68,7 +68,7 @@ final class ProduitController extends AbstractController
     {
         // Récupérer les produits associés au plat
         $accords = $accordRepository->findBy(['plat' => $platId]) ;
-        dump($accords) ;
+        
     
         // Passer les produits à la vue
         return  $this->render('produit/accords.html.twig', [

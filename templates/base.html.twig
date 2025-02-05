@@ -14,6 +14,7 @@
     </head>
 
     <body>
+        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul class="nav">
                 <li class="nav-item">
@@ -45,11 +46,11 @@
             <!-- Liste déroulante cachée -->
             <div id="accordsMetsVinsList" class="d-none">
                 <select id="platSelect" class="form-control">
-                    <div id="produitsAffiches"></div>
-
                     <!-- Les options de plats seront ajoutées ici par JavaScript -->
                 </select>
             </div>
+            <div id="produitsAffiches"></div>
+
 
             <ul class="nav ml-auto">
                 {% if app.user %}

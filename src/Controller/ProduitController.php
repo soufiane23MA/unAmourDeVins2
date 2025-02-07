@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Form\SearchType;
 use App\Repository\AccordRepository;
+use App\Repository\RegionRepository;
+use App\Repository\DomaineRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ProduitController extends AbstractController
@@ -57,8 +62,10 @@ final class ProduitController extends AbstractController
         //$produits = $produitRepository->findBy(['exclusif'=> true],['nomProduit'=>'ASC']); premiére methode 
         $produits = $produitRepository->findAllExclusifs();
         
+        
         return $this ->render( 'produit/exclusif.html.twig',[  
              'produits'=> $produits,
+             
               
              
         ]);   
@@ -76,6 +83,51 @@ final class ProduitController extends AbstractController
            
         ]);
     }
-     
+    #[Route('/produit/regions', name: 'produit_regions', methods: ['GET'])]
+    public function getRegions(RegionRepository $regionRepository): JsonResponse
+    {
+        $regions = $regionRepository->findAll();
+        $data = [];
+    
+        foreach ($regions as $region) {
+            $data[] = [
+                'id' => $region->getId(),
+                'nom' => $region->getNomRegion(),
+            ];
+        }
+    
+        return $this->json($data);
+    }
+    #[Route('/produit/regions/{regionId}/domaines', name: 'produit_domaines', methods: ['GET'])]
+public function getDomaines(int $regionId, DomaineRepository $domaineRepository): JsonResponse
+{
+    $domaines = $domaineRepository->findBy(['region' => $regionId]);
+    $data = [];
+
+    foreach ($domaines as $domaine) {
+        $data[] = [
+            'id' => $domaine->getId(),
+            'nom' => $domaine->getNom(),
+        ];
+    }
+
+    return $this->json($data);
+}
+#[Route('/produit/domaines/{domaineId}/produits', name: 'produit_par_domaine', methods: ['GET'])]
+public function getProduitsParDomaine(int $domaineId, ProduitRepository $produitRepository): JsonResponse
+{
+    $produits = $produitRepository->findBy(['domaine' => $domaineId]);
+    $data = [];
+
+    foreach ($produits as $produit) {
+        $data[] = [
+            'id' => $produit->getId(),
+            'nom' => $produit->getNomProduit(),
+            'prix' => $produit->getPrix(),
+        ];
+    }
+
+    return $this->json($data);
+}
     
 }

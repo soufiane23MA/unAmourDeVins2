@@ -14,9 +14,11 @@ class Accord
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'accords')]
+    #[ORM\JoinColumn(name: "plat_id", referencedColumnName: "id", onDelete: "CASCADE")]
     private ?Plat $plat = null;
 
     #[ORM\ManyToOne(inversedBy: 'accords')]
+    #[ORM\JoinColumn(name: "produit_id", referencedColumnName: "id", onDelete: "CASCADE")]
     private ?Produit $produit = null;
 
     public function getId(): ?int

@@ -1,1 +1,22 @@
- 
+.card {
+	display: flex;
+	flex-direction: column;
+	height: 100%; /* Force toutes les cartes à prendre la même hauteur */
+}
+
+.card-body {
+	flex-grow: 1; /* Remplit l'espace disponible de manière égale */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Garde les boutons alignés en bas */
+}
+body{
+	background-color: #791c1c;
+	color: aliceblue;
+}
+.footer{
+	background-color: aliceblue;
+	color: black;
+}
+
+

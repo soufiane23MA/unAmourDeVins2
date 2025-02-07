@@ -63,6 +63,33 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult();
         
     }
-    
+    public function findByFilters($region = null, $domaine = null, $prixMin = null, $prixMax = null)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.domaine', 'd')
+            ->leftJoin('d.region', 'r');
+
+        if ($region) {
+            $qb->andWhere('r.id = :region')
+                ->setParameter('region', $region);
+        }
+
+        if ($domaine) {
+            $qb->andWhere('d.id = :domaine')
+                ->setParameter('domaine', $domaine);
+        }
+
+        if ($prixMin) {
+            $qb->andWhere('p.prix >= :prixMin')
+                ->setParameter('prixMin', $prixMin);
+        }
+
+        if ($prixMax) {
+            $qb->andWhere('p.prix <= :prixMax')
+                ->setParameter('prixMax', $prixMax);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 
 }

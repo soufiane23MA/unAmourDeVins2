@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer la suppression{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Êtes-vous sûr de vouloir supprimer ce produit ?</h1>
+        <div>
+            <p><strong>{{ produit.nomProduit }}</strong></p>
+            <p>{{ produit.detailProduit }}</p>
+            <p>Cette action est irréversible.</p>
+            <a href="{{ path('delete_produit', {'id': produit.id}) }}" class="btn btn-danger">Oui, supprimer</a>
+            <a href="{{ path('app_admin_produits') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </div>
+{% endblock %}

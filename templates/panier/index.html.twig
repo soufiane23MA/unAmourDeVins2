@@ -22,7 +22,7 @@
                 {% for item in items %}
                     <tr>
                         <td style="width: 100px;">
-                            <img src="{{ asset(item.produit.image) }}" alt="{{ item.produit.nomProduit }}" class="img-fluid rounded" style="max-height: 80px;">
+                            <img src="{{ asset('imgs/' ~ item.produit.image) }}" alt="{{ item.produit.nomProduit }}" class="img-fluid rounded" style="max-height: 80px;">
                         </td>
                         <td>{{ item.produit.nomProduit }} {{item.produit.contenance}} {{item.produit.domaine}}</td>
                         <td>{{ item.produit.prix | number_format(2, ',', ' ') }} €</td>
@@ -44,7 +44,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4"  class="text-right">Total :</td>
-                    <td>{{total | number_format(2, ',', ' ')}}</td>
+                    <td>{{total | number_format(2, ',', ' ')}}  €</td>
                     <td></td>
                    
                 </tr>

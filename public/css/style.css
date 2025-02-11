@@ -20,3 +20,44 @@ body{
 }
 
 
+/*.sidebar {
+	position: fixed;
+	left: 0;
+	top: 60px; // Ajuste selon la hauteur de ta navbar 
+	width: 250px;
+	height: 100%;
+	background: #f8f9fa;
+	padding: 15px;
+	border-right: 2px solid #ddd;
+	z-index: 1000; S'assure que la sidebar est bien au-dessus du reste 
+	border: 3px solid red; /* Ajout temporaire pour vérifier 
+}
+
+.sidebar h4 {
+	margin-top: 20px;
+	font-size: 18px;
+}
+
+.sidebar ul {
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar ul li {
+	padding: 10px 0;
+}
+
+.sidebar a {
+	text-decoration: none;
+	color: #333;
+}
+
+.sidebar select {
+	width: 100%;
+	margin-top: 10px;
+}
+.content {
+	margin-left: 270px;  Décale le contenu pour laisser la place à la sidebar 
+	padding: 20px;
+}
+*/

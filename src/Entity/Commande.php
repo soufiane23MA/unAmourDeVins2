@@ -7,10 +7,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
 {
+    /**
+     * définir une liste de statuts pour éviter les erreurs liées à la saisie manuelle 
+     * et garantir une certaine cohérence
+     */
+    public const STATUT_EN_COURS = 'en cours';
+    public const STATUT_TERMINEE = 'terminée';
+    public const STATUT_ANNULEE = 'annulée';
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -102,6 +110,9 @@ class Commande
 
     public function setStatut(?string $statut): static
     {
+        if (!in_array($statut, [self::STATUT_EN_COURS, self::STATUT_TERMINEE, self::STATUT_ANNULEE])) {
+            throw new \InvalidArgumentException("Statut invalide");
+        }
         $this->statut = $statut;
 
         return $this;

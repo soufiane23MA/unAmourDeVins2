@@ -75,10 +75,20 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
+        // Gestion de la redirection après vérification
+    $session = $request->getSession();
+    $panier = $session->get('panier', []);
+
+    /*if (!empty($panier)) {
+        return $this->redirectToRoute('app_panier'); // Rediriger vers le panier si des produits sont présents
+    } else {
+        $this->addFlash('success', 'Your email address has been verified.');
+        return $this->redirectToRoute('app_produit'); // Rediriger vers la page produits sinon
+    };*/
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_produit');
     }
 }

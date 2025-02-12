@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
             if (!empty($panier)) {
                 return $this->redirectToRoute('app_panier'); // Rediriger vers le panier si des produits sont présents
             } else {
-                return $this->redirectToRoute('app_produit'); // Rediriger vers la page produits sinon
+                return $this->redirectToRoute('app_produit'); // Rediriger vers la page produits quand le panier est vide
             }
         }
         // if ($this->getUser()) {

@@ -46,10 +46,23 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
-        }
+        } // Vérifier si l'utilisateur avait une page cible à laquelle revenir (si déjà une tentative de connexion était en cours)
+         
+    
+        // On récupère la session
+        $session = $request->getSession();
+    
+        // Récupérer le panier de la session, s'il existe
+        $panier = $session->get('panier', []);
+    
+        // Vérifier si le panier est vide ou non pour la redirection
+        $route = !empty($panier) ? 'app_panier' : 'app_produit';
+    
+        // Redirection vers la route appropriée (panier ou produits)
+        return new RedirectResponse($this->urlGenerator->generate($route));
 
         // For example:
-         return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        // return new RedirectResponse($this->urlGenerator->generate('app_panier'));
         // il faut mettre ici la route pour rediriger l'user vers la page d'acceuil apres connexion
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

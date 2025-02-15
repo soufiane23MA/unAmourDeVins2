@@ -123,7 +123,7 @@ class Domaine
     }
     public function __toString()
     {
-        return $this->getNomDomaine() ;
+        return $this->getNomDomaine();//.$this->getDetail() ;
     }
     
 }

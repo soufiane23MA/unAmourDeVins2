@@ -1,10 +1,12 @@
 <?php
 namespace App\Form ;
 
+use App\Entity\Domaine;
 use App\Entity\Produit;
 use Symfony\Component\Form\AbstractType;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -34,6 +36,13 @@ class ProduitType  extends AbstractType  // Hérite de AbstractType
 					->add('nomProduit', TextType::class, [
 							'label' => 'Nom du produit',
 					])
+					->add('domaine',EntityType ::class, [
+						'class'=> Domaine::class,
+						'choice_label'=>'nomDomaine',
+						'attr' => ['class' => 'form-control'],
+						 
+						'required' => false,
+				])
 					->add('prix', NumberType::class, [
 							'label' => 'Prix',
 					])

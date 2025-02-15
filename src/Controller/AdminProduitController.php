@@ -83,44 +83,41 @@ final class AdminProduitController extends AbstractController
     ]);
     }*/
     #[Route('/admin/produits/new', name: 'new_produit')]
-public function newProduit(Request $request, EntityManagerInterface $entityManager): Response
-{
-    $produit = new Produit(); // Crée un nouvel objet Produit
-    $form = $this->createForm(ProduitType::class, $produit);
-    $form->handleRequest($request);
+    public function newProduit(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $produit = new Produit(); // Crée un nouvel objet Produit
+        $form = $this->createForm(ProduitType::class, $produit);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        
-
-        // Récupération du fichier uploadé
-        $imageFile = $form->get('image')->getData();
-        
-
-        if ($imageFile) { // Vérifie si un fichier a été envoyé
-            $destination = $this->getParameter('kernel.project_dir') . '/public/imgs'; // Dossier de stockage
-            $newFilename = uniqid() . '.' . $imageFile->guessExtension(); // Génère un nom unique
-            // Renomme le fichier avec le nom du produit
-            $filename = $produit->getNomProduit() . '.' . $imageFile->guessExtension(); // Utilise le nom du produit
-
-            $imageFile->move($destination, $newFilename); // Déplace le fichier dans /public/imgs
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupération du fichier uploadé
            
- 
+            $imageFile = $form->get('image')->getData();
+            
+            if ($imageFile) { // Vérifie si un fichier a été envoyé
+                $destination = $this->getParameter('kernel.project_dir') . '/public/imgs'; // Dossier de stockage
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension(); // Génère un nom unique
+                // Renomme le fichier avec le nom du produit
+                $filename = $produit->getNomProduit() . '.' . $imageFile->guessExtension(); // Utilise le nom du produit
 
-            $produit->setImage($newFilename); // Stocke le nom du fichier en BDD
+                $imageFile->move($destination, $newFilename); // Déplace le fichier dans /public/imgs
+
+                $produit->setImage($newFilename); // Stocke le nom du fichier en BDD
+                }
+                $domaine = $produit->getDomaine(); // Récupère l'objet Domaine
+
+                $entityManager->persist($produit); // Prépare l’enregistrement
+                $entityManager->flush(); // Enregistre en base de données
+
+                return $this->redirectToRoute('app_admin_produits'); // Redirige vers la liste des produits
         }
 
-        $entityManager->persist($produit); // Prépare l’enregistrement
-        $entityManager->flush(); // Enregistre en base de données
-
-        return $this->redirectToRoute('app_admin_produits'); // Redirige vers la liste des produits
+            return $this->render('admin/produits/new.html.twig', [
+                'form' => $form->createView()
+            ]);
     }
-
-    return $this->render('admin/produits/new.html.twig', [
-        'form' => $form->createView()
-    ]);
-}
 
      
       
-    }
+}
 

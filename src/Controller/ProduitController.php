@@ -27,8 +27,8 @@ final class ProduitController extends AbstractController
         ]);
     }
 
-   // #[Route('/produit/{id}', name: 'detail_produit')]
-    /*public function affichDetailProduit(Produit $produit): Response
+    //#[Route('/produit/{id}', name: 'detail_produit')]
+   /* public function affichDetailProduit(Produit $produit): Response
     {
        
         $domaine = $produit->getDomaine();

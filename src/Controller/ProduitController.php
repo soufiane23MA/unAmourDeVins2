@@ -18,12 +18,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ProduitController extends AbstractController
 {
     #[Route('/produit', name: 'app_produit')]
-    public function index(EntityManagerInterface $entityManager,ProduitRepository $repository): Response
+    public function index(EntityManagerInterface $entityManager,ProduitRepository $repository,RegionRepository $regionRepository): Response
     {
        // $produits = $entityManager->getRepository(Produit::class)->findAll();
        $produits = $repository->findAll();
+       $regions = $regionRepository->findall();
         return $this->render('produit/index.html.twig', [
-            'produits'=>$produits
+            'produits'=>$produits,
+            'regions'=>$regions
         ]);
     }
 
@@ -45,11 +47,13 @@ final class ProduitController extends AbstractController
         $produit = $repository->findProduitWithDomaineAndRegion( $id);
         $domaine = $produit->getDomaine();
         $region =  $domaine->getRegion() ;
+        $accords = $produit->getAccords();
         
         return  $this->render('produit/detail.html.twig', [
             'produit'=>$produit,
             'domaine'=>$domaine,
-            'region'=>$region
+            'region'=>$region,
+            'accords'=> $accords
         ]);
          
     }
@@ -61,6 +65,7 @@ final class ProduitController extends AbstractController
     {
         //$produits = $produitRepository->findBy(['exclusif'=> true],['nomProduit'=>'ASC']); premiére methode 
         $produits = $produitRepository->findAllExclusifs();
+        
         
         
         return $this ->render( 'produit/exclusif.html.twig',[  
@@ -76,14 +81,13 @@ final class ProduitController extends AbstractController
         // Récupérer les produits associés au plat
         $accords = $accordRepository->findBy(['plat' => $platId]) ;
         
-    
         // Passer les produits à la vue
         return  $this->render('produit/accords.html.twig', [
             'accords' => $accords,
            
         ]);
     }
-    #[Route('/produit/regions', name: 'produit_regions', methods: ['GET'])]
+    /*#[Route('/produit/regions', name: 'produit_regions', methods: ['GET'])]
     public function getRegions(RegionRepository $regionRepository): JsonResponse
     {
         $regions = $regionRepository->findAll();
@@ -97,6 +101,36 @@ final class ProduitController extends AbstractController
         }
     
         return $this->json($data);
+    }*/
+        #[Route('/produit/region/{id}', name: 'produits_par_region', methods: ['GET'])]
+    public function produitsParRegion(int $id, RegionRepository $regionRepository, ProduitRepository $produitRepository, DomaineRepository $domaineRepository): Response
+    {
+        // Récupérer la région
+        $region = $regionRepository->find($id);
+       
+        
+        // Vérifier si la région existe
+        if (!$region) {
+            throw $this->createNotFoundException("Cette région n'existe pas.");
+        }
+
+        // Récupérer les produits liés à cette région par rapport des domaine qu'ils lui appartien
+
+        $domaines= $domaineRepository->findBy(['region'=>$region]);
+         
+        $produits =  [];
+        foreach($domaines as $domaine)
+        {
+            $produits = array_merge($produits, $produitRepository->findBy(['domaine' => $domaine]));
+        }
+        
+        // Afficher la vue des produits en passant les produits et la région
+        return $this->render('produit/filter.html.twig', [
+            'produits' => $produits,
+            'region' => $region,
+           //'regions'=>$regionRepository->findAll()
+            
+        ]);
     }
     #[Route('/produit/regions/{regionId}/domaines', name: 'produit_domaines', methods: ['GET'])]
 public function getDomaines(int $regionId, DomaineRepository $domaineRepository): JsonResponse
@@ -113,7 +147,7 @@ public function getDomaines(int $regionId, DomaineRepository $domaineRepository)
 
     return $this->json($data);
 }
-#[Route('/produit/domaines/{domaineId}/produits', name: 'produit_par_domaine', methods: ['GET'])]
+/*#[Route('/produit/domaines/{domaineId}/produits', name: 'produit_par_domaine', methods: ['GET'])]
 public function getProduitsParDomaine(int $domaineId, ProduitRepository $produitRepository): JsonResponse
 {
     $produits = $produitRepository->findBy(['domaine' => $domaineId]);
@@ -128,6 +162,7 @@ public function getProduitsParDomaine(int $domaineId, ProduitRepository $produit
     }
 
     return $this->json($data);
-}
+}*/
+ 
     
 }

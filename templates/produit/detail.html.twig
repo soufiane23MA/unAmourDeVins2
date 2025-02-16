@@ -19,7 +19,7 @@
             <p class="card-text">
               <h6> plus de detail</h6>
               <h2>{{domaine}}</h2>
-               
+                
                
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus praesentium enim facere maiores voluptatum eius deleniti quidem consectetur cupiditate accusamus, 
               consequatur asperiores eligendi earum quibusdam dolorem illo officiis sunt obcaecati?
@@ -46,8 +46,10 @@
       <div class="col-md-8">
           <h2>{{ produit.nomProduit }}</h2>
           <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
+         
+          
           <p><strong>Région :</strong> {{ region.nomRegion }}</p>
-          <p><strong>{{produit.contenance}}</strong></p>
+          <p><strong>{{produit.contenance}} cl</strong></p>
           <h3>{{produit.prix}} €</h3>
           <a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
          

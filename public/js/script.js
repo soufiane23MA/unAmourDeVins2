@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-});
+});/*
 document.addEventListener('DOMContentLoaded', function () {
     const regionList = document.getElementById('regionList');
     const domaineList = document.getElementById('domaineList');
@@ -143,4 +143,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Charger les régions au démarrage
     chargerRegions();
+});
+*/
+document.addEventListener('DOMContentLoaded', function() {
+    const regionsLink = document.getElementById('regionsLink');
+    const domainesLink = document.getElementById('domainesLink');
+    const produitsLink = document.getElementById('produitsLink');
+
+    regionsLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        domainesLink.style.display = 'block';
+        produitsLink.style.display = 'block';
+    });
+
+    domainesLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('Filtre Domaines cliqué'); // Remplacez par votre logique
+    });
+
+    produitsLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('Filtre Produits cliqué'); // Remplacez par votre logique
+    });
 });

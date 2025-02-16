@@ -4,22 +4,26 @@
 {% block title %}Filtrer les Produits{% endblock %}
 
 {% block body %}
-  <!-- <h1>Filtrer les Produits</h1>
-		{{ form_start(form) }}
-{{ form_row(form.region) }}
-{{ form_row(form.domaine) }}
-{{ form_row(form.prixMin) }}
-{{ form_row(form.prixMax) }}
-<button type="submit">Rechercher</button>
-{{ form_end(form) }}
+<h1>Produits de la région : {{ region.nomRegion }}</h1>
 
-<ul>
-{% for produit in produits %}
-		<li>{{ produit.nom }} - {{ produit.prix }}€ (Domaine: {{ produit.domaine.nom }}, Région: {{ produit.domaine.region.nom }})</li>
+{% if produits is not empty %}
+    <div class="produits-list">
+        {% for produit in produits %}
+            <div class="produit-card">
+							<img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
+                <h3>{{ produit.nomProduit }}</h3>
+                <p>{{ produit.detailProduit }}</p>
+                <p>Prix : {{ produit.prix }} € </p>
+								<a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
+                <!-- Si tu veux un lien vers le détail du produit --> 
+            </div>
+        {% endfor %}
+    </div>
 {% else %}
-		<li>Aucun produit trouvé.</li>
-{% endfor %}
-</ul>--> 
+    <p>Aucun produit trouvé pour cette région.</p>
+{% endif %}
+
+		 
     
 {% endblock %}
 

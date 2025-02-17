@@ -67,11 +67,8 @@ final class ProduitController extends AbstractController
         $produits = $produitRepository->findAllExclusifs();
         
         
-        
         return $this ->render( 'produit/exclusif.html.twig',[  
              'produits'=> $produits,
-             
-              
              
         ]);   
     }
@@ -102,12 +99,13 @@ final class ProduitController extends AbstractController
     
         return $this->json($data);
     }*/
+    // fonction pour filtrer par region 
         #[Route('/produit/region/{id}', name: 'produits_par_region', methods: ['GET'])]
     public function produitsParRegion(int $id, RegionRepository $regionRepository, ProduitRepository $produitRepository, DomaineRepository $domaineRepository): Response
     {
         // Récupérer la région
         $region = $regionRepository->find($id);
-       
+      
         
         // Vérifier si la région existe
         if (!$region) {
@@ -125,44 +123,65 @@ final class ProduitController extends AbstractController
         }
         
         // Afficher la vue des produits en passant les produits et la région
-        return $this->render('produit/filter.html.twig', [
+        return $this->render('produit/filter_region.html.twig', [
             'produits' => $produits,
             'region' => $region,
            //'regions'=>$regionRepository->findAll()
             
         ]);
     }
-    #[Route('/produit/regions/{regionId}/domaines', name: 'produit_domaines', methods: ['GET'])]
-public function getDomaines(int $regionId, DomaineRepository $domaineRepository): JsonResponse
-{
-    $domaines = $domaineRepository->findBy(['region' => $regionId]);
-    $data = [];
+        /*#[Route('/produit/regions/{regionId}/domaines', name: 'produit_domaines', methods: ['GET'])]
+    public function getDomaines(int $regionId, DomaineRepository $domaineRepository): JsonResponse
+    {
+        $domaines = $domaineRepository->findBy(['region' => $regionId]);
+        $data = [];
 
-    foreach ($domaines as $domaine) {
-        $data[] = [
-            'id' => $domaine->getId(),
-            'nom' => $domaine->getNom(),
-        ];
+        foreach ($domaines as $domaine) {
+            $data[] = [
+                'id' => $domaine->getId(),
+                'nom' => $domaine->getNom(),
+            ];
+        }
+
+        return $this->json($data);
+    }*/
+    /*#[Route('/produit/domaines/{domaineId}/produits', name: 'produit_par_domaine', methods: ['GET'])]
+    public function getProduitsParDomaine(int $domaineId, ProduitRepository $produitRepository): JsonResponse
+    {
+        $produits = $produitRepository->findBy(['domaine' => $domaineId]);
+        $data = [];
+
+        foreach ($produits as $produit) {
+            $data[] = [
+                'id' => $produit->getId(),
+                'nom' => $produit->getNomProduit(),
+                'prix' => $produit->getPrix(),
+            ];
+        }
+
+        return $this->json($data);
+    }*/
+    //fontion pour filtrer les produits par domaine
+    #[Route('/produit/domaines/{domaineId}', name: 'produit_par_domaine', methods: ['GET'])]
+    public function produitParDomaine($domaineId,ProduitRepository $produitRepository, DomaineRepository $domaineRepository, RegionRepository $regionRepository)
+    {
+        $domaine= $domaineRepository->find($domaineId);// recuperer les domaines
+        $region =  $domaine->getRegion() ;// recuperer la region du domaine
+         
+       
+        //recuperer les produits du domaine
+        $produits = $produitRepository->findBy(['domaine' => $domaineId]); 
+       
+      
+   
+        return $this->render('produit/filter_domaine.html.twig', [
+        'produits' => $produits,
+        'domaine'=>$domaine,
+        'region'=>$region
+    //'regions'=>$regionRepository->findAll()
+        
+    ]);
     }
-
-    return $this->json($data);
-}
-/*#[Route('/produit/domaines/{domaineId}/produits', name: 'produit_par_domaine', methods: ['GET'])]
-public function getProduitsParDomaine(int $domaineId, ProduitRepository $produitRepository): JsonResponse
-{
-    $produits = $produitRepository->findBy(['domaine' => $domaineId]);
-    $data = [];
-
-    foreach ($produits as $produit) {
-        $data[] = [
-            'id' => $produit->getId(),
-            'nom' => $produit->getNomProduit(),
-            'prix' => $produit->getPrix(),
-        ];
-    }
-
-    return $this->json($data);
-}*/
  
     
 }

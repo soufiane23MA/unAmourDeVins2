@@ -4,7 +4,7 @@
 {% block title %}Filtrer les Produits{% endblock %}
 
 {% block body %}
-<h1>Produits de la région : {{ region.nomRegion }}</h1>
+<h1>Produits de la région : {{region.nomRegion }}</h1>
 
 {% if produits is not empty %}
     <div class="produits-list">
@@ -22,6 +22,7 @@
 {% else %}
     <p>Aucun produit trouvé pour cette région.</p>
 {% endif %}
+ 
 
 		 
     

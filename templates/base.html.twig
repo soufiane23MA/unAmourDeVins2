@@ -73,8 +73,27 @@
                         </ul>
 
                     </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
+                        data-bs-target="#domaines" aria-expanded="false" aria-controls="domaines">
+                        <i class="lni lni-map-marker"></i>
+                        <span>Par Domaine</span>
+                        </a>
+                        <ul id="domaines" class="sidebar-dropdown list-unstyled collapse" data-bs-parent= "#sidebar">
+                            {% for domaine in domaines %}
+                            <li class="sidebar-item">
+                                <a href="{{ path('produit_par_domaine', { 'domaineId': domaine.id }) }}" class="sidebar-link">
+                                    {{ domaine.nomDomaine }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+
+                    </li>
+                    
+                    
                 </ul>
-                {{ dump(regions) }}
+                
             </aside>
             <!--sidebar ends-->
         </div>

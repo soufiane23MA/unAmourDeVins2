@@ -1,0 +1,32 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Filtrer les Produits{% endblock %}
+
+{% block body %}
+ 
+
+<h1>L'ensemble des Produits du  : {{ domaine.nomDomaine }}</h1>
+
+{% if produits is not empty %}
+    <div class="produits-list">
+        {% for produit in produits %}
+            <div class="produit-card">
+							<img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
+                <h3>{{ produit.nomProduit }}</h3>
+                <p>{{ produit.detailProduit }}</p>
+                <p>Prix : {{ produit.prix }} € </p>
+								<a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
+                <!-- Si tu veux un lien vers le détail du produit --> 
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Aucun produit trouvé pour domaine</p>
+{% endif %}
+
+		 
+    
+{% endblock %}
+
+

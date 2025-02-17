@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
     chargerRegions();
 });
 */
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     const regionsLink = document.getElementById('regionsLink');
     const domainesLink = document.getElementById('domainesLink');
     const produitsLink = document.getElementById('produitsLink');
@@ -165,4 +165,19 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         alert('Filtre Produits cliqué'); // Remplacez par votre logique
     });
+});*/
+ 
+//console.log(typeof mdb);
+//console.log(document.querySelector('.sidebar-log button'));
+//console.log(document.querySelector('[data-mdb-toggle="sidenav"]'));
+document.addEventListener("DOMContentLoaded", function () {
+    if (typeof mdb !== "undefined") {
+        console.log("MDB chargé !");
+        console.log("Sidenav :", mdb.Sidenav);
+    } else {
+        console.error("Erreur : MDB ne se charge pas.");
+    }
 });
+console.log(Object.keys(mdb));
+console.log(mdb.Sidenav);
+

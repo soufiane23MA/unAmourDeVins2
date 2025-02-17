@@ -10,50 +10,27 @@
          
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
         {% endblock %}
     </head>
 
     <body>
-      <!-- <div class="sidebar">
-            <h4>Filtres</h4>
-            <ul>
-                <li><a href="#" id="regionsLink">Par Région</a></li>
-                <li><a href="#" id="domainesLink">Par Domaine</a></li>
-                <li><a href="#" id="prixLink">Par Prix</a></li>
-            </ul>    
-        </div>-->
-        <!--<div class="wrapper">
-            <nav id="sidbar">
-                <div class="siedbar-header">
-                    <h3>Filtrer vos choix</h3>
-                </div>
-                <ul class="list-unstyled components" >
-                    <h3>Filtrer par :</h3>
-                    <li class="active">
-                        <a href=""data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Par Région</a>
-                        <ul class="collapse list-unstyled" id="RegionSubmenu">
-                            li
-                        </ul>
-
-                    </li>
-                </ul>
-            </nav>
-            <div id="content">
-
-            </div>
-        </div>-->
+      
         <!--sidebar ytube-->
-        <div class="d-flex">
-            <!--sidebar-->
+        <!--<div class="d-flex">
+            <sidebar>
             <aside id="sidebar">
                 <div class="sidebar-log">
-                    <a href="#">Menu</a>
+                    <button data-mdb-button-init data-mdb-toggle="offcanvas" data-mdb-target="#offcanvasSidebar"
+                        data-mdb-ripple-init class="btn btn-primary" aria-controls="offcanvasSidebar" aria-haspopup="true">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
-                <!--sidebar navigation-->
-                <ul class="sidebar-nav p-0">
-                    <li class="siedebar-header">
+                <!sidebar navigation-
+                <ul class="offcanvas offcanvas-start">
+                    <li class="offcanvas-header">
                         Filtres
                     </li>
                     <li class="sidebar-item">
@@ -69,9 +46,8 @@
                                     {{ region.nomRegion }}
                                 </a>
                             </li>
-                        {% endfor %}
+                            {% endfor %}
                         </ul>
-
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
@@ -86,17 +62,74 @@
                                     {{ domaine.nomDomaine }}
                                 </a>
                             </li>
-                        {% endfor %}
+                            {% endfor %}
                         </ul>
-
-                    </li>
-                    
-                    
+                    </li>  
                 </ul>
                 
             </aside>
+            <sidebar ends-->
+            
+        <div class="d-flex">
+        <!--sidebar-->
+            <aside id="sidebar">
+                <div class="sidebar-log">
+                    <!-- Bouton pour ouvrir l'offcanvas -->
+                    <button data-mdb-button-init data-mdb-toggle="offcanvas" data-mdb-target="#offcanvasSidebar"
+                        data-mdb-ripple-init class="btn btn-primary" aria-controls="offcanvasSidebar" aria-haspopup="true">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </aside>
             <!--sidebar ends-->
         </div>
+
+        <!-- Offcanvas Sidebar -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasSidebarLabel" style="color:black">Filtres</h5>
+                    <button type="button" class="btn-close text-reset" data-mdb-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <!-- Sidebar navigation -->
+                    <ul class="sidebar-nav p-0">
+                        <!-- Section des filtres -->
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
+                            data-bs-target="#regions" aria-expanded="false" aria-controls="regions">
+                                <i class="lni lni-map-marker"></i>
+                                <span>Par Region</span>
+                            </a>
+                            <ul id="regions" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#offcanvasSidebar">
+                                {% for region in regions %}
+                                <li class="sidebar-item">
+                                    <a href="{{ path('produits_par_region', { 'id': region.id }) }}" class="sidebar-link">
+                                        {{ region.nomRegion }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
+                            data-bs-target="#domaines" aria-expanded="false" aria-controls="domaines">
+                                <i class="lni lni-map-marker"></i>
+                                <span>Par Domaine</span>
+                            </a>
+                            <ul id="domaines" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#offcanvasSidebar">
+                                {% for domaine in domaines %}
+                                <li class="sidebar-item">
+                                    <a href="{{ path('produit_par_domaine', { 'domaineId': domaine.id }) }}" class="sidebar-link">
+                                        {{ domaine.nomDomaine }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>  
+                    </ul>
+                </div>
+        </div>
+
         
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul class="nav">
@@ -147,8 +180,6 @@
             </nav>--> 
         
 
-
-
             <ul class="nav ml-auto">
                 {% if app.user %}
                     <li><a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a></li>
@@ -188,9 +219,13 @@
         </footer>
         
         
-        <script src="{{ asset('js/script.js') }}" defer></script>
+        
          
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+          
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+
+         <script src="{{ asset('js/script.js') }}" defer></script>
 
     </body>
 </html>

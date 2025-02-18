@@ -17,84 +17,19 @@
     </head>
 
     <body>
-      
-        <!--sidebar ytube-->
-        <!--<div class="d-flex">
-            <sidebar>
-            <aside id="sidebar">
-                <div class="sidebar-log">
-                    <button data-mdb-button-init data-mdb-toggle="offcanvas" data-mdb-target="#offcanvasSidebar"
-                        data-mdb-ripple-init class="btn btn-primary" aria-controls="offcanvasSidebar" aria-haspopup="true">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-                <!sidebar navigation-
-                <ul class="offcanvas offcanvas-start">
-                    <li class="offcanvas-header">
-                        Filtres
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
-                        data-bs-target="#regions" aria-expanded="false" aria-controls="regions">
-                        <i class="lni lni-map-marker"></i>
-                        <span>Par Region</span>
-                        </a>
-                        <ul id="regions" class="sidebar-dropdown list-unstyled collapse" data-bs-parent= "#sidebar">
-                            {% for region in regions %}
-                            <li class="sidebar-item">
-                                <a href="{{ path('produits_par_region', { 'id': region.id }) }}" class="sidebar-link">
-                                    {{ region.nomRegion }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
-                        data-bs-target="#domaines" aria-expanded="false" aria-controls="domaines">
-                        <i class="lni lni-map-marker"></i>
-                        <span>Par Domaine</span>
-                        </a>
-                        <ul id="domaines" class="sidebar-dropdown list-unstyled collapse" data-bs-parent= "#sidebar">
-                            {% for domaine in domaines %}
-                            <li class="sidebar-item">
-                                <a href="{{ path('produit_par_domaine', { 'domaineId': domaine.id }) }}" class="sidebar-link">
-                                    {{ domaine.nomDomaine }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>  
-                </ul>
-                
-            </aside>
-            <sidebar ends-->
-            
-        <div class="d-flex">
-        <!--sidebar-->
-            <aside id="sidebar">
-                <div class="sidebar-log">
-                    <!-- Bouton pour ouvrir l'offcanvas -->
-                    <button data-mdb-button-init data-mdb-toggle="offcanvas" data-mdb-target="#offcanvasSidebar"
-                        data-mdb-ripple-init class="btn btn-primary" aria-controls="offcanvasSidebar" aria-haspopup="true">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </aside>
-            <!--sidebar ends-->
-        </div>
 
         <!-- Offcanvas Sidebar -->
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasSidebarLabel" style="color:black">Filtres</h5>
-                    <button type="button" class="btn-close text-reset" data-mdb-dismiss="offcanvas" aria-label="Close"></button>
+                    <h5 class="offcanvas-title" id="offcanvasSidebarLabel" style="color: black;" >Filtrez vos vins</h5><!--noublie pas d'enlever le style ici-->
+                    <button type="button" class="btn-close text-reset" data-mdb-dismiss="offcanvas" aria-label="Close" ></button>
                 </div>
                 <div class="offcanvas-body">
                     <!-- Sidebar navigation -->
                     <ul class="sidebar-nav p-0">
                         <!-- Section des filtres -->
                         <li class="sidebar-item">
+                            <!--filtre par region-->
                             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
                             data-bs-target="#regions" aria-expanded="false" aria-controls="regions">
                                 <i class="lni lni-map-marker"></i>
@@ -111,6 +46,7 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
+                            <!--filtre par domaine-->
                             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
                             data-bs-target="#domaines" aria-expanded="false" aria-controls="domaines">
                                 <i class="lni lni-map-marker"></i>
@@ -126,13 +62,38 @@
                                 {% endfor %}
                             </ul>
                         </li>  
+                           <!-- Bouton Accord Mets et Vins--> 
+                        <li class="nav-item">
+                            <button id="accordMetsVinsBtn" class="btn btn-primary">
+                                Accords Mets et Vins
+                            </button>
+                        </li>
+                    </ul>
+                    <!--Liste déroulante cachée -->
+                    <div id="accordsMetsVinsList" class="d-none">
+                        <select id="platSelect" class="form-control">
+                            Les options de plats seront ajoutées ici par JavaScript  
+                        </select>
+                    </div>
                     </ul>
                 </div>
         </div>
 
-        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul class="nav">
+                <div class="d-flex">
+                    <!--sidebar-->
+                        <aside id="sidebar">
+                            <div class="sidebar-log">
+                                <!-- Bouton pour ouvrir l'offcanvas -->
+                                <button data-mdb-button-init data-mdb-toggle="offcanvas" data-mdb-target="#offcanvasSidebar"
+                                    data-mdb-ripple-init class="btn btn-primary" aria-controls="offcanvasSidebar" aria-haspopup="true">
+                                    <i class="fas fa-bars">Menu</i>
+                                </button>
+                            </div>
+                        </aside>
+                        <!--sidebar ends-->
+                    </div>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"> Contact</a>
                 </li>
@@ -148,37 +109,6 @@
                 <li class="nav-link">
                     <img src="imgs/logo.png" alt="logo">
                 </li>
-                <li>
-                    <a class="nav-link" href="{{ path('app_exclusif') }}">Vente exclusive</a>
-                </li>
-                <!-- Bouton Accord Mets et Vins--> 
-                <li class="nav-item">
-                    <button id="accordMetsVinsBtn" class="btn btn-primary">
-                        Accords Mets et Vins
-                    </button>
-                </li>
-            </ul>
-
-            <!--Liste déroulante cachée -->
-            <div id="accordsMetsVinsList" class="d-none">
-                <select id="platSelect" class="form-control">
-                     Les options de plats seront ajoutées ici par JavaScript  
-                </select>
-            </div>
-           <!--<div id="produitsAffiches"></div>
-            <nav>
-                <ul>
-                     Lien vers la page des régions
-                    <li><a href="#" id="regionsLink">Régions</a></li>
-            
-                      Lien vers la page des domaines (sera visible quand une région est sélectionnée)  
-                    <li><a href="#" id="domainesLink" style="display: none;">Domaines</a></li>
-            
-                      Lien vers la page des produits (sera visible quand un domaine est sélectionné)  
-                    <li><a href="#" id="produitsLink" style="display: none;">Produits</a></li>
-                </ul>
-            </nav>--> 
-        
 
             <ul class="nav ml-auto">
                 {% if app.user %}

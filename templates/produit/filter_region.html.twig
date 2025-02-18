@@ -11,7 +11,7 @@
         {% for produit in produits %}
             <div class="produit-card">
 							<img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
-                <h3>{{ produit.nomProduit }}</h3>
+                <h3>{{ produit.nomProduit }} -  {{produit.domaine}}</h3>
                 <p>{{ produit.detailProduit }}</p>
                 <p>Prix : {{ produit.prix }} € </p>
 								<a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>

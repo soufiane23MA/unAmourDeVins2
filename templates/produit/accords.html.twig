@@ -16,11 +16,12 @@
                         <img src="{{ asset('imgs/' ~ accord.produit.image) }}" alt="{{ accord.produit.nomProduit }}"class="card-img-top"  >
                         <div class="card-body">
                             <h2 class="card-title">{{ accord.produit.nomProduit }}</h2>
-														<h3 class="card-text">{{accord.produit.prix}} €</h3>
+							 <h3 class="card-text">{{accord.produit.prix}} €</h3>
                             <p class="card-text">{{ accord.produit.detailProduit }}</p>
+                            <button class="btn btn-success mt-1">Ajouter au Panier</button>
                         </div>
                     </div>
-						<button class="btn alert-primery">Ajouter au Panier</button>
+						
                 </div>
             {% endfor %}
         </div>

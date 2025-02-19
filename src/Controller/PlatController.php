@@ -46,7 +46,9 @@ public function getAccordsByPlat($platId, AccordRepository $accordRepository): J
     foreach ($accords as $accord) {
         $produitsData[] = [
             'id' => $accord->getProduit()->getId(),
-            'name' => $accord->getProduit()->getNomProduit(), // Assurez-vous que cette méthode existe
+            'name' => $accord->getProduit()->getNomProduit(), 
+            'plat' =>$accord->getPlat() // Assurez-vous que cette méthode existe
+             
         ];
     }
 

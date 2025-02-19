@@ -1,0 +1,34 @@
+{# filter_prix.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Filtrer les produits par prix</h1>
+
+    <div class="filter-form">
+        {# Formulaire de filtrage des prix #}
+        <form method="get" action="{{ path('produit_par_prix') }}">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit">Filtrer</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
+
+    <div class="produits-list">
+        <h2>Produits filtrés par prix</h2>
+        {% if produits is not empty %}
+            <ul>
+                {% for produit in produits %}
+                    <li>
+                        <h3>{{ produit.nomProduit }}</h3>
+                        <p>Prix : {{ produit.prix }} €</p>
+                        <p>{{ produit.detailProduit }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun produit trouvé avec ce prix.</p>
+        {% endif %}
+    </div>
+{% endblock %}

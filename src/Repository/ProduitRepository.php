@@ -63,7 +63,7 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult();
         
     }
-    public function findByFilters($region = null, $domaine = null, $prixMin = null, $prixMax = null)
+    /*public function findByFilters($region = null, $domaine = null, $prixMin = null, $prixMax = null)
     {
         $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.domaine', 'd')
@@ -90,6 +90,15 @@ class ProduitRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }*/
+    public function findByPriceRange($prixMin,$prixMax)
+    {
+        return $this->createQueryBuilder('p')
+             
+            ->andWhere('p.prix <= :prixMax')
+            ->setParameter('prixMax', $prixMax)
+            ->getQuery()
+            ->getResult();
     }
 
 }

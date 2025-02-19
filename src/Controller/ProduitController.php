@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ProduitController extends AbstractController
@@ -77,10 +78,12 @@ final class ProduitController extends AbstractController
     {
         // Récupérer les produits associés au plat
         $accords = $accordRepository->findBy(['plat' => $platId]) ;
+         
         
         // Passer les produits à la vue
         return  $this->render('produit/accords.html.twig', [
             'accords' => $accords,
+           
            
         ]);
     }
@@ -181,6 +184,26 @@ final class ProduitController extends AbstractController
     //'regions'=>$regionRepository->findAll()
         
     ]);
+    }
+    #[Route('/produit/prix', name: 'produit_par_prix')]
+    public function filtreParPrix(Request $request,ProduitRepository $produitRepository)
+    {
+        $form = $this->createForm(SearchType ::class);
+        $form->handleRequest($request);
+        $prixMin = 0;
+        $prixMax = 200;
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+           // ici tu récupères la valeur du curseur
+           $prixMax = $form->get('Prix')->getData();
+        }
+        $produits = $produitRepository->findByPriceMax( $prixMax );
+        return $this->render('produit/filter_prix.html.twig',[
+            'form' => $form->createView(),
+            'produits'=>$produits
+        ]);
+
     }
  
     

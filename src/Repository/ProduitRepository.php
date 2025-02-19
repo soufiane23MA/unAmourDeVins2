@@ -91,7 +91,7 @@ class ProduitRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }*/
-    public function findByPriceRange($prixMin,$prixMax)
+   /* public function findByPriceRange($prixMin,$prixMax)
     {
         return $this->createQueryBuilder('p')
              
@@ -99,6 +99,6 @@ class ProduitRepository extends ServiceEntityRepository
             ->setParameter('prixMax', $prixMax)
             ->getQuery()
             ->getResult();
-    }
+    }*/
 
 }

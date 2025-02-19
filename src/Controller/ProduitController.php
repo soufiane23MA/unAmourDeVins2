@@ -185,7 +185,7 @@ final class ProduitController extends AbstractController
         
     ]);
     }
-    #[Route('/produit/prix', name: 'produit_par_prix')]
+    /*#[Route('/produit/prix', name: 'produit_par_prix')]
     public function filtreParPrix(Request $request,ProduitRepository $produitRepository)
     {
         $form = $this->createForm(SearchType ::class);
@@ -203,8 +203,6 @@ final class ProduitController extends AbstractController
             'form' => $form->createView(),
             'produits'=>$produits
         ]);
-
-    }
- 
-    
+    }*/
 }
+

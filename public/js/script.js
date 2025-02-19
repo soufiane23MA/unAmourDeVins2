@@ -170,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //console.log(typeof mdb);
 //console.log(document.querySelector('.sidebar-log button'));
 //console.log(document.querySelector('[data-mdb-toggle="sidenav"]'));
+// ce code permet de résoudre le probléme de disfonctionnement de l'extention MDB; 
 document.addEventListener("DOMContentLoaded", function () {
     if (typeof mdb !== "undefined") {
         console.log("MDB chargé !");
@@ -178,6 +179,78 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Erreur : MDB ne se charge pas.");
     }
 });
-console.log(Object.keys(mdb));
-console.log(mdb.Sidenav);
+ 
 
+// rajouter le fonctioment des prix max et Min pour le curseur.
+/*document.addEventListener("DOMContentLoaded", function () {
+    var slider = document.getElementById("prix-slider");
+
+    noUiSlider.create(slider, {
+        start: [0, 100], // Valeurs de départ (min, max)
+        connect: true,
+        range: {
+            'min': 0,
+            'max': 100
+        },
+        step: 1, // Incrémentation
+        tooltips: true, // Afficher les valeurs au-dessus du curseur
+        format: {
+            to: function (value) {
+                return Math.round(value);
+            },
+            from: function (value) {
+                return Number(value);
+            }
+        }
+    });
+
+    // Mettre à jour les valeurs affichées
+   var prixMin = document.getElementById("prix-min");
+    var prixMax = document.getElementById("prix-max");
+
+    slider.noUiSlider.on("update", function (values) {
+        prixMin.innerText = values[0];
+        prixMax.innerText = values[1];
+        if (!slider) {
+            console.error("Erreur : Le div #prix-slider n'existe pas !");
+        } else {
+            console.log("Div #prix-slider trouvé !");
+        }
+    });
+});
+console.log(typeof noUiSlider);*/
+// juste pour le test
+document.addEventListener("DOMContentLoaded", function () {
+    var slider = document.getElementById("prix-slider");
+    var prixMin = document.getElementById("prix-min");
+    var prixMax = document.getElementById("prix-max");
+
+    if (!slider || !prixMin || !prixMax) {
+        console.error("Erreur : Un des éléments nécessaires n'existe pas !");
+        return;
+    }
+
+    noUiSlider.create(slider, {
+        start: [0, 100],
+        connect: true,
+        range: {
+            'min': 0,
+            'max': 100
+        },
+        step: 1,
+        tooltips: true,
+        format: {
+            to: function (value) {
+                return Math.round(value);
+            },
+            from: function (value) {
+                return Number(value);
+            }
+        }
+    });
+
+    slider.noUiSlider.on("update", function (values) {
+        prixMin.innerText = values[0];
+        prixMax.innerText = values[1];
+    });
+});

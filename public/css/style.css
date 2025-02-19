@@ -41,15 +41,22 @@ body{
     height: 100vh;
     border-right: 1px solid #ccc;
 }*/
+/* Temporarily disable the fixed position for the sidebar to check */
 .sidenav {
-	position: fixed;
-	left: -250px;  /* Cache la sidebar à gauche */
+	position: static;  /* Désactiver temporairement la position fixe */
+	left: 0;
 	top: 0;
 	width: 250px;
-	height: 100vh;
+	height: auto;  /* Laisse la hauteur s'ajuster automatiquement */
 	background-color: #f8f9fa;
-	transition: left 0.3s ease;  /* Animation pour le déplacement */
+	transition: none; /* Désactive l'animation */
 }
+
+/* Réduire la taille du contenu pour tester l'affichage */
+.content {
+	margin-left: 0;
+}
+
 
 .sidenav.active {
 	left: 0;  /* Lorsque la sidebar est active, elle se déplace vers la droite */
@@ -85,3 +92,35 @@ body{
 .offcanvas-head .offcanvas-title{
 	color:black
 }
+/*#prix-slider {
+	width: 100%;
+	height: 8px;
+	background: #ccc;   Couleur de fond pour tester sa visibilité 
+	border: 2px solid red;   Ajout d'une bordure rouge pour mieux le repérer 
+	z-index: 9999;  Assure-toi qu'il est au-dessus de tout autre élément 
+	margin: 20px 0;
+}*/
+#prix-slider {
+	width: 100%;
+	height: 8px;
+	background: #ccc;
+	border: 2px solid red;
+	margin: 20px 0;
+
+}
+
+
+.noUi-connect {
+	background: #4caf50;  /* Couleur de la barre entre les poignées */
+}
+
+.noUi-handle {
+	background: #ff5722;  /* Couleur des poignées */
+	border: 2px solid #fff;
+	width: 16px; /* Taille des poignées */
+	height: 16px; /* Taille des poignées */
+	border-radius: 50%; /* Rendre les poignées rondes */
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Ajouter un léger ombrage */
+}
+/* juste pour le test */
+

@@ -12,6 +12,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" />
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
         {% endblock %}
     </head>
@@ -28,6 +29,7 @@
                     <!-- Sidebar navigation -->
                     <ul class="sidebar-nav p-0">
                         <!-- Section des filtres -->
+                        
                         <li class="sidebar-item">
                             <!--filtre par region-->
                             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
@@ -45,6 +47,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
+                        
                         <li class="sidebar-item">
                             <!--filtre par domaine-->
                             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" 
@@ -62,9 +65,12 @@
                                 {% endfor %}
                             </ul>
                         </li> 
-                        {% if form is defined %}
-                         
-                    {% endif %}
+                        <li>
+                            <div id="prix-slider"></div>
+                            <p style="color: black;">Prix : <span id="prix-min"></span>€ - <span id="prix-max"></span>€</p>
+                        </li>
+                      
+                        
                            <!-- Bouton Accord Mets et Vins--> 
                         <li class="nav-item">
                             <button id="accordMetsVinsBtn" class="btn btn-primary">
@@ -97,6 +103,7 @@
                         </aside>
                         <!--sidebar ends-->
                     </div>
+                    <div id="test-slider"></div>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"> Contact</a>
                 </li>
@@ -136,6 +143,7 @@
                     <li>Politique de confidentialité</li>
                     <li>Mentions légales</li>
                     <li>Suivez notre actualité</li>
+                     
                     <li>
                         <a href="https://www.facebook.com/unamourdevin/" target="_blank" class="text-white">
                             <i class="fab fa-facebook fa-lg"></i>
@@ -148,6 +156,7 @@
                     </li>
                     <li>Nous contacter</li>
                 </ul>
+                 
             </div>
         </footer>
         
@@ -155,9 +164,9 @@
         
          
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
-          
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
-
+         
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
          <script src="{{ asset('js/script.js') }}" defer></script>
 
     </body>

@@ -11,8 +11,8 @@
 	justify-content: space-between; /* Garde les boutons alignés en bas */
 }
 body{
-	background-color: #791c1c;
-	color: aliceblue;
+	background-color: #da7f7f;
+	color: rgb(248, 235, 235)
 }
  
 
@@ -124,3 +124,84 @@ body{
 }
 /* juste pour le test */
 
+/* Conteneur principal */
+/*.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+ Grid pour l'image et les détails du produit 
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+ Style de l'image du produit 
+.product-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Détails du produit 
+.details {
+	 
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.details p {
+	 
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.details h3 {
+  color: #e74c3c;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.details button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  border: none;
+  color: rgb(10, 8, 8);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.details button:hover {
+  background-color: #212888;
+}
+
+/* Informations supplémentaires
+.additional-info {
+  margin-top: 40px;
+  background-color: #dbcfcf;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.additional-info h4 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.additional-info p {
+  font-size: 16px;
+  line-height: 1.6;
+}

@@ -9,7 +9,7 @@
   
 <div class="container mt-5">
   <div class="row">
-    {% for produit in produits %}
+    {% for produit in produitsPagines %}
       <div class="col-md-3 mb-4">
         <div class="card">
           <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
@@ -29,5 +29,12 @@
     {% endfor %}
   </div>
 </div>
+<div class="navigation">
+  {{ knp_pagination_render(produitsPagines) }}
+</div>
+ 
+ 
+
+ 
 
 {% endblock %}

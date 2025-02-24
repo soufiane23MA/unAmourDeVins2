@@ -33,17 +33,17 @@
     
   </div>
 </div>-->
-<div class="container mt-5">
-  <!-- Section du produit -->
-  <div class="row">
+<!--<div >
+   Section du produit  
+  <div  >
      
-      <!-- Image du produit -->
-      <div class="col-md-4">
-        <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}"class="card-img-top"  >
+       Image du produit  
+      <div  >
+        <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}"  >
       </div>
 
-      <!-- Détails du produit -->
-      <div class="col-md-8">
+      Détails du produit  
+      <div  >
           <h2>{{ produit.nomProduit }}</h2>
           <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
          
@@ -51,22 +51,45 @@
           <p><strong>Région :</strong> {{ region.nomRegion }}</p>
           <p><strong>{{produit.contenance}} cl</strong></p>
           <h3>{{produit.prix}} €</h3>
-          <a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
+          <a href="{{ path('add_panier',{'id':produit.id})}}"><button  >Ajouter au Panier</button></a>
          
 
-          <!-- Détails du domaine -->
-          <div class="mt-4">
+       Détails du domaine 
+          <div  >
               <h4>Détails du domaine</h4>
               <p>{{ domaine.detail }}</p>
           </div>
       </div>
   </div>
 
-  <!-- Section supplémentaire pour des informations liées -->
-  <div class="mt-5">
+    Section supplémentaire pour des informations liées  
+  <div  >
       <h4>Informations supplémentaires</h4>
       <p>Parlez davantage du produit, de son origine, ou de son histoire...</p>
   </div>
+</div>-->
+<div class="container">
+  <div class="product-grid">
+    <div class="product-image">
+      <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}"  >
+    </div>
+    <div class="details">
+      <h2>{{ produit.nomProduit }}</h2>
+          <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
+          <p><strong>Région :</strong> {{ region.nomRegion }}</p>
+          <p><strong>{{produit.contenance}} cl</strong></p>
+          <h3>{{produit.prix}} €</h3>
+          <a href="{{ path('add_panier',{'id':produit.id})}}"><button  >Ajouter au Panier</button></a>
+      <h4>Détails du domaine</h4>
+      <p>{{ domaine.detail }}</p>
+    </div>
+  </div>
+  <div class="additional-info">
+    <h4>Informations supplémentaires</h4>
+      <p>Parlez davantage du produit, de son origine, ou de son histoire...</p>
+
+  </div>
 </div>
+
 
 {% endblock %}

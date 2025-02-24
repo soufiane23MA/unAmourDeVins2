@@ -9,6 +9,7 @@ use App\Repository\RegionRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,15 +20,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ProduitController extends AbstractController
 {
     #[Route('/produit', name: 'app_produit')]
-    public function index(EntityManagerInterface $entityManager,ProduitRepository $repository,RegionRepository $regionRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager,PaginatorInterface $paginator, ProduitRepository $repository,RegionRepository $regionRepository): Response
     {
        // $produits = $entityManager->getRepository(Produit::class)->findAll();
        $produits = $repository->findAll();
-       $regions = $regionRepository->findall();
-        return $this->render('produit/index.html.twig', [
-            'produits'=>$produits,
-            'regions'=>$regions
-        ]);
+       $regions = $regionRepository->findAll();
+
+       $produitsPagines = $paginator->paginate(
+        $produits, /* query NOT result */
+        $request->query->getInt('page', 1)/*page number*/,
+        4/*limit per page*/
+        );
+
+    return $this->render('/produit/index.html.twig', [
+        'produitsPagines' => $produitsPagines,
+        'regions' => $regions
+    ]);
+
+        // return $this->render('produit/index.html.twig', [
+        //     'produits'=>$produits,
+        //     'regions'=>$regions
+        // ]);
     }
 
     //#[Route('/produit/{id}', name: 'detail_produit')]
@@ -62,16 +75,24 @@ final class ProduitController extends AbstractController
      * methode pour récuperer les produits en vente exclusive
      */
     #[Route('/produit/exclusif', name: 'app_exclusif')]
-    public function affichProduitsExclusifs( ProduitRepository $produitRepository)
+    public function affichProduitsExclusifs( ProduitRepository $produitRepository,PaginatorInterface $paginator,Request $request)
     {
         //$produits = $produitRepository->findBy(['exclusif'=> true],['nomProduit'=>'ASC']); premiére methode 
         $produits = $produitRepository->findAllExclusifs();
+        $produitsPagines = $paginator->paginate(
+            $produits, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+            );
+    
+        return $this->render('produit/exclusif.html.twig', [
+            'produitsPagines' => $produitsPagines,
+        ]);
         
         
-        return $this ->render( 'produit/exclusif.html.twig',[  
-             'produits'=> $produits,
+        
              
-        ]);   
+       
     }
     #[Route('/produit/accords/{platId}', name: 'produits_accords', methods: ['GET'])]
     public function afficherProduitsAccords(int $platId, AccordRepository $accordRepository): Response
@@ -204,5 +225,75 @@ final class ProduitController extends AbstractController
             'produits'=>$produits
         ]);
     }*/
-}
+    /**
+     * la fonction de pagination 
+     */
+
+    /* #[Route('/produit/{page}', name:'liste_produit',requirements: ['page' => '\d+'], defaults: ['page' => 1])]
+     // src/Controller/ProduitController.ph
+    public function listeProduits(int $page=1, PaginatorInterface $paginator,ProduitRepository $produitRepository): Response
+    {
+        // Le nombre de produits par page au max
+        $limite = 4;
+
+        // Récupérer tous les produits via le repository et mettre en place une limite d'affichage de produits par page
+        // passant pr la method findpaginatedProduit().
+        $query = $produitRepository ->findPaginatedProduits($page,$limite);
+
+        // Paginator prend la requête et pagine les résultats
+        $produits = $paginator->paginate(
+            $query,  // La requête
+            $page,   // Le numéro de page
+            $limite   // Le nombre d'éléments par page
+            
+        );
+
+        // Calculer le nombre total de pages
+        $totalPages = ceil($produits->getTotalItemCount() / $limite);
+
+        // Rendre la vue avec les produits et la pagination
+        return $this->render('/produit/index.html.twig', [
+            'produits' => $produits,
+            'page' => $page,
+            'totalPages' => $totalPages
+        ]);*/
+        /*#[Route('/produit/{page}', name: 'liste_produit', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
+        public function listeProduits(int $page , PaginatorInterface $paginator, ProduitRepository $produitRepository): Response
+        {
+            // Le nombre de produits par page au max
+            $limite = 4;
+
+            // Récupérer tous les produits via le repository et mettre en place une limite d'affichage de produits par page
+            $query = $produitRepository->findPaginatedProduits($page, $limite);
+           // dd($query->getResult());
+            
+            // Paginator prend la requête et pagine les résultats
+            $produits = $paginator->paginate(
+                $query,  // La requête
+                $page,   // Le numéro de page
+                $limite  // Le nombre d'éléments par page
+            );
+           
+
+            // Calculer le nombre total de pages
+            $totalPages = ceil($produits->getTotalItemCount() / $limite);
+          
+            // Rendre la vue avec les produits et la pagination
+            return $this->render('/produit/index.html.twig', [
+                'produits' => $produits,
+                'page' => $page,
+                'totalPages' => $totalPages // Assurez-vous que cette variable est bien passée
+                
+            ]); dump($totalPages);
+            die();
+            
+        }*/
+    }
+
+      
+  
+        
+
+    
+
 

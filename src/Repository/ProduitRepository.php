@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Produit;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Produit>
@@ -100,5 +101,15 @@ class ProduitRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }*/
+   /* public function findPaginatedProduits(int $page, int $limite):Query
+{
+    $queryBuilder = $this->createQueryBuilder('p')
+        ->setFirstResult(($page - 1) * $limite)  // Offset
+        ->setMaxResults($limite);
+          // Limite
 
+    return $queryBuilder->getQuery() ;
+
+}*/
+ 
 }

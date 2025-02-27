@@ -1,5 +1,4 @@
-{# filter_prix.html.twig #}
-
+{# templates/produit/filter_prix.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -7,12 +6,15 @@
 
     <div class="filter-form">
         {# Formulaire de filtrage des prix #}
-        <form method="get" action="{{ path('produit_par_prix') }}">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit">Filtrer</button>
-            {{ form_end(form) }}
-        </form>
+        {{ form_start(form, {'method': 'GET'}) }}
+            <div>
+                {{ form_label(form.Prix) }}
+                <div id="prix-slider"></div>
+                {{ form_widget(form.Prix, {'attr': {'style': 'display:none'}}) }}
+                <p style="color: black;">Prix maximum : <span id="slider-value">{{ prixMax }}</span> €</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrer</button>
+        {{ form_end(form) }}
     </div>
 
     <div class="produits-list">
@@ -31,4 +33,22 @@
             <p>Aucun produit trouvé avec ce prix.</p>
         {% endif %}
     </div>
+
+    <script>
+        // Met à jour la valeur du slider en temps réel
+        const slider = document.getElementById('prix-slider'); // Sélectionne le slider
+        const sliderValue = document.getElementById('slider-value'); // Sélectionne l'élément pour afficher la valeur
+
+        if (slider && sliderValue) { // Vérifie que les éléments existent
+            // Affiche la valeur initiale du slider
+            sliderValue.textContent = slider.value;
+
+            // Met à jour la valeur affichée lorsque l'utilisateur déplace le slider
+            slider.addEventListener('input', function() {
+                sliderValue.textContent = this.value;
+            });
+        } else {
+            console.error("Erreur : Le slider ou l'élément d'affichage est introuvable.");
+        }
+    </script>
 {% endblock %}

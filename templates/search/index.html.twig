@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Resultat de recherche{% endblock %}
+
+{% block body %}
+ 
+ {# <h1>Resultat de vos recherche</h1>
+ {% if app_request == ['POST'] %}
+ {% if  produits|length == 0 %}
+ <h3>Auccun produit ne correspond à votre recherche</h3>
+ {% else %}
+ <h2>le resultat de votre recherche: </h2>
+ {% for produit in produits %}
+ {{produit.nomproduit}}
+    
+ 
+    
+ {% endif %}
+    
+ {% endif %} #}
+ {% for produit in produits %}
+<div class="col-md-3 mb-4">
+	<div class="card">
+		<img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
+		<div class="card-body">
+			 <h2 class="card-title">{{produit.nomProduit}}  </h2>
+			<p class="card-text"><h5>{{ produit.prix }} €</h5></p>
+			<p class="card-text">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit.   
+
+			</p>
+			 
+			<a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
+			<p><a href="{{path('detail_produit',{'id': produit.id})}}">+ de details</a></p>
+		</div>
+	</div>
+</div>
+{% endfor %}
+ 
+{% endblock %}

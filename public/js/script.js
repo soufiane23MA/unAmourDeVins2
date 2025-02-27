@@ -171,14 +171,14 @@ document.addEventListener('DOMContentLoaded', function () {
 //console.log(document.querySelector('.sidebar-log button'));
 //console.log(document.querySelector('[data-mdb-toggle="sidenav"]'));
 // ce code permet de résoudre le probléme de disfonctionnement de l'extention MDB; 
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     if (typeof mdb !== "undefined") {
         console.log("MDB chargé !");
         console.log("Sidenav :", mdb.Sidenav);
     } else {
         console.error("Erreur : MDB ne se charge pas.");
     }
-});
+});*/
  
 
 // rajouter le fonctioment des prix max et Min pour le curseur.
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 console.log(typeof noUiSlider);*/
 // juste pour le test
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     var slider = document.getElementById("prix-slider");
     var prixMin = document.getElementById("prix-min");
     var prixMax = document.getElementById("prix-max");
@@ -253,4 +253,15 @@ document.addEventListener("DOMContentLoaded", function () {
         prixMin.innerText = values[0];
         prixMax.innerText = values[1];
     });
-});
+});*/
+ /*// Met à jour la valeur du slider en temps réel
+ const slider = document.getElementById('prix-slider'); // Sélectionne le slider
+ const sliderValue = document.getElementById('slider-value'); // Sélectionne l'élément pour afficher la valeur
+
+ // Affiche la valeur initiale du slider
+ sliderValue.textContent = slider.value;
+
+ // Met à jour la valeur affichée lorsque l'utilisateur déplace le slider
+ slider.addEventListener('input', function() {
+     sliderValue.textContent = this.value;
+ });*/

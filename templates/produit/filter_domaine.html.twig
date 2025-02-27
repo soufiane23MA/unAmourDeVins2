@@ -6,7 +6,7 @@
 {% block body %}
  
 
-<h1>Tous les Vins de  : {{ domaine.nomDomaine }}</h1>
+<!--<h1>Tous les Vins de  : {{ domaine.nomDomaine }}</h1>
 
 {% if produits is not empty %}
     <div class="produits-list">
@@ -17,15 +17,39 @@
                 <p>{{ produit.detailProduit }}</p>
                 <p>Prix : {{ produit.prix }} € </p>
 								<a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
-                <!-- Si tu veux un lien vers le détail du produit --> 
+                 Si tu veux un lien vers le détail du produit  
             </div>
         {% endfor %}
     </div>
 		
 {% else %}
     <p>Aucun produit trouvé pour domaine</p>
+{% endif %}-->
+<h1>Tous les Vins de : {{ domaine.nomDomaine }}</h1>
+
+{% if produits is not empty %}
+    <div class="row">
+        {% for produit in produits %}
+            <div class="col-md-2 mb-4">
+                <div class="card">
+                    <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="card-img-top" style="max-width: 100%; height: auto;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nomProduit }} - {{ produit.domaine.nomDomaine }}</h5>
+                        <p class="card-text">{{ produit.detailProduit }}</p>
+                        <p><strong>Prix :</strong> {{ produit.prix }} €</p>
+                        <a href="{{ path('add_panier', {'id': produit.id}) }}">
+                            <button class="btn btn-success mt-2">Ajouter au Panier</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <p>Aucun produit trouvé pour ce domaine.</p>
 {% endif %}
- 
+
 
 		 
     

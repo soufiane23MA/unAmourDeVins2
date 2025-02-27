@@ -64,52 +64,34 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult();
         
     }
-    /*public function findByFilters($region = null, $domaine = null, $prixMin = null, $prixMax = null)
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->leftJoin('p.domaine', 'd')
-            ->leftJoin('d.region', 'r');
-
-        if ($region) {
-            $qb->andWhere('r.id = :region')
-                ->setParameter('region', $region);
-        }
-
-        if ($domaine) {
-            $qb->andWhere('d.id = :domaine')
-                ->setParameter('domaine', $domaine);
-        }
-
-        if ($prixMin) {
-            $qb->andWhere('p.prix >= :prixMin')
-                ->setParameter('prixMin', $prixMin);
-        }
-
-        if ($prixMax) {
-            $qb->andWhere('p.prix <= :prixMax')
-                ->setParameter('prixMax', $prixMax);
-        }
-
-        return $qb->getQuery()->getResult();
-    }*/
-   /* public function findByPriceRange($prixMin,$prixMax)
+     
+       // src/Repository/ProduitRepository.php
+    public function findByPriceMax(  $prixMax)
     {
         return $this->createQueryBuilder('p')
-             
-            ->andWhere('p.prix <= :prixMax')
+            ->andWhere('p.prix <= :prixMax') // Condition pour le prix maximum
             ->setParameter('prixMax', $prixMax)
             ->getQuery()
             ->getResult();
-    }*/
-   /* public function findPaginatedProduits(int $page, int $limite):Query
-{
-    $queryBuilder = $this->createQueryBuilder('p')
-        ->setFirstResult(($page - 1) * $limite)  // Offset
-        ->setMaxResults($limite);
-          // Limite
+    }
+    // la fonction qui permer de faire la requette pour la bar de recherche 
+    //on creéer le queryBilder avec tous ce qu'on veux comme initation qui peuvent être soumis 
+   /* public function findProduitByName(string $query)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');// la requette prend les expressions AND & OR 
+        $queryBuilder -> Where(
+             
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('p.nomProduit',':query'),
+                $queryBuilder->expr()->like('p.detailProduit',':query'),
+            ),
+        )
+        ->setParameter('query','%'. $query.'%');
+        return $queryBuilder 
+            ->getQuery()
+            ->getResult();
 
-    return $queryBuilder->getQuery() ;
-
-}*/
+        }*/
+  
  
 }

@@ -5,7 +5,7 @@
 {% block body %}
  
 
-<h1>Ventes Exclusives:</h1>
+<!--<h1>Ventes Exclusives:</h1>
 
 {% for produit in produitsPagines %}
 <div>
@@ -26,8 +26,40 @@
 {% endfor %}
 <div class="navigation">
   {{ knp_pagination_render(produitsPagines) }}
+</div>-->
+ 
+
+ 
+
+ 
+<h1>Ventes Exclusives:</h1>
+
+<div class="row">
+    {% for produit in produitsPagines %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="card-img-top" style="max-width: 200px; margin: 0 auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{ produit.nomProduit }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="color: blue;">{{ produit.prix }} €</h6>
+                <p><strong>Nom du domaine :</strong> {{ produit.domaine }}</p>
+            </div>
+            <div class="card-footer">
+                <h6>Détails du domaine</h6>
+                <p>{{ produit.domaine }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
+<div class="navigation">
+    {{ knp_pagination_render(produitsPagines) }}
+</div>
+
+ 
+
   
 
 
-{% endblock %}
+{% endblock %} 

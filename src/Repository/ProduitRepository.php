@@ -66,7 +66,7 @@ class ProduitRepository extends ServiceEntityRepository
     }
      
        // src/Repository/ProduitRepository.php
-    public function findByPriceMax(  $prixMax)
+    public function findByPriceMax( $prixMax)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.prix <= :prixMax') // Condition pour le prix maximum
@@ -76,7 +76,7 @@ class ProduitRepository extends ServiceEntityRepository
     }
     // la fonction qui permer de faire la requette pour la bar de recherche 
     //on creéer le queryBilder avec tous ce qu'on veux comme initation qui peuvent être soumis 
-   /* public function findProduitByName(string $query)
+    /*public function findByNom(string $query)
     {
         $queryBuilder = $this->createQueryBuilder('p');// la requette prend les expressions AND & OR 
         $queryBuilder -> Where(
@@ -92,6 +92,14 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult();
 
         }*/
+        public function findByNom(string $query): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.nomProduit LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
   
  
 }

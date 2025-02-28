@@ -3,12 +3,13 @@
 
 namespace App\Twig;
 
-use App\Repository\DomaineRepository;
-use App\Repository\RegionRepository;
-use Twig\Extension\AbstractExtension;
-use Twig\Extension\GlobalsInterface;
-use Symfony\Component\Form\FormFactoryInterface;
+use App\Form\SearchPriceType;
 use App\Form\SearchProductType;
+use App\Repository\RegionRepository;
+use Twig\Extension\GlobalsInterface;
+use App\Repository\DomaineRepository;
+use Twig\Extension\AbstractExtension;
+use Symfony\Component\Form\FormFactoryInterface;
 
 
 class AppExtension extends AbstractExtension implements GlobalsInterface
@@ -22,6 +23,7 @@ class AppExtension extends AbstractExtension implements GlobalsInterface
         $this->regionRepository = $regionRepository;
         $this->domaineRepository = $domaineRepository;
         $this->formFactory = $formFactory;
+        
     }
 
     public function getGlobals(): array
@@ -31,6 +33,8 @@ class AppExtension extends AbstractExtension implements GlobalsInterface
             'regions' => $this->regionRepository->findAll(),
             'domaines'=> $this->domaineRepository->findAll() ,
             'formSearch' => $this->formFactory->create(SearchProductType::class)->createView(),
+            'form' => $this->formFactory->create(SearchPriceType::class)->createView(),
+           
             
         ];
     }

@@ -19,7 +19,9 @@
  {% endif %}
     
  {% endif %} #}
- {% for produit in produits %}
+ 
+ 
+ {% for produit in produitsPagines %}
 <div class="col-md-3 mb-4">
 	<div class="card">
 		<img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
@@ -37,5 +39,8 @@
 	</div>
 </div>
 {% endfor %}
+<div class="navigation">
+  {{ knp_pagination_render(produitsPagines) }}
+</div>
  
 {% endblock %}

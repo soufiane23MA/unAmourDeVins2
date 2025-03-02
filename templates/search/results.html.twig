@@ -24,14 +24,14 @@
                 </li>
             {% endfor %}
         </ul>
-        <div class="navigation">
+         <div class="navigation">
             {{ knp_pagination_render(produitsPagines) }}
           </div>
       
     {% elseif query %}
         <p>Aucun résultat trouvé pour "{{ query }}".</p>
     {% endif %}
-   
+  
     
 {% endblock %}
  

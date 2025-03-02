@@ -5,20 +5,13 @@
 
 {% block body %}
  
- {# <h1>Resultat de vos recherche</h1>
- {% if app_request == ['POST'] %}
- {% if  produits|length == 0 %}
- <h3>Auccun produit ne correspond à votre recherche</h3>
- {% else %}
- <h2>le resultat de votre recherche: </h2>
- {% for produit in produits %}
- {{produit.nomproduit}}
-    
- 
-    
- {% endif %}
-    
- {% endif %} #}
+  
+ <li>
+{{ form_start(formSearch, {'method': 'POST'}) }}
+{{ form_widget(formSearch) }}
+{{ form_end(formSearch) }}
+</li>
+{% if produitsPagines is defined and produitsPagines is not empty %}
  
  
  {% for produit in produitsPagines %}
@@ -38,9 +31,13 @@
 		</div>
 	</div>
 </div>
+ 
+
 {% endfor %}
+
 <div class="navigation">
   {{ knp_pagination_render(produitsPagines) }}
 </div>
+{% endif %}
  
 {% endblock %}

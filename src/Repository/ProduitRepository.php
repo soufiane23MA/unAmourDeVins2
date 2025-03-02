@@ -66,14 +66,15 @@ class ProduitRepository extends ServiceEntityRepository
     }
      
        // src/Repository/ProduitRepository.php
-    public function findByPriceMax( $prixMax)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.prix <= :prixMax') // Condition pour le prix maximum
-            ->setParameter('prixMax', $prixMax)
-            ->getQuery()
-            ->getResult();
-    }
+       public function findByPriceMax(float $prixMax): array
+       {
+           return $this->createQueryBuilder('p')
+               ->andWhere('p.prix <= :prixMax') // Condition pour le prix maximum
+               ->setParameter('prixMax', $prixMax)
+               ->orderBy('p.prix', 'DESC')
+               ->getQuery()
+               ->getResult();
+       }
     // la fonction qui permer de faire la requette pour la bar de recherche 
     //on creéer le queryBilder avec tous ce qu'on veux comme initation qui peuvent être soumis 
     /*public function findByNom(string $query)

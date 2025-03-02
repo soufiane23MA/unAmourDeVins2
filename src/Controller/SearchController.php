@@ -14,32 +14,42 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class SearchController extends AbstractController {
-    #[Route('/search', name: 'app_search')]
-    public function index(ProduitRepository $pr, Request $request,PaginatorInterface $paginator): Response
+    #[Route('/search', name: 'price_search')]
+    public function index(ProduitRepository $pr, Request $request, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(SearchProductType::class);
         $form->handleRequest($request);
+    
+        $prix = $request->query->get('prix'); // Récupère le prix de l'URL
         $produitsPagines = null;
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();  
-            $produits = $pr->findByPriceMax($data);
-            $produitsPagines = $paginator->paginate(
-                $produits, /* query NOT result */
-                $request->query->getInt('page', 1)/*page number*/,
-                4/*limit per page*/
-                );
-                 
-;            return $this->render('search/index.html.twig',[
-                'produitsPagines' => $produitsPagines,
-                
+    
+        // Si le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $prix = $data['Prix']; // Récupère le prix du formulaire
+    
+            // Redirige vers l'URL avec le paramètre prix
+            return $this->redirectToRoute('price_search', [
+                'prix' => $prix,
+                'page' => 1,
             ]);
-            
         }
-        return $this->render('base.html.twig',[
-            'formSearch'=>$form,
-            'produitsPagines' => null
-             
+    
+        // Si un prix est présent (dans l'URL ou le formulaire), on récupère les produits
+        if ($prix !== null) {
+            $produits = $pr->findByPriceMax($prix); // Appelle la méthode du repository
+    
+            // Pagination des résultats
+            $produitsPagines = $paginator->paginate(
+                $produits,
+                $request->query->getInt('page', 1),
+                4
+            );
+        }
+    
+        return $this->render('search/index.html.twig', [
+            'formSearch' => $form,
+            'produitsPagines' => $produitsPagines,
         ]);
     }
     // methode qui recupere les produits de la bar de recherche par mot-clé

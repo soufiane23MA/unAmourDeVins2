@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix du Paiement{% endblock %}
+
+{% block body %}
+<h2>Récapitulatif de votre commande</h2>
+
+<table>
+  <tr>
+    <th>Produit</th>
+    <th>Quantité</th>
+    <th>Prix unitaire</th>
+    <th>Total</th>
+  </tr>
+  <!-- Boucle pour afficher chaque produit -->
+  <tr>
+    <td>{{ produit.nomProduit }}</td>
+    <td>{{ produit.quantite }}</td>
+    <td>{{ produit.prix }} €</td>
+    <td>{{ produit.quantite * produit.prix }} €</td>
+  </tr>
+</table>
+
+<h3>Total à payer : {{ total }} €</h3>
+
+<h2>Choisissez un mode de paiement</h2>
+<form method="POST" action="{{ path('app_paiement_valider') }}">
+  <label>
+    <input type="radio" name="mode_paiement" value="cb" required> Carte Bancaire
+  </label>
+  <label>
+    <input type="radio" name="mode_paiement" value="paypal" required> PayPal
+  </label>
+  <button type="submit">Payer</button>
+</form>
+
+{% endblock %}

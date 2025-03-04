@@ -80,5 +80,25 @@ public function validerCommande(EntityManagerInterface $entityManager, Security 
     // Rediriger vers la page de paiement
     return $this->redirectToRoute('app_paiement');
 }
+
+ 
+#[Route('/paiement/{idCommande}', name: 'app_paiement')]
+public function choixPaiement(int $idCommande, EntityManagerInterface $entityManager,Security $security): Response
+{
+    // Récupérer la commande
+    $commande = $entityManager->getRepository(Commande::class)->find($idCommande);
+
+    // Vérifier que la commande existe et appartient bien à l'utilisateur connecté
+    if (!$commande || $commande->getUser() !== $this->getUser()) {
+        throw $this->createNotFoundException('Commande introuvable ou accès interdit.');
+    }
+    
+
+    // Afficher la page de choix du paiement
+    return $this->render('commande/paiement.html.twig', [
+        'commande' => $commande,
+    ]);
+}
+
     
 }

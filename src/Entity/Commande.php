@@ -117,4 +117,15 @@ class Commande
 
         return $this;
     }
+    public function getTotal(): float
+{
+    $total = 0;
+
+    // Supposons que tu as une relation 'produitCommandes' qui représente les produits de la commande
+    foreach ($this->produitCommandes as $produitCommande) {
+        $total += $produitCommande->getProduit()->getPrix() * $produitCommande->getQuantite();
+    }
+
+    return $total;
+}
 }

@@ -40,4 +40,12 @@ class CommandeRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findCommandeById(int $idCommande): ?Commande
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.id = :id')
+        ->setParameter('id', $idCommande)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
 }

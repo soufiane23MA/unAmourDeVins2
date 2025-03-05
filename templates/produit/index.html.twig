@@ -7,21 +7,20 @@
 
 <h1>Tous les vin du domaine :</h1>
   
-<div class="container mt-5">
-  <div class="row">
+<div class="produit-container ">
+  <div class="produit-card ">
     {% for produit in produitsPagines %}
-      <div class="col-md-3 mb-4">
+      <div class="produit-info ">
         <div class="card">
           <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}">
           <div class="card-body">
              <h2 class="card-title">{{produit.nomProduit}}  </h2>
-            <p class="card-text"><h5>{{ produit.prix }} €</h5></p>
+            
             <p class="card-text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.   
- 
             </p>
-             
-            <a href="{{ path('add_panier',{'id':produit.id})}}"><button class="btn btn-success mt-2" >Ajouter au Panier</button></a>
+             <h3 class="card-prix">{{ produit.prix }} €</h3>
+            <a href="{{ path('add_panier',{'id':produit.id})}}"><button class="card-btn" >Ajouter au Panier</button></a>
             <p><a href="{{path('detail_produit',{'id': produit.id})}}">+ de details</a></p>
           </div>
         </div>
@@ -34,7 +33,7 @@
 </div>
  
  
-
+ 
  
 
 {% endblock %}

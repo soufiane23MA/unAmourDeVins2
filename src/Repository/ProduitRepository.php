@@ -71,7 +71,7 @@ class ProduitRepository extends ServiceEntityRepository
            return $this->createQueryBuilder('p')
                ->andWhere('p.prix <= :prixMax') // Condition pour le prix maximum
                ->setParameter('prixMax', $prixMax)
-               ->orderBy('p.prix', 'DESC')
+               ->orderBy('p.prix', 'ASC')
                ->getQuery()
                ->getResult();
        }

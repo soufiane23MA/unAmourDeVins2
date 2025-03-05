@@ -29,7 +29,7 @@ final class ProduitController extends AbstractController
        $produitsPagines = $paginator->paginate(
         $produits, /* query NOT result */
         $request->query->getInt('page', 1)/*page number*/,
-        4/*limit per page*/
+        6/*limit per page*/
         );
 
     return $this->render('/produit/index.html.twig', [
@@ -82,7 +82,7 @@ final class ProduitController extends AbstractController
         $produitsPagines = $paginator->paginate(
             $produits, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
-            4/*limit per page*/
+            10/*limit per page*/
             );
     
         return $this->render('produit/exclusif.html.twig', [

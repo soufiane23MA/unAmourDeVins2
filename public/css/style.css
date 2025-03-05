@@ -1,19 +1,16 @@
-.card {
+/*.card {
 	display: flex;
 	flex-direction: column;
-	height: 100%; /* Force toutes les cartes à prendre la même hauteur */
-}
+	height: 100%;  Force toutes les cartes à prendre la même hauteur  
+ }
 
-.card-body {
-	flex-grow: 1; /* Remplit l'espace disponible de manière égale */
+ card-body {
+	flex-grow: 1;   Remplit l'espace disponible de manière égale  
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between; /* Garde les boutons alignés en bas */
-}
-body{
-	 background-color: #B73434;
-	color: rgb(248, 235, 235)
-}
+	justify-content: space-between; Garde les boutons alignés en bas  
+ }
+ 
  
 
 
@@ -40,26 +37,26 @@ body{
     top: 0;
     height: 100vh;
     border-right: 1px solid #ccc;
-}*/
-/* Temporarily disable the fixed position for the sidebar to check */
+} 
+  Temporarily disable the fixed position for the sidebar to chec 
 .sidenav {
-	position: static;  /* Désactiver temporairement la position fixe */
+	position: static;  /* Désactiver temporairement la position fixe  
 	left: 0;
 	top: 0;
 	width: 250px;
-	height: auto;  /* Laisse la hauteur s'ajuster automatiquement */
+	height: auto;  /* Laisse la hauteur s'ajuster automatiquement  
 	background-color: #f8f9fa;
-	transition: none; /* Désactive l'animation */
+	transition: none; /* Désactive l'animation  
 }
 
-/* Réduire la taille du contenu pour tester l'affichage */
+/* Réduire la taille du contenu pour tester l'affichage  
 .content {
 	margin-left: 0;
 }
 
 
 .sidenav.active {
-	left: 0;  /* Lorsque la sidebar est active, elle se déplace vers la droite */
+	left: 0;  /* Lorsque la sidebar est active, elle se déplace vers la droite  
 }
 
 .sidebar h4 {
@@ -99,7 +96,7 @@ body{
 	border: 2px solid red;   Ajout d'une bordure rouge pour mieux le repérer 
 	z-index: 9999;  Assure-toi qu'il est au-dessus de tout autre élément 
 	margin: 20px 0;
-}*/
+} 
 #prix-slider {
 	width: 100%;
 	height: 8px;
@@ -111,20 +108,19 @@ body{
 
 
 .noUi-connect {
-	background: #4caf50;  /* Couleur de la barre entre les poignées */
+	background: #4caf50;    Couleur de la barre entre les poignées  
 }
 
 .noUi-handle {
-	background: #ff5722;  /* Couleur des poignées */
+	background: #ff5722;   Couleur des poignées  
 	border: 2px solid #fff;
-	width: 16px; /* Taille des poignées */
-	height: 16px; /* Taille des poignées */
-	border-radius: 50%; /* Rendre les poignées rondes */
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Ajouter un léger ombrage */
+	width: 16px; /* Taille des poignées * 
+	height: 16px; /* Taille des poignées   
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Ajouter un léger ombrage  
 }
-/* juste pour le test */
+/* juste pour le test  
 
-/* Conteneur principal */
+/* Conteneur principal  
 /*.container {
   max-width: 1200px;
   margin: 0 auto;
@@ -206,9 +202,9 @@ body{
   line-height: 1.6;
 }
 /* Global Styles */
-body {
+/*body {
   font-family: Arial, sans-serif;
-  background-color: #8f0909;
+  
   margin: 0;
   padding: 0;
 }
@@ -220,7 +216,7 @@ body {
 }
 
 /* Product Grid */
-.product-grid {
+/*.product-grid {
   display: flex;
   gap: 30px;
   margin-top: 40px;
@@ -283,7 +279,7 @@ body {
 }
 
 /* Domain Details */
-h4 {
+/*h4 {
   color: #030405;
   font-size: 24px;
   margin-top: 40px;
@@ -296,7 +292,7 @@ h4 {
 }
 
 /* Additional Info */
-.additional-info {
+/*.additional-info {
   margin-top: 50px;
   background-color: #ecf0f1;
   padding: 30px;
@@ -314,4 +310,198 @@ h4 {
   font-size: 18px;
   color: #7f8c8d;
   line-height: 1.7;
+}*/
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #110f0f;
+  background-color: hsl(0, 0%, 99%)
 }
+footer{
+  background-color:  #c53838;
+}
+
+.produits-container {
+  display: flex;
+ 
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+ 
+  
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  align-content: start;
+}
+.produit-card{
+  display: flex;
+  flex-direction: wrap;
+  justify-content: center;
+  gap: 30px;
+  
+}
+.card {
+  color: #0c0a0a;
+  width: 200px;
+  border: 1px solid #0c0a0a;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 253, 0.205);
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: 0.5s;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.produit-card img {
+  width: auto;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #c53838;
+}
+.card-prix{
+  color:#180606;
+  ;
+  font-size: 22px;
+}
+ 
+.card-text{
+  font-size: 18px;
+  font-weight: 300px;
+  
+}
+.card:hover{
+  color: #c53838;
+  
+}
+.card-btn{
+  color: #180606;
+  font-size: 16px;
+  border-radius: 25px 25px;
+}
+.card-btn:hover{
+  background-color: #c53838;;
+}
+/* juste pour tester si ca marche */
+ /* En-tête */
+ .logo {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.logo img {
+	max-width: 150px;
+	height: auto;
+}
+
+.detail-entreprise {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.detail-entreprise h3 {
+	font-size: 24px;
+	color: #2c3e50;
+	margin-bottom: 10px;
+}
+
+.detail-entreprise ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.detail-entreprise ul li {
+	margin-bottom: 5px;
+	color: #555;
+}
+
+/* Section client */
+.detail-client {
+	margin-bottom: 30px;
+}
+
+.detail-client h3 {
+	font-size: 20px;
+	color: #2c3e50;
+	margin-bottom: 10px;
+}
+
+.detail-client ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.detail-client ul li {
+	margin-bottom: 5px;
+	color: #555;
+}
+
+/* Titre de la facture */
+h1 {
+	text-align: center;
+	font-size: 28px;
+	color: #2c3e50;
+	margin-bottom: 20px;
+}
+
+/* Tableau des produits */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+
+table th, table td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+table th {
+	background-color: #f8f9fa;
+	font-weight: bold;
+	color: #2c3e50;
+}
+
+table tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+table tr:hover {
+	background-color: #f1f1f1;
+}
+
+/* Total */
+.total {
+	font-weight: bold;
+	text-align: right;
+	background-color: #f8f9fa;
+}
+
+/* Pied de page */
+footer {
+	text-align: center;
+	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 1px solid #ddd;
+	color: #777;
+}
+
+footer ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+footer ul li {
+	margin-bottom: 5px;
+}
+
+ 
+ 

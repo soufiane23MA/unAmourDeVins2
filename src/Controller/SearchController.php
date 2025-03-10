@@ -43,7 +43,7 @@ final class SearchController extends AbstractController {
             $produitsPagines = $paginator->paginate(
                 $produits,
                 $request->query->getInt('page', 1),
-                10
+                4
             );
         }
     

@@ -311,15 +311,48 @@
   color: #7f8c8d;
   line-height: 1.7;
 }*/
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body{
+
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   color: #110f0f;
   background-color: hsl(0, 0%, 99%)
 }
-footer{
+
+ .foot-container{
   background-color:  #c53838;
+  height: 300px;
+  color: #f9f9f9;
 }
+.instagrame{
+  color: #f8f9fa;
+  margin-top: 20px;
+  width: 40px;
+}
+.facebook{
+  color:#f9f9f9;
+ margin-bottom: 20px;
+ width: 40px;
+
+}
+.container_1{
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+ 
+hr {
+  border: none; /* Supprime le style par défaut */
+  height: 2px;  /* Épaisseur de la ligne */
+  background-color: rgb(255, 247, 247); /* Couleur de la ligne */
+  margin: 10px 0; /* Espace autour de la ligne */
+}
+ 
+
 
 .produits-container {
   display: flex;

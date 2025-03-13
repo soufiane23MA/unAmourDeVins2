@@ -2,6 +2,8 @@ controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
-    type: attribute
- 
- 
+    type: 'attribute'
+
+search_product:
+    path: /search/product
+    controller: App\Controller\SearchController::recherche

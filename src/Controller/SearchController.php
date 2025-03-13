@@ -17,7 +17,7 @@ final class SearchController extends AbstractController {
     #[Route('/search', name: 'price_search')]
     public function index(ProduitRepository $pr, Request $request, PaginatorInterface $paginator): Response
     {
-        $form = $this->createForm(SearchProductType::class);
+        $form = $this->createForm(SearchPriceType::class);
         $form->handleRequest($request);
     
         $prix = $request->query->get('prix'); // Récupère le prix de l'URL
@@ -55,12 +55,13 @@ final class SearchController extends AbstractController {
     // methode qui recupere les produits de la bar de recherche par mot-clé
     //ne change plus rien
 
-    #[Route('/search/product', name: 'product_search')]
+    #[Route('/search/product', name: 'product_search', methods: ['GET'])]
+
     
     public function recherche(Request $request, ProduitRepository $produitRepository,PaginatorInterface $paginator): Response
     {
         // Créer le formulaire de recherche
-        $form = $this->createForm(SearchPriceType::class);
+        $form = $this->createForm(SearchProductType::class);
         $form->handleRequest($request);
     
         $produits = [];
@@ -70,7 +71,10 @@ final class SearchController extends AbstractController {
         // Vérifier si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer la donnée 'query' du formulaire
+            
             $query = $form->get('query')->getData();
+            
+           
     
             // Rechercher les produits correspondants
             if ($query) {

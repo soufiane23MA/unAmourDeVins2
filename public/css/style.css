@@ -330,12 +330,12 @@ body{
   color: #f9f9f9;
 }
 .instagrame{
-  color: #f8f9fa;
+  color: #05080a;
   margin-top: 20px;
   width: 40px;
 }
 .facebook{
-  color:#f9f9f9;
+  color:#030202;
  margin-bottom: 20px;
  width: 40px;
 
@@ -351,8 +351,6 @@ hr {
   background-color: rgb(255, 247, 247); /* Couleur de la ligne */
   margin: 10px 0; /* Espace autour de la ligne */
 }
- 
-
 
 .produits-container {
   display: flex;
@@ -361,7 +359,6 @@ hr {
   justify-content: center;
   align-items: center;
   padding: 20px;
- 
   
   flex-direction: row;
   flex-wrap: wrap;
@@ -536,5 +533,41 @@ footer ul li {
 	margin-bottom: 5px;
 }
 
+ /* Section héros */
+.hero {
+  background-image: url('imgs/acceuil.webp'); /* Remplace par ton image */
+  background-size: cover; /* Couvre toute la zone */
+  background-position: center; /* Centre l'image */
+  height: 100vh; /* Prend toute la hauteur de l'écran */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(107, 52, 52);
+  margin-bottom: 110px;
+}
+
+.hero-content h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+.hero-content .cta-button {
+  background-color: rgb(160, 125, 125); /* Rouge bordeaux */
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+.hero-content{
+  margin-top: 100px;
+}
+ 
  
  

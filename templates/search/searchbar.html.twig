@@ -18,6 +18,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Recherche de produits{% endblock %}
+ {# Affichage des résultats #}
+   
+ {% if produitsPagines is not empty %}
+ <h2>Résultats pour "{{ query }}"</h2>
+ <ul>
+		 {% for produit in produitsPagines %}
+				 <li>
+						 <h3>{{ produit.nomProduit }}</h3>
+						 <p>{{ produit.detailProduit }}</p>
+						 <p>Prix : {{ produit.prix }}€</p>
+				 </li>
+		 {% endfor %}
+ </ul>
+	<div class="navigation">
+		 {{ knp_pagination_render(produitsPagines) }}
+	 </div>
+
+{% elseif query %}
+ <p>Aucun résultat trouvé pour "{{ query }}".</p>
 
 {% block body %}
   

@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-});/*
+});
 document.addEventListener('DOMContentLoaded', function () {
     const regionList = document.getElementById('regionList');
     const domaineList = document.getElementById('domaineList');
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Charger les régions au démarrage
     chargerRegions();
 });
-*/
+
 /*document.addEventListener('DOMContentLoaded', function() {
     const regionsLink = document.getElementById('regionsLink');
     const domainesLink = document.getElementById('domainesLink');
@@ -265,3 +265,30 @@ console.log(typeof noUiSlider);*/
  slider.addEventListener('input', function() {
      sliderValue.textContent = this.value;
  });*/
+ document.addEventListener("DOMContentLoaded", function () {
+    let navbar = document.getElementById("navbar");
+    let lastScrollTop = 0;
+
+    window.addEventListener("scroll", function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop) {
+            // Scroll vers le bas → cacher la navbar
+            navbar.classList.add("hidden");
+        } else {
+            // Scroll vers le haut → afficher la navbar
+            navbar.classList.remove("hidden");
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+});
+/* Open when someone clicks on the span element */
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}

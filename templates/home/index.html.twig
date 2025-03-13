@@ -1,8 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenu{% endblock %}
+{#{% block title %}Bienvenu{% endblock %}#}
+
+{#{% block body %}#}
+ {#<h1>Bienvenu Mr {{app.user.pseudo}} {{app.user.adresse}}</h1>#}
+ {# home/index.html.twig #}
+
+ 
+
+{% block title %}Accueil - Vins de qualité{% endblock %}
 
 {% block body %}
- <h1>Bienvenu Mr {{app.user.pseudo}} {{app.user.adresse}}</h1>
+    <!-- Section héros avec image de fond et message -->
+    <section class="hero">
+        <div class="hero-content">
+					<div class="hero_img">
+						<img src="imgs/accueil.webp" alt="bienvenu">
+					</div>
+					
+            <h1>Bienvenue chez Un Amour de vin</h1>
+            <p>Découvrez notre vente exclusive du mois</p>
+            <a href="{{ path('app_exclusif') }}" class="cta-button">Découvrez La cave</a>
+        </div>
+    </section>
+ 
   
 {% endblock %}

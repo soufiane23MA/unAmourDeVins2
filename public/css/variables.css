@@ -1,0 +1,15 @@
+/* les variabale a utilisé partous dans l'pplication*/
+:root {
+	/*font family*/
+	--font-title :  'Lora', serif;
+	--font-texte : 'Merriweather Sans';
+
+	/* Couleurs */
+	--primary-color:#951a38;
+  --secondary-color:  ; /* créme */
+  --background-color: rgb(249,249,232); /* Gris clair */
+  --text-color: #333; /* Noir */
+  --error-color: #e74c3c; /* Rouge */
+	 
+
+}

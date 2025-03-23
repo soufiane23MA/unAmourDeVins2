@@ -1,95 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} details du vin{% endblock %}
+
+{% block title %}Détails du vin{% endblock %}
+
 
 {% block body %}
- 
+  <h1>Détails du vin : {{ produit.nomProduit }}</h1>
 
-<h1>detail du vin :</h1>
-  
-<!--<div class="container mt-5">
-  <div class="row">
-     
-      <div class="col-md-3 mb-4">
-         
-          <img src="{{ asset(produit.image) }}" class="card-img-top"  >
-          <div class="card-body">
-             
-            <p class="card-text"><h5>{{ produit.prix }} €</h5></p>
-            <p class="card-text">
-              <h6> plus de detail</h6>
-              <h2>{{domaine}}</h2>
-                
-               
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus praesentium enim facere maiores voluptatum eius deleniti quidem consectetur cupiditate accusamus, 
-              consequatur asperiores eligendi earum quibusdam dolorem illo officiis sunt obcaecati?
-            </p>
-             
-            <button class="btn btn-success mt-2">Ajouter au Panier</button>
-            
-          </div>
-        </div>
-      </div>
-    
-  </div>
-</div>-->
-<!--<div >
-   Section du produit  
-  <div  >
-     
-       Image du produit  
-      <div  >
-        <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}"  >
+  <div class="container">
+    <!-- Section principale du produit -->
+    <div class="product-grid">
+      <!-- Image du produit -->
+      <div class="product-image">
+        <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="produit-image">
       </div>
 
-      Détails du produit  
-      <div  >
-          <h2>{{ produit.nomProduit }}</h2>
-          <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
-         
-          
-          <p><strong>Région :</strong> {{ region.nomRegion }}</p>
-          <p><strong>{{produit.contenance}} cl</strong></p>
-          <h3>{{produit.prix}} €</h3>
-          <a href="{{ path('add_panier',{'id':produit.id})}}"><button  >Ajouter au Panier</button></a>
-         
-
-       Détails du domaine 
-          <div  >
-              <h4>Détails du domaine</h4>
-              <p>{{ domaine.detail }}</p>
-          </div>
+      <!-- Détails du produit -->
+      <div class="product-details">
+        <h2>{{ produit.nomProduit }}</h2>
+        <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
+        <p><strong>Région :</strong> {{ region.nomRegion }}</p>
+        <p><strong>Contenance :</strong> {{ produit.contenance }} cl</p>
+        <h3 class="prix">{{ produit.prix }} €</h3>
+        <a href="{{ path('add_panier', {'id': produit.id}) }}">
+          <button class="card-btn">Ajouter au Panier</button>
+        </a>
       </div>
-  </div>
-
-    Section supplémentaire pour des informations liées  
-  <div  >
-      <h4>Informations supplémentaires</h4>
-      <p>Parlez davantage du produit, de son origine, ou de son histoire...</p>
-  </div>
-</div>-->
-<div class="container">
-  <div class="product-grid">
-    <div class="product-image">
-      <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}"  >
     </div>
-    <div class="details">
-      <h2>{{ produit.nomProduit }}</h2>
-          <p><strong>Nom du domaine :</strong> {{ domaine.nomDomaine }}</p>
-          <p><strong>Région :</strong> {{ region.nomRegion }}</p>
-          <p><strong>{{produit.contenance}} cl</strong></p>
-          <h3>{{produit.prix}} €</h3>
-          <a href="{{ path('add_panier',{'id':produit.id})}}"><button  >Ajouter au Panier</button></a>
+
+    <!-- Détails du domaine -->
+    <div class="domain-details">
       <h4>Détails du domaine</h4>
       <p>{{ domaine.detail }}</p>
     </div>
+
+    <!-- Informations supplémentaires -->
+    <div class="additional-info">
+      <h4>Informations supplémentaires</h4>
+      <p>Parlez davantage du produit, de son origine, ou de son histoire...</p>
+    </div>
   </div>
-  <div class="additional-info">
-    <h4>Informations supplémentaires</h4>
-      <p>Parlez davantage du produit, de son origine, ou de son histoire. ..</p>
-
-  </div>
-</div>
-
-
 {% endblock %}

@@ -7,6 +7,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use App\Form\SearchPriceType;
 use App\Form\SearchProductType;
+use App\Repository\PlatRepository;
 use App\Repository\RegionRepository;
 use Twig\Extension\GlobalsInterface;
 use App\Repository\DomaineRepository;
@@ -20,14 +21,23 @@ class AppExtension extends AbstractExtension implements GlobalsInterface
     private $domaineRepository;
     private $formFactory;
     private $twig; // <-- Ajoute cette propriété
+    private $platRepository;
 
-    public function __construct(RegionRepository $regionRepository,DomaineRepository $domaineRepository,FormFactoryInterface $formFactory,Environment $twig )
+    public function __construct(
+        RegionRepository $regionRepository,
+        DomaineRepository $domaineRepository,
+        FormFactoryInterface $formFactory,
+        Environment $twig ,
+        PlatRepository $platRepository
+
+        )
     {
         
         $this->regionRepository = $regionRepository;
         $this->domaineRepository = $domaineRepository;
         $this->formFactory = $formFactory;
         $this->twig = $twig;
+        $this ->platRepository = $platRepository;
     }
     public function getGlobals(): array
     {
@@ -35,6 +45,8 @@ class AppExtension extends AbstractExtension implements GlobalsInterface
              
             'regions' => $this->regionRepository->findAll(),
             'domaines'=> $this->domaineRepository->findAll() ,
+          //  'plat'=>$this->platRepository->findAll()  c'est juste un teste , si ca marche , tu le laisse
+
            // 'formSearch' => $this->formFactory->create(SearchProductType::class)->createView(),
             //'form' => $this->formFactory->create(SearchPriceType::class)->createView(),  
         ];
@@ -49,7 +61,13 @@ class AppExtension extends AbstractExtension implements GlobalsInterface
                 'is_safe' => ['html'],
             ]),*/
         ];
-    }
+    } /**
+     *  du faite que la bare de recherche va etre disponible dans 
+     * tous les vues , je passe par la creation d'une extention twig , "teplate partiel
+     * Cela permet d'éviter la duplication de code et de mieux organiser tes vues.
+     *
+     * @return string
+     */
     public function renderSearchProductForm(): string
     {
         $form = $this->formFactory->create(SearchProductType::class);

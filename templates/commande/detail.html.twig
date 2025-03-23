@@ -1,0 +1,94 @@
+{# templates/order/details.html.twig #}
+
+{% extends 'base.html.twig' %} {# Assure-toi que ce fichier étend ton template de base #}
+
+{% block title %}Détails de la commande{% endblock %}
+
+{% block body %}
+    <h1>Détails de la commande</h1>
+
+    {# Affiche les produits, la quantité, le prix unitaire et le total #}
+		<div class="container">
+			<h1 class="mb-4">🛒 Détail de votre commande</h1>
+			<div>
+					
+			{% if items is not empty %}
+					<table class="table table-striped">
+							<thead>
+									<tr>
+											<th>Produit</th>
+											<th>Quantité</th>
+											<th>Prix Unitaire</th>
+											<th>Total</th>
+									</tr>
+							</thead>
+							<tbody>
+									{% set totalCommande = 0 %}
+									{% for item in items %}
+											{% set totalProduit = item.produit.prix * item.quantite %}
+											{% set totalCommande = totalCommande + totalProduit %}
+											<tr>
+													<td>{{ item.produit.nomProduit }}</td>
+													<td>{{ item.quantite }}</td>
+													<td>{{ item.produit.prix | number_format(2, ',', ' ') }} €</td>
+													<td>{{ totalProduit | number_format(2, ',', ' ') }} €</td>
+											</tr>
+									{% endfor %}
+							</tbody>
+							<tfoot>
+									<tr>
+											<th colspan="3" class="text-end">Total :</th>
+											<th>{{ totalCommande | number_format(2, ',', ' ') }} €</th>
+									</tr>
+							</tfoot>
+					</table>
+					
+	
+	
+					<div class="d-flex justify-content-between mt-4">
+							<a href="{{ path('app_produit') }}" class="btn btn-secondary">🛍️ Continuer vos achats</a>
+							<a href="{{ path('app_commande') }}" class="btn btn-primary">✅ Valider la commande</a>
+					</div>
+			{% else %}
+					<p class="alert alert-warning">Votre panier est vide.</p>
+					<a href="{{ path('app_produit') }}" class="btn btn-success">🛍️ Retour aux produits</a>
+			{% endif %}
+	</div>
+    {# Formulaire pour choisir le mode de livraison #}
+    <h3>Choisissez votre mode de livraison :</h3>
+    <form action="{{ path('order_validate') }}" method="POST">
+        <input type="radio" name="delivery_method" value="home_delivery" id="home_delivery" required>
+        <label for="home_delivery">Livraison à domicile</label>
+
+        <input type="radio" name="delivery_method" value="click_and_collect" id="click_and_collect">
+        <label for="click_and_collect">Click & Collect</label>
+
+        {# Détails du Click & Collect (masqués par défaut) #}
+        <div id="click-and-collect-details" style="display: none;">
+            <h4>Informations pour le retrait :</h4>
+            <p>Adresse : 12 Rue de la Paix, Paris</p>
+            <p>Heures d'ouverture : 9h - 18h</p>
+            <p>Présentez votre numéro de commande à l'accueil.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Valider la commande</button>
+    </form>
+
+    {# JavaScript pour afficher/masquer les détails du Click & Collect #}
+    <script>
+        document.getElementById('click_and_collect').addEventListener('change', function () {
+            document.getElementById('click-and-collect-details').style.display = 'block';
+        });
+        document.getElementById('home_delivery').addEventListener('change', function () {
+            document.getElementById('click-and-collect-details').style.display = 'none';
+        });
+				//message pour la validation du choix de la livraison 
+				document.querySelector('form').addEventListener('submit', function (event) {
+					const deliveryMethod = document.querySelector('input[name="delivery_method"]:checked');
+					if (!deliveryMethod) {
+							event.preventDefault(); // Empêche la soumission du formulaire
+							alert('Veuillez choisir un mode de livraison.');
+					}
+			});
+    </script>
+{% endblock %}

@@ -19,6 +19,9 @@ class Commande
     public const STATUT_EN_COURS = 'en cours';
     public const STATUT_TERMINEE = 'terminée';
     public const STATUT_ANNULEE = 'annulée';
+    public const  STATUT_VALIDEE = 'validée';
+    
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -110,7 +113,7 @@ class Commande
 
     public function setStatut(?string $statut): static
     {
-        if (!in_array($statut, [self::STATUT_EN_COURS, self::STATUT_TERMINEE, self::STATUT_ANNULEE])) {
+        if (!in_array($statut, [self::STATUT_EN_COURS, self::STATUT_TERMINEE, self::STATUT_ANNULEE,self::STATUT_VALIDEE])) {
             throw new \InvalidArgumentException("Statut invalide");
         }
         $this->statut = $statut;
@@ -127,5 +130,19 @@ class Commande
     }
 
     return $total;
+}
+// rajou de la methode qui recupere le mode de livraison
+#[ORM\Column(type: 'string', length: 50, nullable: true)]
+private ?string $modeLivraison = null;
+
+public function getModeLivraison(): ?string
+{
+    return $this->modeLivraison;
+}
+
+public function setModeLivraison(string $modeLivraison): self
+{
+    $this->modeLivraison = $modeLivraison;
+    return $this;
 }
 }

@@ -1,0 +1,26 @@
+{# templates/plats/produits.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits associés au plat{% endblock %}
+
+{% block body %}
+    <h1>Produits associés au plat : {{ plat.nomPlat }}</h1>
+    <div class="produits-list">
+        {% for produit in produits %}
+            <div class="produit-card">
+                {% if produit.image %}
+                <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.name }}" class="produit-image">
+                {% else %}
+                    <div class="produit-image-placeholder">Pas d'image</div>
+                {% endif %}
+                <h2>{{ produit.name }}</h2>
+                <p class="detail">{{ produit.detail }}</p>
+                <p class="prix">{{ produit.prix }} €</p>
+               
+            </div>
+        {% else %}
+            <p>Aucun produit trouvé.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

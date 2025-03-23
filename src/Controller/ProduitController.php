@@ -94,20 +94,7 @@ final class ProduitController extends AbstractController
              
        
     }
-    #[Route('/produit/accords/{platId}', name: 'produits_accords', methods: ['GET'])]
-    public function afficherProduitsAccords(int $platId, AccordRepository $accordRepository): Response
-    {
-        // Récupérer les produits associés au plat
-        $accords = $accordRepository->findBy(['plat' => $platId]) ;
-         
-        
-        // Passer les produits à la vue
-        return  $this->render('produit/accords.html.twig', [
-            'accords' => $accords,
-           
-           
-        ]);
-    }
+    
      
     // fonction pour filtrer par region 
         #[Route('/produit/region/{id}', name: 'produits_par_region', methods: ['GET'])]

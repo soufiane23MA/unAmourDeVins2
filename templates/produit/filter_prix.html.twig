@@ -4,6 +4,10 @@
 {% block body %}
     <h1>Filtrer les produits par prix</h1>
 
+
+<!-- cette vue est obsolette avant de la supprimer , tu fais des testes  -->
+
+
     <div class="filter-form">
         {# Formulaire de filtrage des prix #}
         {{ form_start(form, {'method': 'GET'}) }}
@@ -16,6 +20,8 @@
             <button type="submit" class="btn btn-primary">Filtrer</button>
         {{ form_end(form) }}
     </div>
+<!-- cette vue est obsolette avant de la supprimer , tu fais des testes  -->
+
 
     <div class="produits-list">
         <h2>Produits filtrés par prix</h2>
@@ -33,6 +39,8 @@
             <p>Aucun produit trouvé avec ce prix.</p>
         {% endif %}
     </div>
+
+<!-- cette vue est obsolette avant de la supprimer , tu fais des testes  -->
 
     <script>
         // Met à jour la valeur du slider en temps réel

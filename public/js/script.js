@@ -1,7 +1,7 @@
  
-
+ 
 // Lorsque le DOM est complètement chargé
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     const bouton = document.getElementById('accordMetsVinsBtn');
     const listePlat = document.getElementById('accordsMetsVinsList');
     const platSelect = document.getElementById('platSelect');
@@ -63,7 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-});
+});*/
+
+// le code js qui permettra de m'afficher les produits par accord 
+ 
 document.addEventListener('DOMContentLoaded', function () {
     const regionList = document.getElementById('regionList');
     const domaineList = document.getElementById('domaineList');
@@ -145,127 +148,8 @@ document.addEventListener('DOMContentLoaded', function () {
     chargerRegions();
 });
 
-/*document.addEventListener('DOMContentLoaded', function() {
-    const regionsLink = document.getElementById('regionsLink');
-    const domainesLink = document.getElementById('domainesLink');
-    const produitsLink = document.getElementById('produitsLink');
 
-    regionsLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        domainesLink.style.display = 'block';
-        produitsLink.style.display = 'block';
-    });
-
-    domainesLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        alert('Filtre Domaines cliqué'); // Remplacez par votre logique
-    });
-
-    produitsLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        alert('Filtre Produits cliqué'); // Remplacez par votre logique
-    });
-});*/
- 
-//console.log(typeof mdb);
-//console.log(document.querySelector('.sidebar-log button'));
-//console.log(document.querySelector('[data-mdb-toggle="sidenav"]'));
-// ce code permet de résoudre le probléme de disfonctionnement de l'extention MDB; 
-/*document.addEventListener("DOMContentLoaded", function () {
-    if (typeof mdb !== "undefined") {
-        console.log("MDB chargé !");
-        console.log("Sidenav :", mdb.Sidenav);
-    } else {
-        console.error("Erreur : MDB ne se charge pas.");
-    }
-});*/
- 
-
-// rajouter le fonctioment des prix max et Min pour le curseur.
-/*document.addEventListener("DOMContentLoaded", function () {
-    var slider = document.getElementById("prix-slider");
-
-    noUiSlider.create(slider, {
-        start: [0, 100], // Valeurs de départ (min, max)
-        connect: true,
-        range: {
-            'min': 0,
-            'max': 100
-        },
-        step: 1, // Incrémentation
-        tooltips: true, // Afficher les valeurs au-dessus du curseur
-        format: {
-            to: function (value) {
-                return Math.round(value);
-            },
-            from: function (value) {
-                return Number(value);
-            }
-        }
-    });
-
-    // Mettre à jour les valeurs affichées
-   var prixMin = document.getElementById("prix-min");
-    var prixMax = document.getElementById("prix-max");
-
-    slider.noUiSlider.on("update", function (values) {
-        prixMin.innerText = values[0];
-        prixMax.innerText = values[1];
-        if (!slider) {
-            console.error("Erreur : Le div #prix-slider n'existe pas !");
-        } else {
-            console.log("Div #prix-slider trouvé !");
-        }
-    });
-});
-console.log(typeof noUiSlider);*/
-// juste pour le test
-/*document.addEventListener("DOMContentLoaded", function () {
-    var slider = document.getElementById("prix-slider");
-    var prixMin = document.getElementById("prix-min");
-    var prixMax = document.getElementById("prix-max");
-
-    if (!slider || !prixMin || !prixMax) {
-        console.error("Erreur : Un des éléments nécessaires n'existe pas !");
-        return;
-    }
-
-    noUiSlider.create(slider, {
-        start: [0, 100],
-        connect: true,
-        range: {
-            'min': 0,
-            'max': 100
-        },
-        step: 1,
-        tooltips: true,
-        format: {
-            to: function (value) {
-                return Math.round(value);
-            },
-            from: function (value) {
-                return Number(value);
-            }
-        }
-    });
-
-    slider.noUiSlider.on("update", function (values) {
-        prixMin.innerText = values[0];
-        prixMax.innerText = values[1];
-    });
-});*/
- /*// Met à jour la valeur du slider en temps réel
- const slider = document.getElementById('prix-slider'); // Sélectionne le slider
- const sliderValue = document.getElementById('slider-value'); // Sélectionne l'élément pour afficher la valeur
-
- // Affiche la valeur initiale du slider
- sliderValue.textContent = slider.value;
-
- // Met à jour la valeur affichée lorsque l'utilisateur déplace le slider
- slider.addEventListener('input', function() {
-     sliderValue.textContent = this.value;
- });*/
- document.addEventListener("DOMContentLoaded", function () {
+ /*document.addEventListener("DOMContentLoaded", function () {
     let navbar = document.getElementById("navbar");
     let lastScrollTop = 0;
 
@@ -283,12 +167,101 @@ console.log(typeof noUiSlider);*/
         lastScrollTop = scrollTop;
     });
 });
-/* Open when someone clicks on the span element */
+/* Open when someone clicks on the span element 
 function openNav() {
   document.getElementById("myNav").style.width = "100%";
 }
 
-/* Close when someone clicks on the "x" symbol inside the overlay */
+/* Close when someone clicks on the "x" symbol inside the overlay 
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
+
+//  la fonction qui permet d'afficher la liste déroulante.
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.getElementById("accordsToggle");
+    const platsList = document.getElementById("platsList");
+    const produitsList = document.getElementById("produitsList");
+
+    // Charger les plats via l'API Symfony
+    fetch("/api/plats")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erreur réseau : " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(plats => {
+            console.log("Plats reçus :", plats); // Affiche les plats dans la console
+
+            // Vider la liste avant d'ajouter les nouveaux plats
+            platsList.innerHTML = "";
+
+            // Ajouter chaque plat à la liste
+            plats.forEach(plat => {
+                let listItem = document.createElement("li");
+                let link = document.createElement("a");
+                link.href = "#";
+                link.textContent = plat.name;
+                link.dataset.platId = plat.id;
+
+                // Ajout de l'événement de clic pour récupérer les produits du plat
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let platId = this.dataset.platId;
+                    console.log("Plat ID cliqué :", platId); // Affiche l'ID du plat cliqué
+
+                    // Charger les produits du plat
+                   /* fetch(`/api/accords/${platId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Erreur réseau : " + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(produits => {
+                            console.log("Produits reçus :", produits); // Affiche les produits dans la console
+
+                            // Vider la liste des produits avant d'ajouter les nouveaux
+                            produitsList.innerHTML = "";
+
+                            if (produits.length === 0) {
+                                produitsList.innerHTML = "<p>Aucun produit trouvé.</p>";
+                                return;
+                            }
+
+                            // Ajouter chaque produit à la liste
+                            let ulProduits = document.createElement("ul");
+                            produits.forEach(produit => {
+                                let produitItem = document.createElement("li");
+                                produitItem.textContent = `${produit.name} (${produit.plat})`; // Affiche le nom du produit et du plat
+                                ulProduits.appendChild(produitItem);
+                            });
+                            produitsList.appendChild(ulProduits);
+                        })
+                        .catch(error => {
+                            console.error("Erreur lors de la récupération des accords :", error);
+                        });
+                         // Redirige vers la page des produits associés au plat
+                    window.location.href = `/plats/${platId}/produits`;
+                });
+
+
+                listItem.appendChild(link);
+                platsList.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error("Erreur lors du chargement des plats :", error);
+        });
+
+    // Toggle pour afficher ou cacher le menu
+    toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        platsList.style.display = platsList.style.display === "none" ? "block" : "none";
+    });
+});*/
+ 
+console.log(document.getElementById("accordsToggle")); 
+console.log(document.getElementById("platsList"));
+ 

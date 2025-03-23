@@ -38,8 +38,13 @@ final class PlatController extends AbstractController
     #[Route('/api/accords/{platId}', name: 'plats_accords', methods: ['GET'])]
 public function getAccordsByPlat($platId, AccordRepository $accordRepository): JsonResponse
 {
+    
     // Récupérer les produits associés au plat
     $accords = $accordRepository->findProduitsByPlat($platId);
+    
+   /* return $this->render('plats/produits.html.twig', [
+        'accords' => $accords,
+    ]);*/
 
     // Transformer les produits en un tableau pour le JSON
     $produitsData = [];
@@ -47,12 +52,44 @@ public function getAccordsByPlat($platId, AccordRepository $accordRepository): J
         $produitsData[] = [
             'id' => $accord->getProduit()->getId(),
             'name' => $accord->getProduit()->getNomProduit(), 
-            'plat' =>$accord->getPlat() // Assurez-vous que cette méthode existe
+            'plat' =>$accord->getPlat()->getNomPlat() ,// Assurez-vous que cette méthode existe
              
         ];
     }
 
     return new JsonResponse($produitsData);
+}
+// src/Controller/PlatController.php
+#[Route('/plats/{platId}/produits', name: 'app_plats_produits')]
+public function produits(int $platId, PlatRepository $platRepository, AccordRepository $accordRepository): Response
+{
+    // Récupère le plat
+    $plat = $platRepository->find($platId);
+    if (!$plat) {
+        throw $this->createNotFoundException('Plat non trouvé');
+    }
+
+    // Récupère les produits associés au plat
+    //$produits = $accordRepository->findProduitsByPlat($platId);
+    // Récupère les accords (produits associés au plat)
+    $accords = $accordRepository->findBy(['plat' => $plat]);
+    $produits =[];
+    foreach ($accords as $accord) {
+        $produit = $accord->getProduit(); //pour recuperer tous les attributs du produit
+        $produits[] = [
+            'id' => $accord->getProduit()->getId(),
+            'name' => $accord->getProduit()->getNomProduit(), 
+            'image' => $produit->getImage(), // Image du produit
+            'detail' => $produit->getDetailProduit(), // Détail du produit
+            'prix' => $produit->getPrix()
+        ];
+    }
+
+
+    return $this->render('plats/produits.html.twig', [
+        'plat' => $plat,
+        'produits' => $produits,
+    ]);
 }
 
 

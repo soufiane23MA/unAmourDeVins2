@@ -1,20 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PlatController!{% endblock %}
+{% block title %}Produits associés{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Produits associés au plat</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/laragon/www/unAmourDeVins2/src/Controller/PlatController.php</code></li>
-        <li>Your template at <code>C:/laragon/www/unAmourDeVins2/templates/plat/index.html.twig</code></li>
-    </ul>
+    {% if accords is empty %}
+        <div class="alert alert-warning text-center">Aucun produit associé à ce plat.</div>
+    {% else %}
+        <div class="row">
+            {% for accord in accords %}
+                <div class="col-md-3 mb-3">
+                    <div class="card shadow-sm">
+                        <img src="{{ asset('imgs/' ~ accord.produit.image) }}" alt="{{ accord.produit.nomProduit }}" class="card-img-top">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ accord.produit.nomProduit }}</h2>
+                            <h3 class="card-text">{{ accord.produit.prix }} €</h3>
+                            <p class="card-text">{{ accord.produit.detailProduit }}</p>
+                            <button class="btn btn-success mt-1">Ajouter au Panier</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -5,7 +5,8 @@
 {% block body %}
 <div class="container">
     <h1 class="mb-4">🛒 Détail de votre commande</h1>
-
+    <div>
+        
     {% if items is not empty %}
         <table class="table table-striped">
             <thead>
@@ -36,6 +37,8 @@
                 </tr>
             </tfoot>
         </table>
+        
+
 
         <div class="d-flex justify-content-between mt-4">
             <a href="{{ path('app_produit') }}" class="btn btn-secondary">🛍️ Continuer vos achats</a>
@@ -45,5 +48,16 @@
         <p class="alert alert-warning">Votre panier est vide.</p>
         <a href="{{ path('app_produit') }}" class="btn btn-success">🛍️ Retour aux produits</a>
     {% endif %}
+</div>
+<div>
+    <h3>Choisissez votre moyen de paiement :</h3>
+<input type="radio" name="payment" value="credit_card" id="credit_card">
+<label for="credit_card"><strong>Carte bancaire</strong></label>
+
+<input type="radio" name="payment" value="paypal" id="paypal">
+<label for="paypal">  <strong>PayPal</strong></label>
+
+<input type="radio" name="payment" value="on_delivery" id="on_delivery">
+<label for="on_delivery"><strong>Paiement à la livraison</strong>  </label>
 </div>
 {% endblock %}

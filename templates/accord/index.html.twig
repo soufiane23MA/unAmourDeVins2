@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accords Mets-Vins{% endblock %}
+
+{% block body %}
+    <h1>Accords Mets-Vins</h1>
+    <ul id="plats-list">
+        {% for plat in plats %}
+            <li class="plat-item" data-plat-id="{{ plat.id }}">
+                {{ plat.nomPlat }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div id="produits-container" class="produits-grid">
+        <!-- Les produits associés seront affichés ici via JavaScript --> 
+       
+    </div>
+
+    <!-- Intégration du JavaScript -->
+     
+      <!-- Lien vers le fichier JavaScript externe -->
+      <script src="{{ asset('js/accord.js') }}"></script>
+{% endblock %}

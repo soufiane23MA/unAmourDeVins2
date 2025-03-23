@@ -34,17 +34,17 @@
  
 <h1>Ventes Exclusives:</h1>
 
-<div class="row">
+<!--<div class="product-container ">
     {% for produit in produitsPagines %}
     <div class="col-md-4 mb-4">
-        <div class="card">
+        <div class="product-card">
             <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="card-img-top" style="max-width: 200px; margin: 0 auto;">
             <div class="card-body">
-                <h5 class="card-title">{{ produit.nomProduit }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted" style="color: blue;">{{ produit.prix }} €</h6>
+                <p class="product-name">{{ produit.nomProduit }}</p>
+                <p class="product-price">{{ produit.prix }} €</p>
                 <p><strong>Nom du domaine :</strong> {{ produit.domaine }}</p>
             </div>
-            <div class="card-footer">
+            <div class="product-domaie">
                 <h6>Détails du domaine</h6>
                 <p>{{ produit.domaine }}</p>
             </div>
@@ -55,9 +55,33 @@
 
 <div class="navigation">
     {{ knp_pagination_render(produitsPagines) }}
-</div>
+</div>-->
 
  
+<div class="product-container">
+    {% for produit in produitsPagines %}
+     <div class="product-card">
+        <div class="product-img">
+            <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="product-img"  ">
+
+        </div>
+        <h2 class="product-title">{{ produit.nomProduit }}</h2>
+        <h4 class="product-price">{{ produit.prix }}  €</h4>
+        <div class="product-domaine">
+            <h6>Détails du domaine</h6>
+            <p>{{ produit.domaine }}</p>
+        </div>
+        <button class="product-btn"> Ajouter au Panier</button>
+    </div>
+
+    {% endfor %}
+</div>
+<section class="pagination">
+    <div class="navigation">
+    {{ knp_pagination_render(produitsPagines) }}
+</div>
+</section>
+
 
   
 

@@ -40,14 +40,28 @@ class AccordRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function findProduitsByPlat($platId): array
+  /*  public function findProduitsByPlat($platId): array
 {
     return $this->createQueryBuilder('a')
-        ->innerJoin('a.produit', 'p')  // Jointure avec la table Produit
-        ->andWhere('a.plat = :platId')
+        ->leftJoin('a.produit', 'p')  // Jointure avec la table Produit
+        ->leftJoin('a.plat', 'pl')
+        ->andWhere('pl.id = :platId')
         ->setParameter('platId', $platId)
+        ->select('p.id', 'p.nomProduit as name', 'plat.nomPlat as plat') // Sélectionne les champs nécessaires
         ->getQuery()
         ->getResult();
+}*/
+// src/Repository/AccordRepository.php
+// src/Repository/AccordRepository.php
+public function findProduitsByPlat(int $platId): array
+{
+    return $this->createQueryBuilder('a')
+        ->leftJoin('a.produit', 'p') // Jointure avec l'entité Produit
+        ->leftJoin('a.plat', 'pl') // Jointure avec l'entité Plat, alias 'pl'
+        ->andWhere('pl.id = :platId') // Utilise l'alias 'pl' pour la condition
+        ->setParameter('platId', $platId)
+        ->getQuery()
+        ->getResult(); // Renvoie un tableau d'objets Accord
 }
 
 }

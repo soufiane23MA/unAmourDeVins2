@@ -23,7 +23,8 @@
       </p>
       <p class="product-prix">{{ produit.prix }} €</p>
       <a href="{{ path('add_panier', {'id': produit.id}) }}">
-        <button class="product-btn">Ajouter au Panier</button>
+       <!-- <button class="product-btn">Ajouter au Panier</button>-->
+        <button class="btn-ajouter-panier" data-produit-id="{{ produit.id }}"> Ajouter au Panier</button>
       </a>
       <p><a href="{{ path('detail_produit', {'id': produit.id}) }}">+ de détails</a></p>
     </div>

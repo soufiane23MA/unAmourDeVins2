@@ -71,7 +71,7 @@
             <h6>Détails du domaine</h6>
             <p>{{ produit.domaine }}</p>
         </div>
-        <button class="product-btn"> Ajouter au Panier</button>
+        <button class="btn-ajouter-panier" data-produit-id="{{ produit.id }}"> Ajouter au Panier</button>
     </div>
 
     {% endfor %}
@@ -81,6 +81,7 @@
     {{ knp_pagination_render(produitsPagines) }}
 </div>
 </section>
+ 
 
 
   

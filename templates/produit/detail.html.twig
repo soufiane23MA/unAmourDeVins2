@@ -22,10 +22,13 @@
         <p><strong>Région :</strong> {{ region.nomRegion }}</p>
         <p><strong>Contenance :</strong> {{ produit.contenance }} cl</p>
         <h3 class="prix">{{ produit.prix }} €</h3>
-        <a href="{{ path('add_panier', {'id': produit.id}) }}">
-          <button class="card-btn">Ajouter au Panier</button>
-        </a>
+        
       </div>
+      
+      <!--<button class="card-btn">Ajouter au Panier</button>-->
+      <button class="btn-ajouter-panier" data-produit-id="{{ produit.id }}">Ajouter au panier</button>
+
+    </a>
     </div>
 
     <!-- Détails du domaine -->

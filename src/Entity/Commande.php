@@ -16,10 +16,11 @@ class Commande
      * définir une liste de statuts pour éviter les erreurs liées à la saisie manuelle 
      * et garantir une certaine cohérence
      */
-    public const STATUT_EN_COURS = 'en cours';
+    public const STATUT_EN_COURS = 'en_cours';
     public const STATUT_TERMINEE = 'terminée';
     public const STATUT_ANNULEE = 'annulée';
     public const  STATUT_VALIDEE = 'validée';
+    public const STATUT_PAYEE = 'payée';
     
     
     #[ORM\Id]
@@ -113,13 +114,14 @@ class Commande
 
     public function setStatut(?string $statut): static
     {
-        if (!in_array($statut, [self::STATUT_EN_COURS, self::STATUT_TERMINEE, self::STATUT_ANNULEE,self::STATUT_VALIDEE])) {
+        if (!in_array($statut, [self::STATUT_EN_COURS, self::STATUT_TERMINEE, self::STATUT_ANNULEE,self::STATUT_VALIDEE,self::STATUT_PAYEE])) {
             throw new \InvalidArgumentException("Statut invalide");
         }
         $this->statut = $statut;
 
         return $this;
     }
+    
     public function getTotal(): float
 {
     $total = 0;

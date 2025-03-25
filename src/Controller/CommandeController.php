@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\ProduitCommande;
+use App\Services\PanierService;
 use Doctrine\ORM\EntityManager;
-use App\Service\Panier\PanierService;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Services\CommandeService;
  
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,83 +17,129 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class CommandeController extends AbstractController
 {
-    #[Route('/commande', name: 'app_commande')]
-    public function creerCommande(PanierService $panierService,EntityManagerInterface $entityManager): Response
-    {
-        // récuperer l'utilisateur connecter et le panier en session 
-        $user = $this->getUser();
-        $produitsPanier = $panierService->getPanierComplet();
-       
-        // Créer une nouvelle commande
-        $commande = new Commande();
-        $commande->setUser($user); // Associer l'utilisateur à la commande
-        $commande->setStatut(Commande::STATUT_EN_COURS);// mettre en place un statut par defaut 
-        $commande->setDateCommande(new \DateTime());
-            // Enregistrer la commande dans la base de données
-        $entityManager->persist($commande);
-        $entityManager->flush();
-        
-        // Ajouter les produits dans la commande (ProduitCommande)
-        
-        foreach ($produitsPanier as $item) {
-            $produitCommande = new ProduitCommande();
-            $produitCommande->setCommande($commande);
-            $produitCommande->setProduit($item['produit']);
-            $produitCommande->setQuantite($item['quantite']);
+    /**
+     * 
+     */
+    #[Route('/commande/preparation', name: 'app_commande_preparation')]
+    public function preparationCommande(PanierService $panierService): Response
+        {
+            $user = $this->getUser();
+            if(!$user) {
+                return $this->redirectToRoute('app_login');
+            }
+            $panier = $panierService->getPanierComplet();
             
-            $entityManager->persist($produitCommande);
+            
+            if(empty($panier)) {
+                $this->addFlash('error', 'Votre panier est vide');
+                return $this->redirectToRoute('app_panier');
+            }
+            // Calcul du total
+            $total = 0;
+            foreach ($panier as $item) {
+                $total += $item['produit']->getPrix() * $item['quantite'];
+            }
+
+            return $this->render('commande/preparation.html.twig', [
+                'panier' => $panier,
+                'total' => $total // Ajout du total
+                
+            ]);
         }
-            $entityManager->flush(); 
-             // Vider le panier dans la session après avoir créé la commande
-            // Vide le panier après la commande
-        
-            // $panierService->viderPanier();
-
-        /*return $this->render('commande/index.html.twig', [
-             'items'=> $produitsPanier
-        ]);*/
-        return $this->redirectToRoute('app_commande_confirmation', ['id' => $commande->getId()]);   
-    }
 
 
-    #[Route('/commande/valider', name: 'commande_valider', methods: ['POST'])]
-    public function validerCommande(Request $request, EntityManagerInterface $entityManager): Response
+
+
+    #[Route('/commande', name: 'app_commande', methods: ['POST'])]
+    public function creerCommande( CommandeService $commandeService,EntityManagerInterface $entityManager): Response
     {
-        // Récupérer le mode de livraison choisi
-        $deliveryMethod = $request->request->get('delivery_method');
+    /**
+     * @var mixed
+     * si l'utilisateur n'est pas connecté , on le redirige vers la page login ou s'enregistrer
+     */
 
+        $user = $this->getUser();
+        if(!$user)
+        {
+            return $this->redirectToRoute('app_login'); 
+            // Rediriger si l'utilisateur n'est pas connecté pour
+            // qu'il se connecte.
+        }
+        // Créer la commande via le service
+        try 
+        {
+            $commande = $commandeService->creerCommande($user);
+            
+            return $this->redirectToRoute('app_commande_confirmation',
+                        ['idCommande' => $commande->getId()]);   
+        }  
+            catch (\Exception $e) 
+            {
+                // Gérer les erreurs (par exemple, panier vide)
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('app_panier');
+            }
+    }
+    
+
+
+    #[Route('/commande/valider', name: 'app_commande_valider', methods: ['POST'])]
+    public function validerCommande(Request $request,CommandeService $commandeService ,EntityManagerInterface $entityManager): Response
+    {
         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login'); // Rediriger vers la connexion si non connecté
         }
+        try {
+             // Récupère la commande existante au lieu d'en créer une nouvelle
+             $commande = $this->$entityManager->getRepository(Commande::class)->findOneBy([
+                'user' => $user,
+                'statut' => Commande::STATUT_EN_COURS
+            ]);
+        
+            // 2-Récupérer le mode de livraison choisi
+            $modeLivraison = $request->request->get('mode_livraison');
+            $commandeService->validerCommande($commande, $modeLivraison);
+          // $commande = $commandeService->validerCommande($user, $modeLivraison);
+             // 3. Rediriger vers paiement
+            return $this->redirectToRoute('app_paiement', [
+            'idCommande' => $commande->getId()
+        ]);
+            
+            
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+            return $this->redirectToRoute('app_commande_preparation');
+        }
+       
 
         // Récupérer la commande en cours de l'utilisateur
-        $commande = $entityManager->getRepository(Commande::class)->findOneBy([
-            'user' => $user,
-            'statut' => 'en cours'
-        ]);
+        //$commande = $entityManager->getRepository(Commande::class)->findOneBy([
+          //  'user' => $user,
+            //'statut' => 'en cours'
+          //  'statut'=> Commande::STATUT_EN_COURS
+        //]);
 
-        if (!$commande) {
-            return $this->redirectToRoute('app_commande'); // Si pas de commande, retour à la page commande
-        }
-
-        // Mettre à jour le mode de livraison de la commande
-        $commande->setModeLivraison($deliveryMethod);
-
-        // Si le client choisit le Click & Collect, mettre le statut à "prête pour retrait"
-        if ($deliveryMethod === 'click_and_collect') {
-            $commande->setStatut('prête pour retrait');
-        }
-
-        // Enregistrer les modifications en base de données
-        $entityManager->flush();
-
-        // Rediriger vers la page de confirmation
-        return $this->redirectToRoute('app_commande_confirmation', ['id' => $commande->getId()]);
-
+       // if (!$commande) {
+            //prevenir l'utilisateur qu'il n'a pas trouveé de commande en cours
+          //  $this->addFlash('error', 'Aucune commande en cours trouvée.');
+           // Si pas de commande, retour à la page commande
+           // return $this->redirectToRoute('app_commande'); 
+      //  }
+       // try {
+            // Valider la commande via le service
+         //   $commandeService->validerCommande($commande, $modeLivraison);
+            // Rediriger vers la page de confirmation
+          //  return $this->redirectToRoute('app_paiement', ['idCommande' => $commande->getId()]);
+      //  }// catch (\Exception $e) {
+          //  $this->addFlash('error', $e->getMessage());
+          //  return $this->redirectToRoute('app_commande');
+      //  }
 
     }
+
+
     #[Route('/commande/confirmation/{id}', name: 'app_commande_confirmation')]
     public function confirmation(Commande $commande): Response
     {
@@ -107,8 +154,8 @@ final class CommandeController extends AbstractController
     }
 
     
-    #[Route('/commande/confirmer/{id}', name: 'app_commande_confirmer', methods: ['POST'])]
-    public function confirmerCommande(int $id, EntityManagerInterface $entityManager): Response
+    /*#[Route('/commande/confirmer/{id}', name: 'app_commande_confirmer', methods: ['POST'])]
+    public function confirmerCommande(int $id, CommandeService $commandeService ,EntityManagerInterface $entityManager): Response
     {
         // Récupérer la commande
         $commande = $entityManager->getRepository(Commande::class)->find($id);
@@ -118,19 +165,18 @@ final class CommandeController extends AbstractController
             throw $this->createNotFoundException('Commande introuvable ou accès interdit.');
         }
 
-        // Vérifier que la commande n'est pas déjà validée
-        if ($commande->getStatut() !== Commande:: STATUT_EN_COURS ) {
-            $this->addFlash('error', 'Cette commande a déjà été validée.');
+        try {
+            // Confirmer la commande via le service
+            $commandeService->confirmerCommande($commande);
+    
+            // Rediriger vers la page de confirmation finale
+            return $this->redirectToRoute('app_commande_finale', ['id' => $commande->getId()]);
+        }catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
             return $this->redirectToRoute('app_commande_confirmation', ['id' => $commande->getId()]);
         }
-
-        // Mettre à jour le statut de la commande
-        $commande->setStatut(Commande::STATUT_VALIDEE);
-        $entityManager->flush();
-
-        // Rediriger vers une page de confirmation finale
-        return $this->redirectToRoute('app_commande_finale', ['id' => $commande->getId()]);
-    }
+         
+    }*/
 
     #[Route('/commande/finale/{id}', name: 'app_commande_finale')]
     public function commandeFinale(Commande $commande): Response
@@ -144,6 +190,7 @@ final class CommandeController extends AbstractController
             'commande' => $commande,
         ]);
     }
+    
         
     
     /*#[Route('/commande/valider', name: 'app_commande_valider')]
@@ -191,6 +238,37 @@ public function choixPaiement(int $idCommande, EntityManagerInterface $entityMan
     return $this->render('commande/paiement.html.twig', [
         'commande' => $commande,
     ]);
+}
+#[Route('/paiement/valider/{idCommande}', name: 'app_paiement_valider', methods: ['POST'])]
+public function validerPaiement(int $idCommande, Request $request, EntityManagerInterface $entityManager,CommandeService $commandeService): Response
+{
+    // Récupérer la commande
+    $commande = $entityManager->getRepository(Commande::class)->find($idCommande);
+    //dump($commande);
+   // die();
+    
+
+    // Vérifier que la commande existe et appartient bien à l'utilisateur connecté
+    if (!$commande || $commande->getUser() !== $this->getUser()) {
+        throw $this->createNotFoundException('Commande introuvable ou accès interdit.');
+    }
+
+    // Traiter le paiement (exemple simplifié)
+    try {
+        // Ici, je pourrais appeler un service de paiement (Stripe, PayPal, etc.)
+        // Pour l'instant, on simule un paiement réussi
+         // 1. Appeler le service pour valider le paiement
+         $commandeService->validerPaiement($commande, $request->request->get('mode_paiement'));
+         // Exemple de statut après paiement
+         // 2. Rediriger vers la confirmation
+        // Rediriger vers une page de confirmation de paiement
+        return $this->redirectToRoute('app_commande_finale', ['id' => $commande->getId()]);
+
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Une erreur est survenue lors du paiement.');
+            return $this->redirectToRoute('app_paiement', ['idCommande' => $commande->getId()]);
+        }
+         
 }
 
     

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
  
-use App\Service\Panier\PanierService;
+use App\Services\PanierService;
 use Symfony\Bundle\SecurityBundle\Security;
  
 use Symfony\Component\HttpFoundation\Request;

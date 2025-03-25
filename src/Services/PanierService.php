@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Panier;
+namespace App\Services;
 
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;

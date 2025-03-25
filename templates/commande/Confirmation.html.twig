@@ -1,12 +1,9 @@
-{# templates/commande/confirmation.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Confirmation de commande{% endblock %}
 
 {% block body %}
     <h1>Confirmation de commande</h1>
-
     <p>Votre commande #{{ commande.id }} a bien été enregistrée.</p>
 
     <h3>Détails de la commande :</h3>
@@ -37,14 +34,37 @@
         </tfoot>
     </table>
 
-    {% if commande.modeLivraison == 'click_and_collect' %}
-        <h3>Informations pour le retrait :</h3>
-        <p>Adresse : 12 Rue de la Paix, Paris</p>
-        <p>Heures d'ouverture : 9h - 18h</p>
-        <p>Présentez votre numéro de commande à l'accueil.</p>
-    {% endif %}
-		{# Bouton pour valider la commande #}
-    <form action="{{ path('app_commande_confirmer', {'id': commande.id}) }}" method="POST">
-			<button type="submit" class="card-btn">✅ Valider la commande</button>
-	</form>
-{% endblock %}
+   {# -- Nouveau formulaire de paiement -- #}
+<h3>Finalisez votre commande :</h3>
+
+{% if commande.modeLivraison == 'click_and_collect' %}
+    <div class="alert alert-info mb-4">
+        <h4><i class="fas fa-store-alt"></i> Retrait en magasin</h4>
+        <p>Adresse : 12 Rue de la Paix, Paris<br>
+        Horaires : 9h-18h du lundi au samedi</p>
+    </div>
+{% endif %}
+
+<form action="{{ path('app_paiement_valider', {'idCommande': commande.id}) }}" method="POST">
+    <div class="mb-4">
+        <h4>Mode de paiement :</h4>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mode_paiement" id="carte" value="carte" required>
+            <label class="form-check-label" for="carte">
+                <i class="fas fa-credit-card"></i> Carte bancaire
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mode_paiement" id="paypal" value="paypal">
+            <label class="form-check-label" for="paypal">
+                <i class="fab fa-paypal"></i> PayPal
+            </label>
+        </div>
+    </div>
+
+    <input type="hidden" name="_token" value="{{ csrf_token('paiement_' ~ commande.id) }}">
+
+    <button type="submit" class="btn btn-success btn-lg">
+        <i class="fas fa-check-circle"></i> Payer maintenant ({{ commande.getTotal()|number_format(2, ',', ' ') }} €)
+    </button>
+</form>

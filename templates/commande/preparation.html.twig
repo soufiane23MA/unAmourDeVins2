@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h2>Détails de votre commande</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Vos articles</h4>
+            {% for item in panier %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>{{ item.produit.nomProduit }}</h5>
+                        <p>Quantité: {{ item.quantite }}</p>
+                        <p>Prix: {{ item.produit.prix * item.quantite }} €</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Total: {{ total }} €</h4>
+                    
+                    <form method="post" action="{{ path('app_commande_valider') }}">
+                        <div class="mb-3">
+                            <label class="form-label">Mode de livraison:</label>
+                            <select name="mode_livraison" class="form-select" required>
+                                <option value="livraison">Livraison à domicile</option>
+                                <option value="click_collect">Click & Collect</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100">
+                            Valider la commande
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

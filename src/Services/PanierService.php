@@ -5,10 +5,13 @@ namespace App\Services;
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\VarDumper\VarDumper;
+
 
 class PanierService
 
 {
+ 
 protected $session;
 protected $produitRepository;
 
@@ -21,6 +24,9 @@ public function __construct(RequestStack $requestStack,ProduitRepository $produi
 public function addProduit(int $id)
 {
 	$panier = $this->session->get('panier',[]);
+ 
+	
+	 
 	if(!empty($panier[$id]))
 	{
 		$panier[$id] ++;
@@ -29,6 +35,7 @@ public function addProduit(int $id)
 		$panier[$id]= 1;
 	}
 	$this->session->set('panier',$panier);
+ 
  
 
 } 

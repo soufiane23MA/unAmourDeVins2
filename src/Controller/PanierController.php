@@ -12,6 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\VarDumper\VarDumper;
+ 
+
+
+
+
 
 final class PanierController extends AbstractController
 {
@@ -54,6 +60,7 @@ final class PanierController extends AbstractController
     public function addProduitpanier( $id,PanierService $panierService)
     {
         $panierService -> addProduit($id);
+        
 
          return $this->redirectToRoute('app_panier');
 

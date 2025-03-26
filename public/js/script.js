@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Vérifie que les éléments existent
     if (!regionList || !domaineList || !produitList) {
-        console.error('Un ou plusieurs éléments du DOM sont manquants.');
+         
         return;
     }
 
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // le code javascript qui permet en cas de click , de rajouter le produit cliqué au panier 
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     // Écouteur pour les boutons "Ajouter au panier"
     const boutonsPanier = document.querySelectorAll('.btn-ajouter-panier');
 
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const produitId = this.getAttribute('data-produit-id');
             ajouterAuPanier(produitId);
         });
-    });
+    });*/
 
     // Fonction pour ajouter un produit au panier
     function ajouterAuPanier(produitId) {
@@ -116,6 +116,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
  
  
-console.log(document.getElementById("accordsToggle")); 
-console.log(document.getElementById("platsList"));
+ 
  

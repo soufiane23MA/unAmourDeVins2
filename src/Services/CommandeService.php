@@ -91,27 +91,11 @@ class CommandeService
 				$this->entityManager->flush();
 			}
 		
-			/**
-			 * 
-			 */
+			 
 		 
 		 public function validerPaiement(Commande $commande, string $modePaiement): void
 		 {
-				/* if ($commande->getStatut() !== Commande::STATUT_EN_COURS) {
-						 throw new \Exception('Commande déjà traitée.');
-				 }*/
-		 
-				 // Mise à jour obligatoire de la date
-				/* $commande->setDateCommande(new \DateTime()); // <-- Ligne ajoutée
-		 
-				 if (in_array($modePaiement, ['carte', 'paypal'])) {
-						 $commande->setStatut(Commande::STATUT_PAYEE);
-				 } elseif ($commande->getModeLivraison() === 'click_and_collect') {
-						 $commande->setStatut(Commande::STATUT_VALIDEE);
-				 }else {
-					throw new \Exception('Mode de paiement non reconnu');// sinon pas de moyen de paiement accépté
-		 
-				 }*/
+				 
 				// 1. Validation
 				if (!in_array($modePaiement, ['carte', 'paypal'])) {
 					throw new \Exception('Mode de paiement invalide');
@@ -121,6 +105,9 @@ class CommandeService
 				$commande
 						->setStatut(Commande::STATUT_PAYEE)
 						->setDateCommande(new \DateTime());
+
+					//	3   Vide le panier associé à cette commande
+    				$this->panierService->viderPanier();
 	
 
 							$this->entityManager->flush();

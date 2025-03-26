@@ -37,7 +37,7 @@
     <h2>Choisissez un mode de paiement</h2>
     <form method="POST" action="{{ path('app_paiement_valider',{'idCommande': commande.id}) }}">
         <label>
-            <input type="radio" name="mode_paiement" value="cb" required> Carte Bancaire
+            <input type="radio" name="mode_paiement" value="carte" required> Carte Bancaire
         </label>
         <label>
             <input type="radio" name="mode_paiement" value="paypal" required> PayPal

@@ -48,8 +48,6 @@ final class CommandeController extends AbstractController
         }
 
 
-
-
     #[Route('/commande', name: 'app_commande', methods: ['POST'])]
     public function creerCommande( CommandeService $commandeService,EntityManagerInterface $entityManager): Response
     {
@@ -80,7 +78,6 @@ final class CommandeController extends AbstractController
                 return $this->redirectToRoute('app_panier');
             }
     }
-    
 
 
     #[Route('/commande/valider', name: 'app_commande_valider', methods: ['POST'])]
@@ -93,16 +90,22 @@ final class CommandeController extends AbstractController
         }
         try {
              // Récupère la commande existante au lieu d'en créer une nouvelle
-             $commande = $this->$entityManager->getRepository(Commande::class)->findOneBy([
+             $commande = $entityManager->getRepository(Commande::class)->findOneBy([
                 'user' => $user,
                 'statut' => Commande::STATUT_EN_COURS
             ]);
+            if (!$commande) {
+                // Si aucune commande en cours, on en crée une nouvelle
+                $commande = $commandeService->creerCommande($user);
+            }
         
             // 2-Récupérer le mode de livraison choisi
             $modeLivraison = $request->request->get('mode_livraison');
+            
+        // 3. Valider la commande
             $commandeService->validerCommande($commande, $modeLivraison);
           // $commande = $commandeService->validerCommande($user, $modeLivraison);
-             // 3. Rediriger vers paiement
+             // 4. Rediriger vers paiement
             return $this->redirectToRoute('app_paiement', [
             'idCommande' => $commande->getId()
         ]);
@@ -112,31 +115,6 @@ final class CommandeController extends AbstractController
             $this->addFlash('error', $e->getMessage());
             return $this->redirectToRoute('app_commande_preparation');
         }
-       
-
-        // Récupérer la commande en cours de l'utilisateur
-        //$commande = $entityManager->getRepository(Commande::class)->findOneBy([
-          //  'user' => $user,
-            //'statut' => 'en cours'
-          //  'statut'=> Commande::STATUT_EN_COURS
-        //]);
-
-       // if (!$commande) {
-            //prevenir l'utilisateur qu'il n'a pas trouveé de commande en cours
-          //  $this->addFlash('error', 'Aucune commande en cours trouvée.');
-           // Si pas de commande, retour à la page commande
-           // return $this->redirectToRoute('app_commande'); 
-      //  }
-       // try {
-            // Valider la commande via le service
-         //   $commandeService->validerCommande($commande, $modeLivraison);
-            // Rediriger vers la page de confirmation
-          //  return $this->redirectToRoute('app_paiement', ['idCommande' => $commande->getId()]);
-      //  }// catch (\Exception $e) {
-          //  $this->addFlash('error', $e->getMessage());
-          //  return $this->redirectToRoute('app_commande');
-      //  }
-
     }
 
 
@@ -153,30 +131,6 @@ final class CommandeController extends AbstractController
         ]);
     }
 
-    
-    /*#[Route('/commande/confirmer/{id}', name: 'app_commande_confirmer', methods: ['POST'])]
-    public function confirmerCommande(int $id, CommandeService $commandeService ,EntityManagerInterface $entityManager): Response
-    {
-        // Récupérer la commande
-        $commande = $entityManager->getRepository(Commande::class)->find($id);
-
-        // Vérifier que la commande existe et appartient bien à l'utilisateur connecté
-        if (!$commande || $commande->getUser() !== $this->getUser()) {
-            throw $this->createNotFoundException('Commande introuvable ou accès interdit.');
-        }
-
-        try {
-            // Confirmer la commande via le service
-            $commandeService->confirmerCommande($commande);
-    
-            // Rediriger vers la page de confirmation finale
-            return $this->redirectToRoute('app_commande_finale', ['id' => $commande->getId()]);
-        }catch (\Exception $e) {
-            $this->addFlash('error', $e->getMessage());
-            return $this->redirectToRoute('app_commande_confirmation', ['id' => $commande->getId()]);
-        }
-         
-    }*/
 
     #[Route('/commande/finale/{id}', name: 'app_commande_finale')]
     public function commandeFinale(Commande $commande): Response
@@ -193,33 +147,7 @@ final class CommandeController extends AbstractController
     
         
     
-    /*#[Route('/commande/valider', name: 'app_commande_valider')]
-public function validerCommande(EntityManagerInterface $entityManager, Security $security): Response
-{
-    // Récupérer l'utilisateur connecté
-    $user = $security->getUser();
-
-    if (!$user) {
-        return $this->redirectToRoute('app_login'); // Rediriger vers la connexion si non connecté
-    }
-
-    // Récupérer la commande en cours de l'utilisateur
-    $commande = $entityManager->getRepository(Commande::class)->findOneBy([
-        'user' => $user,
-        'statut' => 'en cours'
-    ]);
-
-    if (!$commande) {
-        return $this->redirectToRoute('app_commande'); // Si pas de commande, retour à la page commande
-    }
-
-    // Mettre à jour le statut de la commande
-    $commande->setStatut('en attente de paiement');
-    $entityManager->flush();
-
-    // Rediriger vers la page de paiement
-    return $this->redirectToRoute('app_paiement');
-}*/
+     
 
  
 #[Route('/paiement/{idCommande}', name: 'app_paiement')]
@@ -259,7 +187,8 @@ public function validerPaiement(int $idCommande, Request $request, EntityManager
         // Pour l'instant, on simule un paiement réussi
          // 1. Appeler le service pour valider le paiement
          $commandeService->validerPaiement($commande, $request->request->get('mode_paiement'));
-         // Exemple de statut après paiement
+        //envoie un message de cnfirmation 
+        $this->addFlash('success', 'Paiement effectué avec succès et panier vidé !');
          // 2. Rediriger vers la confirmation
         // Rediriger vers une page de confirmation de paiement
         return $this->redirectToRoute('app_commande_finale', ['id' => $commande->getId()]);

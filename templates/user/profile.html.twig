@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Bienvenu {% endblock %}
+
+{% block body %}
+
+ <h1>Bienvenu {{app.user.nom}} sur votre profil</h1>
+  <h4>il faut génerer tous les commande pase par {{app.user.nom ~ app.user.prenom}}</h4>
+  
+ 
+
+  <div>
+    <h3>Info Personnel</h3>
+   
+  <span><strong>Nom: {{app.user.nom}}</strong></span><br>
+  <span><strong>Prenom: {{app.user.prenom}}</strong></span><br>
+  <span><strong>Adresse : {{app.user.adresse}}</strong></span><br>
+ <span><strong>E-Mail : {{ app.user.email }}</strong></span><br>
+  <span><strong>Telephone: {{app.user.phone}}</strong></span><br>
+  </div>
+  <div>
+
+    <h4>Historique des commandes</h4>
+    <table>
+      <thead>
+          <tr>
+              <th>N° de La commande</th>
+              <th>Date de la commande</th>
+              <th>Total de la commande</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for commande in commandes %}
+          <tr>
+              <td>Commande #  {{ commande.numeroCommande }} </td>
+              <td>{{ commande.dateCommande|date('d/m/Y') }}</td>
+              <td>Total : {{ commande.total }} €  </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+      
+      
+
+      <a href="#">Modifier mes informations</a> <br>
+      <a href="#" class="btn-danger">Supprimer mon compte</a>
+    
+{% endblock %}

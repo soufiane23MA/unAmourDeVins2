@@ -137,6 +137,9 @@ class Commande
 #[ORM\Column(type: 'string', length: 50, nullable: true)]
 private ?string $modeLivraison = null;
 
+#[ORM\Column(length: 255, unique : true)]// là j'ai remis l'attribut unique 
+private ?string $numeroCommande = null;
+
 public function getModeLivraison(): ?string
 {
     return $this->modeLivraison;
@@ -145,6 +148,18 @@ public function getModeLivraison(): ?string
 public function setModeLivraison(string $modeLivraison): self
 {
     $this->modeLivraison = $modeLivraison;
+    return $this;
+}
+
+public function getNumeroCommande(): ?string
+{
+    return $this->numeroCommande;
+}
+
+public function setNumeroCommande(string $numeroCommande): static
+{
+    $this->numeroCommande = $numeroCommande;
+
     return $this;
 }
 }

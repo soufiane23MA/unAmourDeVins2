@@ -32,9 +32,9 @@
       <tbody>
           {% for commande in commandes %}
           <tr>
-              <td>Commande #  {{ commande.numeroCommande }} </td>
+              <td>  {{ commande.numeroCommande }} </td>
               <td>{{ commande.dateCommande|date('d/m/Y') }}</td>
-              <td>Total : {{ commande.total }} €  </td>
+              <td>Total : {{ commande.total }} TTC €  </td>
           </tr>
           {% endfor %}
       </tbody>

@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProduitType  extends AbstractType  // Hérite de AbstractType
 {
+	// c'est le formulaire du CRUD de la classe Admin
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 			$builder

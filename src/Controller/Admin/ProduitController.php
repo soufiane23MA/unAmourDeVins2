@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Produit;
  
+use App\Entity\Commande;
 use App\Form\ProduitType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ProduitRepository;
+use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-final class AdminProduitController extends AbstractController
+final class ProduitController extends AbstractController
 {
     #[Route('/admin/produits', name: 'app_admin_produits')]
     public function index(ProduitRepository $produitRepository): Response
@@ -115,8 +117,9 @@ final class AdminProduitController extends AbstractController
             return $this->render('admin/produits/new.html.twig', [
                 'form' => $form->createView()
             ]);
-    }
-
+    } 
+     
+     
      
       
 }

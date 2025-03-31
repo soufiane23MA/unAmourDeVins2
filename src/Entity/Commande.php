@@ -42,6 +42,11 @@ class Commande
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $statut = null;
+    #[ORM\Column(type: 'string', length: 255)] // on rajoute cest attribut à la commande pour pourvoir la garder dans la BDD
+    private ?string $userNom = null; 
+
+    #[ORM\Column(type: 'string', length: 255)]// on rajoute cest attribut à la commande pour pourvoir la garder dans la BDD
+    private ?string $userPrenom = null;
 
     public function __construct()
     {
@@ -137,7 +142,9 @@ class Commande
 #[ORM\Column(type: 'string', length: 50, nullable: true)]
 private ?string $modeLivraison = null;
 
-#[ORM\Column(length: 255, unique : true)]// là j'ai remis l'attribut unique 
+#[ORM\Column(length: 255, unique : true)]
+
+// là j'ai remis l'attribut unique 
 private ?string $numeroCommande = null;
 
 public function getModeLivraison(): ?string
@@ -162,4 +169,49 @@ public function setNumeroCommande(string $numeroCommande): static
 
     return $this;
 }
+
+    /**
+     * Get the value of userNom
+     */ 
+    public function getUserNom()
+    {
+        return $this->userNom;
+    }
+
+    /**
+     * Set the value of userNom
+     *
+     * @return  self
+     */ 
+    public function setUserNom($userNom)
+    {
+        $this->userNom = $userNom;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userPrenom
+     */ 
+    public function getUserPrenom()
+    {
+        return $this->userPrenom;
+    }
+
+    /**
+     * Set the value of userPrenom
+     *
+     * @return  self
+     */ 
+    public function setUserPrenom($userPrenom)
+    {
+        $this->userPrenom = $userPrenom;
+
+        return $this;
+    }
+
+    public function __tostring(){
+        return $this->getNumeroCommande().$this->getDateCommande()
+            .$this->getUserNom().$this->getUserPrenom();
+    }
 }

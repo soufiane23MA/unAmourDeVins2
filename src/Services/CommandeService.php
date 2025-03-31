@@ -39,11 +39,13 @@ class CommandeService
 			  // Créer une nouvelle commande
         $commande = new Commande();
         $commande->setUser($user); // Associer l'utilisateur connecté à la commande
+				$commande->setUserNom($user->getNom());
+				$commande->setUserPrenom($user->getPrenom());
         $commande->setStatut(Commande::STATUT_EN_COURS);// mettre en place un statut par defaut 
         $commande->setDateCommande(new \DateTime());
-				   // Générer un numéro unique pour la commande
-					 $numeroCommande = 'CMD-' . date('Ymd') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
-					 $commande->setNumeroCommande($numeroCommande);
+				// Générer un numéro unique pour la commande
+				$numeroCommande = 'CMD-' . date('Ymd') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+				$commande->setNumeroCommande($numeroCommande);
 				// Calcul du total
 				$total = 0;
 				foreach ($produitsPanier as $item) {

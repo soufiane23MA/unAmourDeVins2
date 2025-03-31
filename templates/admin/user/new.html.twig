@@ -1,0 +1,61 @@
+{# templates/admin/user/new.html.twig #}
+
+{% extends 'base.html.twig' %}  {# Étend ton layout admin #}
+
+{% block title %}Nouvel Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="mb-4">Créer un nouvel utilisateur</h1>
+
+        {# Affiche le formulaire #}
+        {{ form_start(form) }}  {# Début du formulaire #}
+
+            <div class="row g-3">
+                {# Champ Email #}
+                <div class="col-md-6">
+                    {{ form_row(form.email, {
+                        'label': 'Email',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+
+                {# Champ Mot de passe #}
+                <div class="col-md-6">
+                    {{ form_row(form.password, {
+                        'label': 'Mot de passe',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+
+                {# Champ Prénom #}
+                <div class="col-md-6">
+                    {{ form_row(form.nom, {
+                        'label': 'Prénom',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+
+                {# Champ Nom #}
+                <div class="col-md-6">
+                    {{ form_row(form.prenom, {
+                        'label': 'Nom',
+                        'attr': {'class': 'form-control'}
+                    }) }}
+                </div>
+            </div>
+
+            {# Boutons #}
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save me-2"></i>Enregistrer
+                </button>
+                
+                <a href="{{ path('admin_user_index') }}" class="btn btn-outline-secondary ms-2">
+                    <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                </a>
+            </div>
+
+        {{ form_end(form) }}  {# Fin du formulaire #}
+    </div>
+{% endblock %}

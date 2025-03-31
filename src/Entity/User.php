@@ -62,6 +62,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $pseudo = null;
+      
+     // c'est pour effacer le compte (respecter le RGPD)
+
+     #[ORM\Column(type: 'boolean')]
+     private bool $isAnonymized = false;
+
+     // donne la date à laquel on a supprimer le compte
+
+     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+          private ?\DateTimeInterface $anonymizedAt = null;
 
     public function __construct()
     {
@@ -244,6 +254,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    //  la methode qui permet d'anonymiser les utilisateur
+    public function anonymize(): void 
+    {
+        $this->email = 'anonymous_'.$this->id.'@deleted.lu';
+        $this->password = uniqid();
+        $this->isAnonymized = true;
+        $this->anonymizedAt = new \DateTimeImmutable();
+        $this->phone = null;
+    }
 
     public function getPseudo(): ?string
     {
@@ -256,4 +275,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+   
+
+     /**
+      * Get the value of isAnonymized
+      */ 
+     public function getIsAnonymized()
+     {
+          return $this->isAnonymized;
+     }
+
+     /**
+      * Set the value of isAnonymized
+      *
+      * @return  self
+      */ 
+     public function setIsAnonymized($isAnonymized)
+     {
+          $this->isAnonymized = $isAnonymized;
+
+          return $this;
+     }
+
+          /**
+           * Get the value of anonymizedAt
+           */ 
+          public function getAnonymizedAt()
+          {
+                    return $this->anonymizedAt;
+          }
+
+          /**
+           * Set the value of anonymizedAt
+           *
+           * @return  self
+           */ 
+          public function setAnonymizedAt($anonymizedAt)
+          {
+                    $this->anonymizedAt = $anonymizedAt;
+
+                    return $this;
+          }
 }

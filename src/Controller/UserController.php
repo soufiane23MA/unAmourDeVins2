@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UserController extends AbstractController
 {
-    #[Route('/profile', name: 'app_user_profile')]
+    #[Route('/user', name: 'app_user_profile')]
     public function profile(Security $security,CommandeRepository $commandeRepository): Response
     {
         $user = $security->getUser();  // Obtenez l'utilisateur connecté

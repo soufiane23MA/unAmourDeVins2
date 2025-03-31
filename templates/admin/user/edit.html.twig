@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}  {# Hérite du layout général #}
+
+{% block title %}Modifier l'utilisateur {{ user.email }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Modifier l'utilisateur <small>{{ user.email }}</small></h1>
+
+        {# Affiche le formulaire #}
+        {{ form_start(form) }}  {# Début du formulaire #}
+            {{ form_widget(form) }}  {# Affiche tous les champs #}
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Enregistrer
+            </button>
+        {{ form_end(form) }}  {# Fin du formulaire (fermeture de la balise </form>) #}
+
+        {# Lien de retour à la liste #}
+        <a href="{{ path('admin_user_index') }}" class="btn btn-link mt-2">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+{% endblock %}

@@ -64,6 +64,11 @@
                 {% else %}
                     <li><a href="{{ path('app_login') }}">Connexion</a></li>
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_dashboard') }}" class="text-muted small ms-3">
+                    Tableau admin
+                </a>
+            {% endif %}
                     
                     
 

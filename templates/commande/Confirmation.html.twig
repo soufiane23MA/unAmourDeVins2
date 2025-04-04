@@ -1,70 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Confirmation de commande{% endblock %}
+{% block title %}Confirmation de paiement{% endblock %}
 
 {% block body %}
-    <h1>Confirmation de commande</h1>
-    <p>Votre commande #{{ commande.id }} a bien été enregistrée.</p>
+    <h1>Paiement confirmé !</h1>
+    <p>Merci pour votre commande. Votre paiement a été validé.</p>
 
-    <h3>Détails de la commande :</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produitCommande in commande.produitCommandes %}
-                <tr>
-                    <td>{{ produitCommande.produit.nomProduit }}</td>
-                    <td>{{ produitCommande.quantite }}</td>
-                    <td>{{ produitCommande.produit.prix | number_format(2, ',', ' ') }} €</td>
-                    <td>{{ (produitCommande.produit.prix * produitCommande.quantite) | number_format(2, ',', ' ') }} €</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <th colspan="3" class="text-end">Total :</th>
-                <th>{{ commande.getTotal() | number_format(2, ',', ' ') }} €</th>
-            </tr>
-        </tfoot>
-    </table>
-
-   {# -- Nouveau formulaire de paiement -- #}
-<h3>Finalisez votre commande :</h3>
-
-{% if commande.modeLivraison == 'click_and_collect' %}
-    <div class="alert alert-info mb-4">
-        <h4><i class="fas fa-store-alt"></i> Retrait en magasin</h4>
-        <p>Adresse : 12 Rue de la Paix, Paris<br>
-        Horaires : 9h-18h du lundi au samedi</p>
-    </div>
-{% endif %}
-
-<form action="{{ path('app_paiement_valider', {'idCommande': commande.id}) }}" method="POST">
-    <div class="mb-4">
-        <h4>Mode de paiement :</h4>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="mode_paiement" id="carte" value="carte" required>
-            <label class="form-check-label" for="carte">
-                <i class="fas fa-credit-card"></i> Carte bancaire
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="mode_paiement" id="paypal" value="paypal">
-            <label class="form-check-label" for="paypal">
-                <i class="fab fa-paypal"></i> PayPal
-            </label>
-        </div>
-    </div>
-
-    <input type="hidden" name="_token" value="{{ csrf_token('paiement_' ~ commande.id) }}">
-
-    <button type="submit" class="btn btn-success btn-lg">
-        <i class="fas fa-check-circle"></i> Payer maintenant ({{ commande.getTotal()|number_format(2, ',', ' ') }} €)
-    </button>
-</form>
+    {% if facture.pdfPath %}
+        <p>
+            Vous pouvez télécharger votre facture ici :
+            <a href="{{ facture.pdfPath }}" target="_blank">Télécharger la facture</a>
+        </p>
+    {% endif %}
+{% endblock %}

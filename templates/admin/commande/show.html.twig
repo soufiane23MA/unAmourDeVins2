@@ -1,0 +1,23 @@
+{# templates/admin/commande/show.html.twig #}
+
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+    <h1>Commande #{{ commande.id }}  Nummero: {{commande.numeroCommande}}</h1>
+
+    {# Affiche la facture si elle existe #}
+    {% if facture %}
+        <div class="alert alert-success">
+             <a href="{{ path('admin_facture_download', {id: facture.id}) }}" class="btn btn-primary">
+                Télécharger la facture ({{ facture.numeroFacture }})
+            </a> 
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            Aucune facture générée. 
+             <a href="{{ path('admin_facture_generate', {id: commande.id}) }}" class="btn btn-sm btn-outline-dark">
+                Générer maintenant
+            </a> 
+        </div>
+    {% endif %}
+{% endblock %}

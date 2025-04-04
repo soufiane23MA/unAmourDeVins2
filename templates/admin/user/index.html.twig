@@ -15,6 +15,9 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+            <a href="{{ path('admin_user_new') }}" class="btn btn-success">
+                Créer un nouvel utilisateur
+            </a> <br>
             <tbody>
             {% for user in users %}
                 <tr>
@@ -30,8 +33,8 @@
                         onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')"
                     >
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                        <button type="submit" class="btn btn-danger">
-                            🗑️ Supprimer
+                        <button type="submit" class="btn btn-sm btn-danger">
+                             Supprimer
                         </button>
                     </form>
                     </td>
@@ -40,8 +43,6 @@
             </tbody>
         </table>
         
-        <a href="{{ path('admin_user_new') }}" class="btn btn-success">
-            Créer un nouvel utilisateur
-        </a>
+       
     </div>
 {% endblock %}

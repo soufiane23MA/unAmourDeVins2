@@ -37,6 +37,12 @@ class Commande
     #[ORM\OneToMany(targetEntity: ProduitCommande::class, mappedBy: 'commande')]
     private Collection $produitCommandes;
 
+    //  je l'ai rajouter pour relier à la facture et générer getFactur()
+    #[ORM\OneToOne(mappedBy: 'commande', targetEntity: Facture::class)]
+    private ?Facture $facture = null;
+
+// + Getters/Setters générés automatiquement
+
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
 
@@ -47,6 +53,12 @@ class Commande
 
     #[ORM\Column(type: 'string', length: 255)]// on rajoute cest attribut à la commande pour pourvoir la garder dans la BDD
     private ?string $userPrenom = null;
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $modeLivraison = null;
+    #[ORM\Column(length: 255, unique : true)]
+    private ?string $numeroCommande = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $montantTTC = null;
 
     public function __construct()
     {
@@ -139,13 +151,6 @@ class Commande
     return $total;
 }
 // rajou de la methode qui recupere le mode de livraison
-#[ORM\Column(type: 'string', length: 50, nullable: true)]
-private ?string $modeLivraison = null;
-
-#[ORM\Column(length: 255, unique : true)]
-
-// là j'ai remis l'attribut unique 
-private ?string $numeroCommande = null;
 
 public function getModeLivraison(): ?string
 {
@@ -170,48 +175,80 @@ public function setNumeroCommande(string $numeroCommande): static
     return $this;
 }
 
-    /**
-     * Get the value of userNom
-     */ 
-    public function getUserNom()
-    {
-        return $this->userNom;
-    }
+/**
+ * Get the value of userNom
+ */ 
+public function getUserNom()
+{
+    return $this->userNom;
+}
 
-    /**
-     * Set the value of userNom
-     *
-     * @return  self
-     */ 
-    public function setUserNom($userNom)
-    {
-        $this->userNom = $userNom;
+/**
+ * Set the value of userNom
+ *
+ * @return  self
+ */ 
+public function setUserNom($userNom)
+{
+    $this->userNom = $userNom;
 
-        return $this;
-    }
+    return $this;
+}
 
-    /**
-     * Get the value of userPrenom
-     */ 
-    public function getUserPrenom()
-    {
-        return $this->userPrenom;
-    }
+/**
+ * Get the value of userPrenom
+ */ 
+public function getUserPrenom()
+{
+    return $this->userPrenom;
+}
 
-    /**
-     * Set the value of userPrenom
-     *
-     * @return  self
-     */ 
-    public function setUserPrenom($userPrenom)
-    {
-        $this->userPrenom = $userPrenom;
+/**
+ * Set the value of userPrenom
+ *
+ * @return  self
+ */ 
+public function setUserPrenom($userPrenom)
+{
+    $this->userPrenom = $userPrenom;
 
-        return $this;
-    }
+    return $this;
+}
 
-    public function __tostring(){
-        return $this->getNumeroCommande().$this->getDateCommande()
-            .$this->getUserNom().$this->getUserPrenom();
-    }
+public function __tostring(){
+    return $this->getNumeroCommande().$this->getDateCommande()
+        .$this->getUserNom().$this->getUserPrenom();
+}
+
+/**
+ * Get the value of facture
+ */ 
+public function getFacture()
+{
+    return $this->facture;
+}
+
+/**
+ * Set the value of facture
+ *
+ * @return  self
+ */ 
+public function setFacture($facture)
+{
+    $this->facture = $facture;
+
+    return $this;
+}
+
+public function getMontantTTC(): ?string
+{
+    return $this->montantTTC;
+}
+
+public function setMontantTTC(string $montantTTC): static
+{
+    $this->montantTTC = $montantTTC;
+
+    return $this;
+}
 }

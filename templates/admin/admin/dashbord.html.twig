@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Dashbord{% endblock %}
+
+
+{% block body %}
+<h1>Tableau de gestion </h1>
+<a href="{{path('app_admin_produits')}}"><button>Getion des produits</button></a>
+<a href="{{path('admin_user_index')}}"><button>Getion des utilisateurs</button></a>
+ 
+{% endblock %}

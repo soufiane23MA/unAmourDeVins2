@@ -82,7 +82,7 @@ final class UserController extends AbstractController
       $user = $userRepository->find($user);// ici j'ai utilisé l'id , mais je peux utiliser $user et laissé symfony faire le taf
 
         if ($user) {
-           // $entityManager->remove($user); on remplace cette ligne pour anonymiser les utilisateur pour etres 
+           // $entityManager->remove($user); on remplace cette ligne pour anonymiser les utilisateurs pour  
            //supprimer plustard à une date qu'on fixera aprés.
            $user->anonymize();
             $entityManager->flush();

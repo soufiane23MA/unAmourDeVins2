@@ -93,14 +93,20 @@ class ProduitRepository extends ServiceEntityRepository
             ->getResult();
 
         }*/
-        public function findByNom(string $query): array
+       /* public function findByNom(string $query): array
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.nomProduit LIKE :query')
             ->setParameter('query', '%' . $query . '%')
             ->getQuery()
             ->getResult();
-    }
+    }*/
+    public function createQueryBuilderByNom(string $motCle): \Doctrine\ORM\QueryBuilder
+{
+    return $this->createQueryBuilder('p')
+        ->where('p.nomProduit LIKE :motCle')
+        ->setParameter('motCle', '%' . $motCle . '%');
+}
   
  
 }

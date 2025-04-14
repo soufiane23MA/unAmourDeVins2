@@ -1,7 +1,21 @@
  
  
- 
+ /* ------- le code js pour ecouter le click de la modal/ age 18ans*/
+ // Solution technique sans changer votre style
+ /*if (!localStorage.getItem('adult')) {
+    document.getElementById('ageCheck').style.display = 'flex';
+}
 
+document.getElementById('yes').addEventListener('click', function() {
+    localStorage.setItem('adult', 'true');
+    document.getElementById('ageCheck').style.display = 'none';
+});
+
+document.getElementById('no').addEventListener('click', function() {
+    window.location.href = 'https://www.google.com';
+});*/
+     
+/*-----------------------fin de la modal----------------*/
 // le code js qui permettra de m'afficher les produits par accord 
 
  
@@ -116,6 +130,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
  
+ /* code pour le slider page d'acueil ----------*/
+  
+ const swiper = new Swiper('.swiper', {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    }
+  });
+
+  /*------- le scripte pour activer la pagination du slider / page d'acueil--*/
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
+      }
+    });
+  });
+  
+
+    /*------------------fin du code pour le slider / page d'acueill*/
  
+
  
  

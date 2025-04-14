@@ -23,6 +23,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+           
             ->add('email',EmailType::class)
             ->add('pseudo',TextType::class)
             ->add('adresse',TextType::class)
@@ -76,6 +77,9 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id'   => 'registration', // identifiant unique pour ce formulaire
         ]);
     }
 }

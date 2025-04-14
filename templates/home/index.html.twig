@@ -11,18 +11,94 @@
 {% block title %}Accueil - Vins de qualité{% endblock %}
 
 {% block body %}
+
     <!-- Section héros avec image de fond et message -->
-    <section class="hero">
-        <div class="hero-content">
-					<div class="hero_text">
-                         <h1>Bienvenue chez Un Amour de vin</h1>
-                        <p>Découvrez notre vente exclusive du mois avec diffeente sorte de vin ,</p>
-                         <h2> plus de 500 références de vins chez nous</h2>
-                        <a href="{{ path('app_exclusif') }}" class="home-btn">Découvrez La cave</a>
+    <div class="section_3">
+            <section class="swiper-section">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                         <!-- Slide 1 -->
+                         <div class="swiper-slide">
+                            <img src="/imgs/food7.jpg" alt="Slide 1">
+                            <div class="slide-caption">
+                                 <h1>Associez vins et mets facilement</h1>
+                                 <p>Vous pouvez rechercher un plat et recevoir quelques conseils g&#xE9;n&#xE9;raux: le style de vin qui convient le mieux en France et quelques exemples.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <img src= "/imgs/section3.webp" alt="slide 2">
+                            <div class="slide-caption">
+                                <h1>Découvrez des vins exclusifs</h1>
+                                <p>Acc&#xE9;dez aux vins habituellement r&#xE9;serv&#xE9; &#xE0; l&#x2019;horeca, e-wines vous offre la cl&#xE9; de la cave des meilleurs restaurants. </p>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <img src="/imgs/accueil.webp" alt="Slide 3">
+                            <div class="slide-caption">
+                                <h1>  Choisissez votre région et partez à la d'couverte</h1>
+                                <p>Vous entreprendrez un grand voyage oenologique. Les pays vous guideront vers des régions pittoresques, des sous-régions pleines de charme et des producteurs passionnés. D'où un simple clic sur les cartes, vous découvrirez les vins de votre choix.</p>
+                            </div>
+                        </div>
                     </div>
-           
-        </div>
-    </section>
+                     <!-- Pagination & navigation si tu veux -->
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                </div>
+            </section>
+            
+            <section id="competences_section">
+                <h2>Des nouvelles fraîches de notre cave</h2>
+                <div class="flex_container">
+                    <div class="card">
+                        <h3>Vente exclusive</h3>
+                        <img src="/imgs/exclusif_1.jpg" alt="Bouteilles de vin en vente exclusive">
+                        <p>Profitez de ventes privées réservées à nos clients. Découvrez des cuvées rares et des sélections uniques proposées uniquement en ligne.</p>
+                        <a href="{{ path('app_exclusif') }}">Découvrir</a>
+                    </div>
+            
+                    <div class="card">
+                        <h3>Notre Cave</h3>
+                        <img src="/imgs/cave5.webp" alt="Vue de la cave à vins">
+                        <p>Parcourez notre sélection soigneusement choisie de plus de 500 références. Des classiques incontournables aux découvertes confidentielles.</p>
+                        <a href="{{ path('app_produit') }}">Découvrir</a>
+                    </div>
+            
+                    <div class="card">
+                        <h3>Accords mets & vins</h3>
+                        <img src="/imgs/apropos.jpg" alt="Accords mets et vins">
+                        <p>Besoin d’inspiration ? Trouvez les vins idéaux pour accompagner vos plats. De l’entrée au dessert, trouvez l’accord parfait.</p>
+                        <a href="{{ path('plats_list') }}">Découvrir</a>
+                    </div>
+                </div>
+            </section>
+            <section class="presentation_section">
+                    <div class="presentation">
+                        <img src="/imgs/caviste.jpg" alt="">
+                        <div class="presentation_texte">
+                            <h2>Notre Philosophie</h2>
+                            <h4>QUALITÉ, PASSION & PROFESSIONALISME</h4>
+                            <p>Bruno Marret, œnologue, et toute son équipe vous accompagnent dans votre choix de vins blancs, vins rouges, vins rosés, champagnes, crémants, spiritueux, bières artisanales, et vins sans alcoo. </p>
+                        </div>
+                        
+                    </div>
+                </section>
+                <div class="apropos">
+                     
+                    <p>
+                        Nous mettons notre expérience à profit en cherchant et trouvant des vins qui rencontrent notre philosophie 
+                        Le cidre est bien plus qu'une simple alternative au vin ou à la bière. Il se caractérise par ses arômes fruités, sa légère acidité et son effervescence délicate. Cela en fait un ingrédient de choix pour sublimer de nombreuses recettes…
+                    </p>
+                </div>
+            </section>
+        
+
+    </div>
+   
+     
+ 
     
  
   

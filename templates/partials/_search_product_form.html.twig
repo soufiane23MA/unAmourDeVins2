@@ -5,14 +5,12 @@
 <section class="search_bar">
 	<div class="search-container">
 			{{ form_start(form, { 'action': path('product_search'), 'method': 'GET' }) }}
-					<div class="search-input">
-							{{ form_widget(form.query, { 'attr': { 'class': 'search-input-field', 'placeholder': 'Rechercher un produit...' } }) }}
-					</div>
-					<div class="search-button">
-							<button type="submit" class="search-button-icon">
-									<i class="fas fa-search"></i> <!-- Icône gratuite de FontAwesome -->
-							</button>
-					</div>
+			<div class="search-input-wrapper">
+        {{ form_widget(form.query, { 'attr': { 'class': 'search-input-field', 'placeholder': 'Rechercher un produit...' } }) }}
+        <button type="submit" class="search-icon-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
 			{{ form_end(form) }}
 	</div>
 </section>

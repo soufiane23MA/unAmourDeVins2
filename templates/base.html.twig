@@ -14,8 +14,9 @@
          <link rel="stylesheet" href="{{ asset('css/style.css') }}">
          <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
          <link rel="stylesheet" href=" {{asset('css/product.css')}}"> 
-         
-         
+         <link rel="stylesheet" href=" {{asset('css/variables.css')}}"> 
+         <!-- le lien Swiper  pour le slide page d'accueil CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
          
@@ -33,31 +34,43 @@
     </head>
 
     <body>
-        <nav class="navbar">
-            <!-- Bouton pour ouvrir le sidebar -->
-            <div class="nav-left">
-                <button id="sidebar-toggle">
-                    <i class="fa-solid fa-bars"></i><i class="fa-solid fa-bars"></i><i class="fa-solid fa-bars"></i>
-                </button>
+        <!-- Contenu normal (masqué initialement) -->
+           <!-- <div id="content" style="display:none;">
+               
             </div>
+
+              Modal  
+            <div id="ageCheck">
+                <div class="modal">
+                    <h2>Êtes-vous majeur ?</h2>
+                    <p>Pour accéder à notre site, vous devez avoir l'âge légal pour consommer de l'alcool.</p>
+                    <div class="buttons">
+                        <button id="yes">Oui, j'ai +18 ans</button>
+                        <button id="no">Non</button>
+                    </div>
+                </div>
+            </div>-->
+      <!---- la fin de la modal------>
+        <nav class="navbar">
             
+            <!-- Menu Burger -->
+            <button class="burger-btn">☰</button>
+            
+            <!---------debut  de la partie centre de la navbar---->
             <div class="nav-center">
               <!-- Ton logo ou le nom de ton site -->
               <a href=" #"><img src="{{ asset('imgs/logo.png') }}" alt="Mon Logo"></a>
             </div>
-           
             <div class="nav-right">
                 <ul class="ul-right">
-
                     <li><a href="{{ path('app_accord_mets_vins') }}" class="nav-link">Accord Mets-Vins</a></li>
                     <li><a href="{{path('app_home')}}">Accueil</a></li>
                     <li><a href="{{path('app_home')}}">Idee De Cadeux &times;</a></li>
                     <li><a href="{{path('app_produit')}}">Produits</a></li>
-                     
                     {% if app.user %}
                     <li>
                         <a href="{{ path('app_logout') }}">Déconnexion</a>
-                    </li>
+                     </li>
                     <li>
                         <a href="{{path('app_user_profile')}}">Profile</a>
                     </li>
@@ -69,54 +82,34 @@
                     Dashbord
                 </a>
             {% endif %}
-                    
-                    
-
-                    
                     <li><a href="{{path('app_panier')}}"><i class="fas fa-shopping-cart"></i></a></li>
                 </ul>   
             </div>
         </nav>
-        <!-- Section pour afficher les produits -->
-    <div id="produitsList" >
-        <!-- Les produits seront ajoutés ici dynamiquement avec JS -->
-    </div>
-       <!-- Inclus le formulaire de recherche par produit -->
-       {{ render_search_product_form() }}
-       
-
-        
-       
-     
-          
-
-
- 
+        <!-------------------sidebar--------------- -->
+        <aside class="sidebar">
+            {% block sidebar %}{% endblock %}
+        </aside>
+        <!----------------fin block sidbar-->
+         <!-- Section pour afficher les produits -->
+        <div id="produitsList" >
+            <!-- Les produits seront ajoutés ici dynamiquement avec JS -->
+        </div>
+        <!-- Inclus le formulaire de recherche par produit -->
+        {{ render_search_product_form() }}
 
         {% block body %}
         {% endblock %}
         <footer class="foot-container">
-            <!--<div class=" ">
+            <div class=" ">
                 <ul class=" ">
                     <li>Qui sommes-nous</li>
-                    
                     <li>Mentions légales</li>
                     <li>Suivez notre actualité</li>
-                     
-                    <li>
-                       
-                    </li>
-                    <li>
-                        
-                    </li>
                     <li>Nous contacter</li>
                 </ul>
-                 
-           </div>-->
-
-           <p>Labus d'alcole est n est pas bonne</p>
-           
-            <div class="contact">
+           </div>
+           <div class="contact">
                 <p>adresse Postale: </p>
                 <p> adresse maile : </p>
                 <p>Numero de telephone: </p>
@@ -126,26 +119,22 @@
                 <a href="https://instagrame.com/amourdevin_caviste" target="_blank" class="text-white">
                     <i class="fab fa-instagram fa-lg"></i>
                 </a>
-                
-
-
             </div>
            </div>
-
-
-
-
         </footer>
         
         
-         <script src="{{ asset('js/script.js') }}" defer></script>
-         <script src="{{ asset('js/accord.js') }}" defer></script>>
-       <script src="{{ asset('js/script_commande.js') }}" defer></script>
+            <script src="{{ asset('js/script.js') }}" defer></script>
+            <script src="{{ asset('js/accord.js') }}" defer></script>>
+            <script src="{{ asset('js/script_commande.js') }}" defer></script>
+            <script src="{{ asset('js/navbar.js') }}" defer></script>
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         
-       <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
-         
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>  --> 
+            <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>  --> 
+                    <!-- Modale de vérification de l'âge -->
+        
          
 
     </body>

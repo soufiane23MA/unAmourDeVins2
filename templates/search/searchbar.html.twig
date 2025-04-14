@@ -1,48 +1,74 @@
 {% extends 'base.html.twig' %}
 
-
-{% block title %}Resultat de recherche{% endblock %}
-
-{% block body %}
- 
-  
-
-
- 
-
- 
-
-
- 
-
-{% extends 'base.html.twig' %}
-
-{% block title %}Recherche de produits{% endblock %}
- {# Affichage des résultats #}
-   
- {% if produitsPagines is not empty %}
- <h2>Résultats pour "{{ query }}"</h2>
- <ul>
-		 {% for produit in produitsPagines %}
-				 <li>
-						 <h3>{{ produit.nomProduit }}</h3>
-						 <p>{{ produit.detailProduit }}</p>
-						 <p>Prix : {{ produit.prix }}€</p>
-				 </li>
-		 {% endfor %}
- </ul>
-	<div class="navigation">
-		 {{ knp_pagination_render(produitsPagines) }}
-	 </div>
-
-{% elseif query %}
- <p>Aucun résultat trouvé pour "{{ query }}".</p>
+{% block title %}Résultat de recherche{% endblock %}
 
 {% block body %}
+  {% if produitsPagines is not empty %}
+    <h2>Résultats pour "{{ query }}"</h2>
+    <div class="product-container">
+      {% for produit in produitsPagines %}
+        <div class="product-card">
+          {% if produit.image %}
+            <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="produit-image">
+          {% else %}
+            <div class="produit-image-placeholder">Pas d'image</div>
+          {% endif %}
+          <h2>{{ produit.nomProduit }}</h2>
+          <p class="product-detail">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+          <p class="product-prix">{{ produit.prix }} €</p>
+          <a href="{{ path('add_panier', {'id': produit.id}) }}">
+            <button class="btn-ajouter-panier" data-produit-id="{{ produit.id }}">Ajouter au Panier</button>
+          </a>
+          <p><a href="{{ path('detail_produit', {'id': produit.id}) }}">+ de détails</a></p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="navigation">
+      {{ knp_pagination_render(produitsPagines) }}
+    </div>
+
+  {% elseif query %}
+    <p>Aucun résultat trouvé pour "{{ query }}".</p>
+  {% endif %}
+{% endblock %}
+
   
  
- 
+ <!--code à recuperer aprs -->
 	 
+<!-- <div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+					Filtrer par région
+			</button>
+			<ul class="dropdown-menu">
+					{% for region in regions %}
+							<li>
+									<a class="dropdown-item" href="{{ path('region_search', { 'id': region.id }) }}">
+											{{ region.nomRegion }}
+									</a>
+							</li>
+					{% endfor %}
+			</ul>
+	</div>
+	</div>
 
+	<!-- Dropdown pour les domaines -->
+	<!--<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Filtrer par domaine
+    </button>
+    <ul class="dropdown-menu">
+        {% for domaine in domaines %}
+            <li>
+                <a class="dropdown-item" href="{{ path('domaine_search', { 'id': domaine.id }) }}">
+                    {{ domaine.nomDomaine }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>-->
  
  

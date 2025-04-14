@@ -46,4 +46,34 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+  /**
+   * la methodepour genérer la rintialisation du mot de passe utilisateur 
+   */
+
+    #[Route('/forgot-password', name: 'app_forgot_password')]
+    public function forgotPassword(Request $request): Response
+    {
+        // Logique pour gérer la demande de réinitialisation (envoi du lien, etc.)
+        // Par exemple, vérifier si l'email existe, puis envoyer un email avec un token
+        
+        return $this->render('security/forgot_password.html.twig');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

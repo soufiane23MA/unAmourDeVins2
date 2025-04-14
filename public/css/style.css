@@ -177,71 +177,11 @@ footer ul li {
 
  /* Section héros */
  /*c'est le style pour la homepage*/
-.hero {
-  background-image:  url('../imgs/home.webp');  
-  background-size: cover; /* Couvre toute la zone */
-  background-position: center; /* Centre l'image */
-  height: 100vh; /* Prend toute la hauteur de l'écran */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: rgb(236, 234, 234);
-  position: relative;
-  z-index: 1;
-  margin-bottom: 110px;
-}
-.hero::before{
-  content: '';
-  position: absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-.hero-content{
-  position: relative;
-  z-index: 2;
-}
+ 
+/*---------------------------responsive pour la section hero */
+ 
 
-
-.hero_text h1 {
-  font-size: 3em; /* Taille du titre */
-  margin-bottom: 20px; /* Espace sous le titre */
-}
-
-.hero_text p {
-  font-size: 1.5em; /* Taille du paragraphe */
-  margin-bottom: 30px; /* Espace sous le paragraphe */
-}
-.hero_text h2{
-  font-size: 30px;
-  font-style: italic;
-  margin-bottom: 50px;
-}
-
-.home-btn {
-  background-color: #8B0000; /* Rouge bordeaux */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1.2em;
-  transition: background-color 0.3s ease; /* Animation au survol */
-}
-.home-btn:hover {
-  background-color: #ec2121; /* Rouge plus clair au survol */
-  color: #000000;
-}
-/*.hero-content{
-  margin-top: 100px;
-}
-.hero_text{
-  display: flex;
-  align-content: center;
-}*/
- /* public/css/style.css */
+ /*-----------------------------------------------------------------------------------*/
 
 /* Styles pour la liste des produits */
 .produits-list {

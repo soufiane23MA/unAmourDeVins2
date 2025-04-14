@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche de produits{% endblock %}
+
+{% block body %}
+    <h1>Rechercher un produit</h1>
+
+    {# Afficher le formulaire de recherche #}
+   
+    
+   
+   
+   
+    {# Affichage des résultats #}
+   
+    <!--{% if produitsPagines is not empty %}
+        <h2>Résultats pour "{{ query }}"</h2>
+        <div class="product-container">
+            {% for produit in produitsPagines %}
+              <div class="product-card">
+                {% if produit.image %}
+                  <img src="{{ asset('imgs/' ~ produit.image) }}" alt="{{ produit.nomProduit }}" class="produit-image">
+                {% else %}
+                  <div class="produit-image-placeholder">Pas d'image</div>
+                {% endif %}
+                <h2>{{ produit.nomProduit }}</h2>
+                <p class="product-detail">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+                <p class="product-prix">{{ produit.prix }} €</p>
+                <a href="{{ path('add_panier', {'id': produit.id}) }}">
+                 < <button class="product-btn">Ajouter au Panier</button>-->
+                <!--  <button class="btn-ajouter-panier" data-produit-id="{{ produit.id }}"> Ajouter au Panier</button>
+                </a>
+                <p><a href="{{ path('detail_produit', {'id': produit.id}) }}">+ de détails</a></p>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="navigation">
+            {{ knp_pagination_render(produitsPagines) }}
+          </div>
+        
+      
+    {% elseif query %}
+        <p>Aucun résultat trouvé pour "{{ query }}".</p>
+    {% endif %}
+
+    
+  
+    
+{% endblock %}-->
+ 
+ 
+  

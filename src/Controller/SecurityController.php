@@ -2,11 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Mime\Email;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
@@ -52,13 +59,80 @@ class SecurityController extends AbstractController
    */
 
     #[Route('/forgot-password', name: 'app_forgot_password')]
-    public function forgotPassword(Request $request): Response
+    public function forgotPassword(Request $request,EntityManagerInterface $em,MailerInterface $mailer): Response
     {
+        if ($request->isMethod('POST')) {
+            $email = $request->request->get('email');
+            $user = $em->getRepository(User::class)->findOneBy(['email' => $email]);
+            if ($user) {
+                // Générer un token aléatoire
+                $token = bin2hex(random_bytes(32));
+                $user->setResetToken($token);
+                $em->flush();
+                // Générer le lien de réinitialisation
+                $resetUrl = $this->generateUrl('app_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+                  // Envoyer l'email (Mailhog)
+                  $emailMessage = (new Email())
+                  ->from('no-reply@monsite.com')
+                  ->to($user->getEmail())
+                  ->subject('Réinitialisation de votre mot de passe')
+                  ->html("<p>Bonjour,</p><p>Voici votre lien pour réinitialiser votre mot de passe : <a href=\"$resetUrl\">Réinitialiser</a></p>");
+
+              $mailer->send($emailMessage);
+              $this->addFlash('success', 'Un lien de réinitialisation a été envoyé à votre adresse email.');
+              return $this->redirectToRoute('app_login');
+          } else {
+              $this->addFlash('danger', 'Aucun utilisateur trouvé avec cet email.');
+          }
+      }
+
+      return $this->render('security/forgot_password.html.twig');
         // Logique pour gérer la demande de réinitialisation (envoi du lien, etc.)
         // Par exemple, vérifier si l'email existe, puis envoyer un email avec un token
         
-        return $this->render('security/forgot_password.html.twig');
+      
     }
+    /**
+     * methode pour permettre à l'utilisateur de changer son mot de passe 
+     */
+    #[Route(path: '/reset-password/{token}', name: 'app_reset_password')]
+        public function resetPassword(string $token, Request $request,EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        // je Valider le token  
+        // Récupérer l'utilisateur avec le token 
+         
+        $user = $entityManager->getRepository(User::class)->findOneBy(['resetToken' => $token]);
+        if (!$user) {
+            throw $this->createNotFoundException('Aucun utilisateur trouvé pour ce token.');
+        }
+        if ($request->isMethod('POST')) {
+            $newPassword = $request->request->get('password');
+            if ($newPassword) {
+                $user->setPassword(
+                    $passwordHasher->hashPassword($user, $newPassword)
+                );
+                $user->setResetToken(null); // on supprime le token
+                $entityManager->flush();
+                $this->addFlash('success', 'Mot de passe modifié avec succès.');
+                return $this->redirectToRoute('app_login');
+            }
+        }
+        return $this->render('security/reset_password.html.twig', [
+            'token' => $token,
+        ]);
+
+                // Afficher le formulaire pour le nouveau mot de passe
+
+    }
+    
+
+
+
+
+
+
+
+
 }
 
 

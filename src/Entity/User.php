@@ -73,6 +73,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      #[ORM\Column(type: 'datetime_immutable', nullable: true)]
           private ?\DateTimeInterface $anonymizedAt = null;
 
+     #[ORM\Column(length: 255)]
+     private ?string $resetToken = null;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -315,5 +318,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                     $this->anonymizedAt = $anonymizedAt;
 
                     return $this;
+          }
+
+          public function getResetToken(): ?string
+          {
+              return $this->resetToken;
+          }
+
+          public function setResetToken(?string $resetToken): static
+          {
+              $this->resetToken = $resetToken;
+
+              return $this;
           }
 }

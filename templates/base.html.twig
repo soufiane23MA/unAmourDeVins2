@@ -70,7 +70,7 @@
                     {% if app.user %}
                     <li>
                         <a href="{{ path('app_logout') }}">Déconnexion</a>
-                     </li>
+                    </li>
                     <li>
                         <a href="{{path('app_user_profile')}}">Profile</a>
                     </li>
@@ -81,11 +81,19 @@
                 <a href="{{path('admin_admin_dashbord')}}" class="text-muted small ms-3">
                     Dashbord
                 </a>
-            {% endif %}
+                {% endif %}
                     <li><a href="{{path('app_panier')}}"><i class="fas fa-shopping-cart"></i></a></li>
                 </ul>   
             </div>
         </nav>
+        {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+         {% endfor %}
+
         <!-------------------sidebar--------------- -->
         <aside class="sidebar">
             {% block sidebar %}{% endblock %}

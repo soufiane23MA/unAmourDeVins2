@@ -8,7 +8,7 @@
 	--primary-color:#951a38;
   --secondary-color:  ; /* créme */
   --background-color: rgb(249,249,232); /* Gris clair */
-  --text-color: #333; /* Noir */
+  --text-color: hsl(357, 40%, 81%); /* Noir */
   --error-color: #e74c3c; /* Rouge */
 	 
 
@@ -421,20 +421,8 @@
 
 /* s--------style de drop down des region et domaine pour la recherche---*/
 /* STYLE POUR LE SIDEBAR */
-#sidebar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 250px;
-	height: 100%;
-	background-color: #343a40;
-	padding: 20px;
-	color: white;
-	z-index: 1000;
-	display: none;
-	overflow-y: auto;
-	transition: transform 0.3s ease;
-}
+
+
 /* STYLES POUR LE SIDEBAR */
  
 /*#sidebar.open {

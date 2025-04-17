@@ -1,0 +1,78 @@
+ /* Conteneur général du formulaire */
+.formulaire-container {
+	max-width: 500px;
+	margin: 40px auto;
+	padding: 25px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Titre */
+.formulaire-container h1 {
+	text-align: center;
+	font-size: 1.8em;
+	margin-bottom: 20px;
+	font-family: 'Lora', serif;
+}
+
+/* Champs du formulaire */
+form div {
+	margin-bottom: 15px;
+}
+
+form label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 0.95em;
+	font-family: 'Merriweather Sans', sans-serif;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"] {
+	width: 100%;
+	padding: 8px 10px;
+	font-size: 0.9em;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-family: 'Merriweather Sans', sans-serif;
+	box-sizing: border-box;
+}
+
+/* Checkbox */
+form input[type="checkbox"] {
+	margin-right: 8px;
+}
+
+/* Bouton d’envoi */
+form button.btn {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	font-size: 1em;
+	background-color: #951a38;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+form button.btn:hover {
+	background-color: #6e1229;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+	.formulaire-container {
+			padding: 20px;
+			margin: 20px auto;
+	}
+	
+	form input, form button {
+			font-size: 0.9em;
+	}
+}

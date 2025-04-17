@@ -7,17 +7,10 @@ use App\Service\PanierService;
 use Symfony\Bundle\SecurityBundle\Security;
  
 use Symfony\Component\HttpFoundation\Request;
- 
- 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\VarDumper\VarDumper;
- 
-
-
-
-
 
 final class PanierController extends AbstractController
 {

@@ -265,6 +265,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isAnonymized = true;
         $this->anonymizedAt = new \DateTimeImmutable();
         $this->phone = null;
+        $this->nom = null;
+        $this->prenom = null;
+        $this->adresse = null;
+        $this->pseudo = null;
     }
 
     public function getPseudo(): ?string

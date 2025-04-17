@@ -178,6 +178,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /*------------------fin du code pour le slider / page d'acueill*/
  
+// Sélectionner le bouton burger et la sidebar
+document.addEventListener("DOMContentLoaded", function () {
+    const burgerButton = document.querySelector(".burger-button");
+    if (burgerButton) {
+        burgerButton.addEventListener("click", function () {
+            document.querySelector(".sidebar").classList.toggle("active");
+        });
+    }
+});
+console.log('gggggggg')
 
  
  

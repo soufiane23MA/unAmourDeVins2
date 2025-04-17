@@ -1,241 +1,193 @@
+* Navbar générale */
+/*.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  z-index: 10;
+}
+
+/* Burger button */
+.burger-btn {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  display: none;
+  cursor: pointer;
+}
  
-.navbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color:#951a38;
-	padding: 10px 20px;
-}
-
-.nav-left, .nav-center, .nav-right {
-	display: flex;
-	align-items: center;
-}
-.nav-left{
-	margin-left: 50px;
-}
-.nav-right{
-	margin-right: 50px;
-}
-
-.nav-center {
-flex: 1;
-display: flex;
-justify-content: center;  /*Met les éléments en colonne */
-align-items: center;
-margin-left: 30px;  /*Centre horizontalement */
-}
 .nav-center img {
-	max-width: 150px; /* Ajuste la taille du logo */
-	margin-bottom: 10px; 
-	margin-left: 55px; /*Ajoute un petit espace sous le logo */
+  height: 60px;
 }
-
+ 
 .nav-right {
-	justify-content: flex-end;
-	margin-left: 15px;
+  display: flex;
 }
 
 .ul-right {
-	list-style: none;
-	display: flex;
-	margin: 0;
-	padding: 0;
-}
-
-.ul-right li {
-	margin-left: 20px;
-}
-/*---------- le style pour le sidbar lateral-----*/
-/* Style de base pour la sidebar et le menu burger */
-  
-.sidebar {
-  position: fixed;
-  left: -300px;
-  top: 0;
-  width: 300px;
-  height: 100vh;
-  background: white;
-  z-index: 100;
-  transition: left 0.3s;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-
-.sidebar.active {
-  left: 0;
-}
-
-/* Pour éviter le débordement du contenu */
-body.sidebar-active {
-  margin-left: 300px;
-}
-/*-------- fin de la sidbar--------*/
- 
- /* Style de base pour la bare de recherche */
- 
- .search_bar {
   display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  padding: 20px 20px;
-
- }
-
-.search-container {
-  width: 100%;
-  max-width: 500px;
+  list-style: none;
+  gap: 1rem;
 }
 
-.search-input-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.search-input-field {
-  width: 100%;
-  padding: 0.75rem 3rem 0.75rem 1rem; /* padding droit augmenté pour l'icône */
-  border: 2px solid #ccc;
-  border-radius: 30px;
-  font-size: 1rem;
-  outline: none;
-}
-
-.search-icon-button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #555;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0;
-}
-
-.search-icon-button:hover {
-  color: #333; 
-  background: none;      /* <-- assure qu'aucun fond n’apparaît */
-   
-}
-
- /* The Overlay (background) */
-.overlay {
-  /* Height & width depends on how you want to reveal the overlay (see JS below) */   
-  height: 100%;
-  width: 0;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  background-color: rgb(0,0,0); /* Black fallback color */
-  background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-
-/* Position the content inside the overlay */
-.overlay-content {
-  position: relative;
-  top: 25%; /* 25% from the top */
-  width: 100%; /* 100% width */
-  text-align: center; /* Centered text/links */
-  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
-}
-
-/* The navigation links inside the overlay */
-.overlay a {
-  padding: 8px;
+.ul-right li a {
   text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block; /* Display block instead of inline */
-  transition: 0.3s; /* Transition effects on hover (color) */
+  color: #7c0032;
+  font-weight: 600;
 }
 
-/* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
+.ul-right li a:hover {
+  color: #a00040;
 }
 
-/* Position the close button (top right corner) */
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}
+ 
+@media screen and (max-width: 768px) {
+  .burger-btn {
+    display: block;
+  }
 
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
+  .nav-right {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background-color: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 2rem;
+    display: none;
+  }
+
+  .nav-right.open {
+    display: flex;
+  }
+
+  .ul-right {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .ul-right li a {
+    width: 100%;
+    display: block;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
- 
-
-
-/*------ style css de la boite /la modal -----*/
-
- 
-
-#ageCheck {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* Styles généraux pour la page des accords Mets-Vins */
+#plats-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
 }
 
-.modal {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
+.plat-item {
+  display: inline-block;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: calc(33% - 1rem); /* 3 éléments par ligne, avec des marges */
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-h2 {
-  color: #8B0000;
-  margin-bottom: 20px;
+.plat-item:hover {
+  background-color: #e2e2e2;
+  transform: translateY(-5px); /* effet de survol */
 }
 
-p {
-  margin-bottom: 25px;
-  color: #555;
+/* Style pour les titres */
+h1 {
+  text-align: center;
+  color: #7c0032;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
+/* Grille de produits (même structure que les plats) */
+.produits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: 3rem;
 }
 
-button {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.produit-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.produit-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.produit-item img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.produit-item h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.produit-item p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.produit-item .prix {
+  font-size: 1.2rem;
+  color: #7c0032;
   font-weight: bold;
 }
 
-#yes {
-  background: #8B0000;
-  color: white;
+/* Pour les petits écrans (mobile) */
+@media (max-width: 768px) {
+  .plat-item {
+      width: calc(50% - 1rem); /* 2 éléments par ligne sur mobile */
+  }
+
+  h1 {
+      font-size: 2rem;
+  }
 }
 
-#no {
-  background: #eee;
+@media (max-width: 480px) {
+  .plat-item {
+      width: 100%; /* 1 élément par ligne sur très petit écran */
+  }
+
+  .produits-grid {
+      grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+  }
+
+  h1 {
+      font-size: 1.5rem;
+  }
 }
-/*------ fin de style de la modale-------------------*/

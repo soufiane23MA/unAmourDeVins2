@@ -3,12 +3,12 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-<div  >
-    <h1  >Votre Panier</h1>
+<div class="panier-container">
+    <h1>Votre Panier</h1>
     
     {% if items|length > 0 %}
-        <table  >
-            <thead  >
+        <table class="panier-table">
+            <thead>
                 <tr>
                     <th>Image</th>
                     <th>Produit</th>
@@ -21,48 +21,48 @@
             <tbody>
                 {% for item in items %}
                     <tr>
-                        <td style="width: 100px;">
-                            <img src="{{ asset('imgs/' ~ item.produit.image) }}" alt="{{ item.produit.nomProduit }}" class="img-fluid rounded" style="max-height: 80px;">
+                        <td>
+                            <img src="{{ asset('imgs/' ~ item.produit.image) }}" alt="{{ item.produit.nomProduit }}">
                         </td>
                         <td>{{ item.produit.nomProduit }} {{item.produit.contenance}} {{item.produit.domaine}}</td>
                         <td>{{ item.produit.prix | number_format(2, ',', ' ') }} €</td>
-                        <td>
-                            <a href="{{path('remove_panier', {'id': item.produit.id})}}"><input type="button" value="-"></a>
+                        <td class="quantite-cellule">
+                            <a href="{{path('remove_panier', {'id': item.produit.id})}}">
+                                <button class="btn-qt">-</button>
+                            </a>
                             {{ item.quantite }}
-                            <a href="{{path('add_panier', {'id': item.produit.id})}}"><input type="button" value="+"></a>
+                            <a href="{{path('add_panier', {'id': item.produit.id})}}">
+                                <button class="btn-qt">+</button>
+                            </a>
                         </td>
                         <td>{{ (item.produit.prix * item.quantite) | number_format(2, ',', ' ') }} €</td>
-                        
                         <td>
-                            <a href="{{path('delete_panier', {'id': item.produit.id})}}" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash">Supprimer</i> 
+                            <a href="{{path('delete_panier', {'id': item.produit.id})}}">
+                                <button class="btn-supprimer">Supprimer</button>
                             </a>
                         </td>
                     </tr>
-                   
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4"  class="text-right">Total :</td>
+                    <td colspan="4" class="total-texte">Total :</td>
                     <td>{{total | number_format(2, ',', ' ')}}  €</td>
                     <td></td>
-                   
                 </tr>
             </tfoot>
         </table>
-         
 
-        <div class="text-right mt-3">
-            <a href="{{ path('app_commande_preparation') }}" class="btn btn-primary">
-                Commander
+        <div class="actions">
+            <a href="{{ path('app_commande_preparation') }}">
+                <button class="btn-commander">Commander</button>
+            </a>
+            <a href="{{ path('app_produit') }}">
+                <button class="btn-retour">Continuer vos achats</button>
             </a>
         </div>
-        <a href="{{path('app_produit')}}"> 
-            <button>continuer vos achat </button>
-        </a>
     {% else %}
-        <div class="alert alert-warning" role="alert">
+        <div class="panier-vide">
             Votre panier est vide.
         </div>
     {% endif %}

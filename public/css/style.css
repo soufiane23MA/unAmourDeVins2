@@ -13,34 +13,67 @@ body{
   color: #110f0f;
   background-color: rgb(206, 206, 25);
 }
+/*-------------- le style pour le footer -------*/
 
- .foot-container{
-  background-color: #951a38;
-  height: 300px;
-  color: #f9f9f9;
-}
-.instagrame{
-  color: #05080a;
-  margin-top: 20px;
-  width: 40px;
-}
-.facebook{
-  color:#030202;
- margin-bottom: 20px;
- width: 40px;
 
+.foot-container {
+  background-color:#971f40;
+  color: #ffffff;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 50px;
+  font-family: 'Poppins', sans-serif;
 }
+
+.foot-container ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+.foot-container ul li {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.foot-container ul li:hover {
+  color: #b7c7c5;
+}
+
+.foot-container .contact {
+  text-align: center;
+  line-height: 1.6;
+}
+
+.foot-container .contact i {
+  margin: 10px 8px 0;
+  color: white;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.foot-container .contact i:hover {
+  transform: scale(1.2);
+  color: #ffcc00;
+}
+
+  
 .container_1{
   display: flex;
   flex-wrap: wrap-reverse;
 }
  
-hr {
-  border: none; /* Supprime le style par défaut */
-  height: 2px;  /* Épaisseur de la ligne */
-  background-color: rgb(255, 247, 247); /* Couleur de la ligne */
-  margin: 10px 0; /* Espace autour de la ligne */
-}
+/* hr {
+  border: none;  Supprime le style par défaut 
+  height: 2px;  /Épaisseur de la ligne 
+  background-color: rgb(255, 247, 247); /* Couleur de la ligne 
+  margin: 10px 0;  Espace autour de la ligne 
+}*/
 
 .produits-container {
   display: flex;
@@ -315,4 +348,124 @@ button:active, a.button:active {
  table, th, td {
   border:1px solid black;
   border-collapse: collapse;
+}
+
+/*------ debut stule le formulaire d'enregistrement------*/
+:root {
+  --primary-color: #951a38;
+  --background-color: #fdfdfd;
+  --text-color: #000;
+  --font-title: 'Lora', serif;
+  --font-texte: 'Merriweather Sans', sans-serif;
+}
+
+/* FORMULAIRE GENERAL */
+form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: var(--font-texte);
+}
+
+form h1 {
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 2em;
+  margin-bottom: 25px;
+  color: var(--text-color);
+}
+
+/* CHAMPS */
+form div.form-group,
+form div.form-row,
+form > div {
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--text-color);
+  font-family: var(--font-title);
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"],
+form input[type="checkbox"],
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: var(--text-color);
+  font-family: var(--font-texte);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* CHECKBOX */
+form input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* BOUTON */
+form button,
+form .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: 1px solid var(--primary-color);
+  background-color: transparent;
+  color: var(--text-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-texte);
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+}
+
+form button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* MESSAGES D’ERREUR */
+.message-erreur {
+  background-color: #ffe5e8;
+  border: 1px solid #e3a6af;
+  padding: 15px;
+  border-radius: 8px;
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* RESPONSIVE (mobile first) */
+@media (max-width: 600px) {
+  form {
+      padding: 20px;
+      margin: 20px;
+  }
+
+  form h1 {
+      font-size: 1.6em;
+  }
 }

@@ -92,24 +92,18 @@ final class SearchController extends AbstractController {
     //ne change plus rien
 
     #[Route('/search/product', name: 'product_search', methods: ['GET'])]
-
-    
     public function recherche(Request $request, ProduitRepository $produitRepository,PaginatorInterface $paginator): Response
     {
         // Créer le formulaire de recherche
         $form = $this->createForm(SearchProductType::class);
         $form->handleRequest($request);
-    
-        
         $query = '';
         $produitsPagines = null;
     
         // Vérifier si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer la donnée 'query' du formulaire
-            
             $query = $form->get('query')->getData();
-    
             // Rechercher les produits correspondants
             if ($query) {
                 // Utilisation du QueryBuilder au lieu d'un tableau

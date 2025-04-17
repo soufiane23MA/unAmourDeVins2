@@ -25,18 +25,16 @@ class RegistrationFormType extends AbstractType
         $builder
            
             ->add('email',EmailType::class)
-            ->add('pseudo',TextType::class)
+            //->add('pseudo',TextType::class)
             ->add('adresse',TextType::class)
             ->add('nom',TextType::class)
             ->add('prenom',TextType::class)
             ->add('dateNaissance',DateType::class)
-            
-
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => ' J\'accepte les termes et conditions',
                     ]),
                 ],
             ])

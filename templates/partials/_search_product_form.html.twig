@@ -2,7 +2,7 @@
 
 {# templates/partials/_search_product_form.html.twig #}
 
-<section class="search_bar">
+<!--<section class="search_bar">
 	<div class="search-container">
 			{{ form_start(form, { 'action': path('product_search'), 'method': 'GET' }) }}
 			<div class="search-input-wrapper">
@@ -13,4 +13,41 @@
       </div>
 			{{ form_end(form) }}
 	</div>
-</section>
+</section>-->
+
+
+
+ <!--  cest la navebar ou cas ou tu la perde      
+	 Menu Burger  
+            <button class="burger-btn">☰</button>
+            
+            
+            <div class="nav-center">
+           
+              <a href=" #"><img src="{{ asset('imgs/logo.png') }}" alt="Mon Logo"></a>
+            </div>
+            <div class="nav-right">
+                <ul class="ul-right">
+                    <li><a href="{{ path('app_accord_mets_vins') }}" class="nav-link">Accord Mets-Vins</a></li>
+                    <li><a href="{{path('app_home')}}">Accueil</a></li>
+                    <li><a href="{{path('app_home')}}">Idee De Cadeux </a></li>
+                    <li><a href="{{path('app_produit')}}">Produits</a></li>
+                    {% if app.user %}
+                    <li>
+                        <a href="{{ path('app_logout') }}">Déconnexion</a>
+                    </li>
+                    <li>
+                        <a href="{{path('app_user_profile')}}">Profile</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{path('admin_admin_dashbord')}}" class="text-muted small ms-3">
+                    Dashbord
+                </a>
+                {% endif %}
+                    <li><a href="{{path('app_panier')}}"><i class="fas fa-shopping-cart"></i></a></li>
+                </ul>   
+            </div>
+       -->
